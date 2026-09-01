@@ -52,6 +52,35 @@ Stage 3 produces:
 - Produce handoff documentation before handing off to Stage 4.
 
 
+## Recommended Generation Strategy (Optimized for Qwen Coder Next)
+
+Based on experience with the AEA Personal Portfolio project, the following approach optimizes credit usage with Qwen Coder Next:
+
+1. **Use subagents with preset="requirements" or preset="design"** - This triggers Kiro's native spec workflow using the appropriate subagent which is more efficient than direct generation
+
+2. **Generate specs milestone-by-milestone** rather than all at once:
+   - Process milestones in dependency order (M1 → M2 → M3...)
+   - Each milestone gets 3 files: requirements.md, design.md, tasks.md
+   - This provides natural review gates and reduces context overhead
+
+3. **For content collection schemas**, create content config first then generate corresponding specs:
+   - Update `src/content/config.ts` with media fields
+   - Update sample files with placeholder comments
+   - Generate spec files for content milestone
+   - This ensures specs match actual implementation
+
+4. **Use invoke_sub_agent for file creation** instead of shell commands when possible:
+   - More reliable across different environments
+   - Better error handling
+   - Less prone to escaping issues
+
+5. **Keep specs focused on one concern per milestone**:
+   - M1 = Infrastructure setup (no content)
+   - M2 = UI layout (no content data)
+   - M3 = Content collections (data only)
+   - This separation makes specs easier to understand and verify
+
+
 ## Forbidden actions
 
 - No implementation code generation.
