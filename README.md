@@ -44,7 +44,9 @@ AEA-Website-Portfolio/
 │       └── global.css       # Global styles
 ├── public/                   # Static assets
 │   ├── manifest.webmanifest # PWA manifest
-│   └── resume.pdf           # Resume download
+│   ├── resume.pdf           # Resume download
+│   ├── projects/            # Project media (hero images, videos)
+│   └── activities/          # Activity media (background images)
 ├── .kiro/                    # Kiro IDE configuration
 ├── HANDOFF/                  # Project handoff documentation
 │   ├── STAGE1-TO-STAGE2-HANDOFF.md
@@ -87,19 +89,61 @@ The project uses Astro's Content Collections feature for structured content mana
 ### Projects Collection
 - `title` - Project name
 - `tagline` - Short description
-- `problem` - Problem statement
-- `role` - Your role in the project
-- `techStack` - Array of technologies used
+- `heroImage` - Optional hero image URL (place in public/projects/)
+- `videoPitch` - Optional video pitch URL (YouTube/Vimeo)
+- `description` - Detailed description
+- `pinned` - Pin this project to the top (true for personal portfolio)
 - `links` - Optional links (repo, demo, caseStudy)
 
 ### Activities Collection
 - `title` - Activity name
 - `date` - Activity date
 - `description` - Brief description
+- `backgroundImage` - Optional background image URL (place in public/activities/)
+- `mediaType` - Type of media: image, video, or gallery
+- `links` - Optional links (eventPage, video)
 
 ### FAQ Collection
 - `question` - Question text
 - `answer` - Answer text
+- `category` - Category for organizing
+- `relatedProjects` - Array of related project slugs
+
+## 🔍 Media Files
+
+This project uses media files to enhance your portfolio with visual content:
+
+### Resume PDF
+- **Location**: `public/resume.pdf`
+- Replace this file with your actual resume PDF
+- The file is linked from the Contact section
+
+### Background Images
+- **No background images currently** (will be added during implementation)
+- Background images for activities should be placed in `public/activities/`
+
+### Project Media
+- **Hero Images**: Place project hero images in `public/projects/` subfolder
+- **Video Pitches**: Embed videos from YouTube or Vimeo via the `videoPitch` field
+- Reference media using relative paths: `heroImage: "/projects/my-project-hero.jpg"`
+
+### Activity Media
+- **Background Images**: Place activity background images in `public/activities/` subfolder
+- **Media Types**: Supports image, video, or gallery types via `mediaType` field
+- Reference media using relative paths: `backgroundImage: "/activities/my-activity-bg.jpg"`
+
+**Note**: When adding media files, use lowercase filenames with hyphens for consistency (e.g., `my-project-hero.jpg`).
+
+## 📄 Placeholder Files
+
+The project includes sample content files to help you get started:
+
+- **Sample files location**: `src/content/activities/sample-activity.md`, `src/content/projects/sample-project.md`, `src/content/faq/sample-faq.md`
+- **Comments indicate**: Where to add your real content and which fields are optional
+- **Media files**: Should be added to the appropriate `public/` subfolders
+- **Personal portfolio**: The sample project is pinned to the top for demonstration purposes
+
+**Tip**: Edit the sample files or create new files with your actual content, following the same YAML frontmatter structure.
 
 ## 🔍 AI Features
 
@@ -149,16 +193,24 @@ The project includes a web app manifest (`public/manifest.webmanifest`) for prog
 
 ## 📚 Development Workflow
 
-1. Add content to `src/content/projects/`, `src/content/activities/`, or `src/content/faq/`
-2. Use the provided YAML frontmatter structure
-3. The site automatically rebuilds during development
-4. View changes at `http://localhost:4321`
+1. **Prepare media files**: Add your resume, project images, and activity backgrounds to the `public/` folder
+2. **Add content**: Edit or create files in `src/content/projects/`, `src/content/activities/`, or `src/content/faq/`
+3. **Reference media**: Use relative paths to link media files (e.g., `/projects/my-hero.jpg`)
+4. The site automatically rebuilds during development
+5. View changes at `http://localhost:4321`
 
-## 🎯 Next Steps (From HANDOFF)
+## 🎯 Next Steps
 
-See the `HANDOFF/` folder for detailed specifications and implementation notes:
-- STAGE1-TO-STAGE2-HANDOFF.md
-- STAGE2-TO-STAGE3-HANDOFF.md
+1. **Replace placeholder files** with your actual content (see Placeholder Files section above)
+2. **Prepare media files**:
+   - Add your resume PDF to `public/resume.pdf`
+   - Create project hero images and place them in `public/projects/`
+   - Add activity background images to `public/activities/`
+3. **Review HANDOFF documentation** for detailed specifications and implementation notes:
+   - `HANDOFF/STAGE1-TO-STAGE2-HANDOFF.md`
+   - `HANDOFF/STAGE2-TO-STAGE3-HANDOFF.md`
+4. **Customize the design** to match your personal brand (see `src/styles/global.css`)
+5. **Deploy to Vercel** when ready for production
 
 ## 📄 License
 
