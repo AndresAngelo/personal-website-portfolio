@@ -1,4 +1,4 @@
-# AEA Website Portfolio
+﻿# AEA Website Portfolio
 
 An AI-enhanced personal portfolio website built with Astro, featuring intelligent search capabilities powered by RAG (Retrieval-Augmented Generation).
 
@@ -50,7 +50,8 @@ AEA-Website-Portfolio/
 ├── .kiro/                    # Kiro IDE configuration
 ├── HANDOFF/                  # Project handoff documentation
 │   ├── STAGE1-TO-STAGE2-HANDOFF.md
-│   └── STAGE2-TO-STAGE3-HANDOFF.md
+│   ├── STAGE2-TO-STAGE3-HANDOFF.md
+│   └── STAGE3-TO-STAGE4-HANDOFF.md
 ├── astro.config.mjs          # Astro configuration
 └── vercel.json               # Vercel deployment config
 ```
@@ -216,10 +217,13 @@ The project includes a web app manifest (`public/manifest.webmanifest`) for prog
 
 This project is open source and available under the [MIT License](LICENSE).
 
-## 🤝 Contributing
-
-Contributions are welcome! Please open an issue or submit a pull request.
-
 ## 📧 Contact
 
 For questions or support, please open an issue in this repository.
+
+
+
+
+
+
+

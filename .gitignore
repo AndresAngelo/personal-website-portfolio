@@ -1,0 +1,46 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+build/
+
+# Environment variables (never commit secrets!)
+.env
+.env.local
+.env.*.local
+
+# Editor / IDE configs
+.idea/
+.vscode/settings.json
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# OS generated files
+AppData/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Testing
+coverage/
+.nyc_output/
+
+# Misc
+.cache/
+.cache-busters/
+.pnp.*
+.yarn-integrity
+.pnpm-store/
+.vercel/output/
+
+# Kiro IDE (if applicable)
+.kiro/

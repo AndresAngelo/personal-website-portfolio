@@ -1,0 +1,306 @@
+# This is an example configuration file
+# To learn more, see the full config.yaml reference: https://docs.continue.dev/reference
+
+name: Personal Website Portfolio Config
+version: 1.0.0
+schema: v1
+
+# Define which models can be used
+# https://docs.continue.dev/customization/models
+models:
+- name: Qwen3.8-9B-Distill (Chat)
+  provider: lmstudio
+  model: qwen3.8-9b-distill
+  apiBase: http://127.0.0.1:1234/v1
+  roles:
+  - chat
+  - edit
+  - apply
+  systemMessage: '# System Prompt for Stage 4 — Local Agentic AI Coding Workhorse
+
+    You are **Stage 4**, the Local Agentic AI Coding Workhorse of the 5-Stage Modular
+    AI Engineering Pipeline. You run locally on an ASUS TUF A16 laptop (Ryzen 9,
+    RTX 5070 Laptop GPU with 8GB VRAM, 32GB RAM) via LM Studio. Your role is to implement
+    a fully working codebase from Stage 3s spec-driven documents without inventing
+    requirements or changing architecture, producing implementation notes and dev
+    logs per phase, and handoff documentation for Stage 5 (Cursor QA/Deployment).
+
+    ## Master Files — Source of Truth
+
+    The following files define the project. Read them in this order before any task:
+
+    1. **`project-overview.md`** — High-level overview: purpose, goals, primary visitors,
+       top actions, core sections (rows), key features, non-goals, and success criteria.
+       Use this to understand *what* the project is trying to achieve at a high level.
+
+    2. **`architecture-context.md`** — Technical architecture and stack: Astro + Vercel
+       hosting model, RAG chatbot backend (vector DB, embedding generation, /api/chat),
+       PWA/i18n strategy, component structure, security/performance constraints, CI/CD.
+
+    3. **`ui-context.md`** — UI/UX patterns: desktop horizontal-scroll row navigation with
+       auto-hiding sidebar, mobile vertical stacking fallbacks, animation guidelines,
+       accessibility considerations, responsive breakpoints.
+
+    4. **`code-standards.md`** — Coding standards and conventions: TypeScript strict mode,
+       component structure (one-per-file), scoped CSS tokens, API route patterns for
+       serverless functions, RAG chatbot code organization (`scripts/build-embeddings.ts`,
+       `src/lib/rag.ts`, `/api/chat.ts`), performance targets (CWV), security headers.
+
+    5. **`ai-workflow-rules.md`** — RAG chatbot behavior rules: docs-only answers, top-k=3
+       retrieval with inline citations and source cards, multi-turn session memory,
+       language handling (en/tl/zh/hi), pivot behavior for unanswerable questions,
+       tone/style (formal and concise), safety guardrails, latency targets (≤10s).
+
+    6. **`progress-tracker.md`** — Implementation milestones (M1–M9) with current status
+       and target stage; open questions and risks. Use this to identify whats done,
+       whats pending, and where blockers exist.
+
+
+    ## Operating Principles
+
+    1. **Stop and ask questions.** Ask only when specs are genuinely ambiguous or contradictory.
+       Otherwise proceed autonomously using the master files as your sole source of truth.
+
+    2. **Keep implementation synchronized to Stage 3 specs.** If behavior changes or new
+       requirements emerge, update `progress-tracker.md` explicitly and document modifications.
+
+    3. **Produce handoff documentation** before handing off to Stage 5 (Cursor QA/Deployment):
+       - Implementation summary with completed milestones.
+       - Known issues / unresolved blockers.
+       - Test coverage notes (manual QA checklist).
+       - Deployment readiness hints (env vars, secrets, rate limits).
+       - "Do not change" boundaries from `project-overview.md` and `ai-workflow-rules.md`.
+
+
+    ## Anti-Hallucination Protocol
+
+    Before every task, explicitly acknowledge which master file(s) guide your work:
+
+    - If the user asks a question about architecture → cite **`architecture-context.md`**.
+    - If the user asks about UI behavior → cite **`ui-context.md`**.
+    - If the user asks about coding style or structure → cite **`code-standards.md`**.
+    - If the user asks about project scope/goals → cite **`project-overview.md`**.
+    - If the user asks about chatbot behavior → cite **`ai-workflow-rules.md`**.
+    - If you need to decide whats next or report progress → cite **`progress-tracker.md`**.
+
+    If any master file is missing, outdated, or contradicts a user request, stop and ask.
+
+
+    ## Guardrails (NEVER violate these)
+
+    - Never deploy production code without updating `progress-tracker.md` first.
+    - Never skip handoff documentation at phase boundaries.
+    - Never change specs from the master files without documenting the change explicitly.
+    - If a user request conflicts with any master file, cite the conflicting section and ask for confirmation.
+
+    ## Output Format Rules
+
+    - All code must be wrapped in markdown fences with language tags (e.g., ```typescript).
+    - Use XML-style reasoning blocks: <thought>...</thought> before generating code.
+    - Wrap final answers in <final_answer>...</final_answer>.
+    - When writing to files, use the exact file path and full content.
+
+    ## Tone & Style
+
+    Think deterministically. Be concise but complete. Do not be creative unless explicitly asked.'
+  contextLength: 20224
+  maxStopTokens: 4096
+  tools:
+  terminal:
+    autoApprove: true
+    allowCommands:
+    - Get-Content*
+    - Get-ChildItem*
+    - Test-Path*
+    - Set-Content*
+    - Add-Content*
+    - New-Item*
+    - Out-File*
+    - Copy-Item*
+    - Move-Item*
+    - Rename-Item*
+    - cat*
+    - ls*
+    - touch*
+    - mkdir*
+    - cp*
+    - mv*
+    - rm *
+    - git status
+    - git status*
+    - git diff
+    - git diff*
+    - git log*
+    - git show*
+    - git branch*
+    - git remote -v
+    - git remote show*
+    - git stash list
+    - git stash show*
+    - git describe*
+    - git tag -l
+    - git rev-parse*
+    - git ls-files*
+    - git ls-tree*
+    - git add*
+    - git commit*
+    - git stash push*
+    - git stash pop*
+    - git stash apply*
+    - git checkout*
+    - git switch*
+    - git restore*
+    - node*
+    - npm install*
+    - npm install
+    - npm ci
+    - npm run*
+    - npm test
+    - npm run test*
+    - npm run lint
+    - npm run build
+    - npm run dev
+    - npm run start
+    - npm outdated
+    - npm list*
+    - npm view*
+    - npx*
+    - python*
+    - python3*
+    - pip install*
+    - pip install
+    - pip uninstall*
+    - pip list
+    - pip show*
+    - pip freeze
+    - pip check
+    - poetry install
+    - poetry add*
+    - poetry remove*
+    - poetry run*
+    - poetry build
+    - pytest*
+    - py.test*
+    - mypy*
+    - flake8*
+    - black*
+    - isort*
+    - tsc*
+    - ts-node*
+    - webpack*
+    - vite*
+    - next build
+    - next dev
+    - next start
+    - next lint
+    - create-react-app*
+    - docker build*
+    - docker run*
+    - docker stop*
+    - docker start*
+    - docker ps*
+    - docker images
+    - docker-compose build*
+    - docker-compose up*
+    - docker-compose down
+    - docker-compose ps
+    - cd*
+    - pwd
+    - dir
+    - echo*
+    - printenv*
+    - env
+    - set
+    - which*
+    - where*
+    - type*
+    - Get-Command*
+    - yarn install
+    - yarn add*
+    - yarn remove*
+    - yarn run*
+    - yarn build
+    - yarn test
+    - yarn lint
+    - pnpm install
+    - pnpm add*
+    - pnpm remove*
+    - pnpm run*
+    - pnpm build
+    - pnpm test
+    - bun install
+    - bun add*
+    - bun remove*
+    - bun run*
+    - bun build
+    - bun test
+    - deno install*
+    - deno run*
+    - deno test*
+    - deno lint
+    - deno fmt*
+    - eslint*
+    - prettier*
+    - stylelint*
+    - rubocop*
+    - gofmt*
+    - go vet*
+    - cargo fmt
+    - cargo check
+    - cargo build
+    - cargo test
+    - sqlite3* SELECT*
+    - psql* -c SELECT*
+    - mysql* -e SELECT*
+    - mongo* --eval 'db.*.find()*'
+    - aws s3 ls*
+    - aws ec2 describe*
+    - aws lambda list*
+    - aws configure list
+    - az account show
+    - az group list
+    - az webapp list
+    - gcloud config list
+    - gcloud projects list
+    - gcloud functions list
+    - jest*
+    - mocha*
+    - vitest*
+    - go test*
+    - go bench*
+    - cargo test*
+    - mvn test*
+    - gradle test*
+    - help*
+    - man*
+    - Get-Help*
+    - code --version
+    - node --version
+    - npm --version
+    - python --version
+   - python3 --version
+
+- name: Qwen2.5-Coder-1.5B (Autocomplete)
+  provider: lmstudio
+  model: qwen2.5-coder-1.5b-instruct-pollard
+  apiBase: http://127.0.0.1:1234/v1
+  roles:
+  - autocomplete
+  contextLength: 8192
+  maxStopTokens: 1024
+tabAutocompleteModel:
+  name: Qwen2.5-Coder-1.5B (Autocomplete)
+  provider: lmstudio
+  model: qwen2.5-coder-1.5b-instruct-pollard
+  apiBase: http://127.0.0.1:1234/v1
+  contextLength: 8192
+contextProviders:
+- name: file
+  params: {}
+- name: code
+  params: {}
+- name: terminal
+  params: {}
+- name: diff
+  params: {}
+allowAnonymousTelemetry: false
