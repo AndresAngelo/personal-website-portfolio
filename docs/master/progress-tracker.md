@@ -55,11 +55,11 @@ The **Stage 4 State** block above serves as the authoritative source of truth fo
 
 ### M1: Project Setup & Astro Scaffold
 
-- [ ] Initialize Astro 5.x project (TypeScript, Vercel adapter).
-- [ ] Configure Vercel deployment (GitHub → Vercel).
-- [ ] Set up CI checks (TypeScript, ESLint, `astro build`).
-- [ ] Define global design tokens (colors, spacing, typography).
-- [ ] Implement basic layout (`Layout.astro`, nav placeholder).
+- [✅] Initialize Astro 5.x project (TypeScript, Vercel adapter).
+- [✅] Configure Vercel deployment (GitHub → Vercel).
+- [✅] Set up CI checks (TypeScript, ESLint, `astro build`).
+- [✅] Define global design tokens (colors, spacing, typography).
+- [✅] Implement basic layout (`Layout.astro`, nav placeholder).
 
 **Status**: Not started  
 **Target**: Stage 4
@@ -220,3 +220,4 @@ The **Stage 4 State** block above serves as the authoritative source of truth fo
 - `code-standards.md` – Coding standards.
 - `ai-workflow-rules.md` – RAG chatbot behavior.
 - `current-issues.md` – Blockers and spec drift log.
+
