@@ -31,7 +31,7 @@ Stage 2 produces:
     - dependencies installed,
     - design tokens applied,
     - components scaffolded,
-    - Stage 1 specs placed in `.kiro/specs/`.
+    - Stage 1 specs placed in `docs/master/`.
 - An exported ZIP archive or GitHub repository ready for Stage 3.
 - `HANDOFF.md` with folder map, spec locations, environment overview, dependencies manifest, and immutable boundaries.
 
@@ -90,6 +90,6 @@ Before handing off to Stage 3, Stage 2 must ensure:
 Stage 2 is complete when:
 
 - The generated codebase in Google AI Studio builds, renders, and runs in the preview pane with zero setup or package errors.
-- The exported ZIP or synced GitHub repository contains a `.kiro/specs/` directory and `.env.example` that can be imported directly into Stage 3 (Kiro IDE) without requiring manual fixups.
+- The exported ZIP or synced GitHub repository contains a `docs/master/` directory and `.env.example` that can be imported directly into Stage 3 (Kiro IDE) without requiring manual fixups.
 - The scaffolding pipeline is fully documented and stable enough to be reused across similar web projects in under 5 minutes.
 - Another human can read this file and understand what Stage 2 does in under 5 minutes.

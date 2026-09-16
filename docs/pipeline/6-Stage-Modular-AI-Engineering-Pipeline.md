@@ -30,7 +30,7 @@ The pipeline is a hallucination-fearing, spec-first workflow that:
 | **Stage 2** | Scaffold & Environment Architect | Google AI Studio | Use the 1M+ token context to design scaffolding and initial environment setup, ready for Kiro. | Scaffolding plan and environment setup instructions. |
 | **Stage 3** | Spec-Driven Builder | Kiro IDE (Auto Mode) | Ingest markdown artifacts and 6-file methodology to produce spec structure and task-level instructions. | `requirements.md`, `design.md`, `tasks.md`, `Feature-spec/`, `current-issues.md`, and handoff documentation for Stage 4. |
 | **Stage 4** | Local Agentic AI Coding Workhorse | LM Studio (ASUS TUF A16, RTX 5070 Laptop 8GB VRAM) | Implement Stage 3 specs into a fully working codebase with implementation notes and dev logs, optimized for local GPU offloading. | Fully implemented codebase with implementation notes, dev logs per phase, and handoff documentation for Stage 5. |
-| **Stage 4.1** | Agent Operating Contract & Control Plane | LM Studio (loaded as system prompt) | Govern every invocation of Stage 4 with wake-up protocol, state management, task continuation, and anti-hallucination protocols. | Persistent behavioral and state-management layer enabling task continuity across sessions without conversation memory. |
+| **Stage 4.1** | Agent Operating Contract & Control Plane | LM Studio (loaded as system prompt) | Govern every invocation of Stage 4 with wake-up protocol, state management (reading `docs/master/progress-tracker.md` and `docs/master/current-issues.md`), task continuation, and anti-hallucination protocols. | Persistent behavioral and state-management layer enabling task continuity across sessions without conversation memory. |
 | **Stage 5** | Senior QA & Deployment Engineer | Cursor IDE | Polish the Stage 4 output and prepare final deployment. | Polished, production-ready project and deployment configuration. |
 
 
@@ -144,7 +144,7 @@ The pipeline is a hallucination-fearing, spec-first workflow that:
 - **Autonomy rules**:
     - Proceed autonomously when specs are clear and evidence is sufficient.
     - Ask the user when specs are ambiguous, contradictory, or require unauthorized architectural decisions.
-- **State file**: `.stage4/state.md` tracks current phase, goalpost, completed tasks, modified files, verification results, known issues, and next authorized task.
+- **State file**: `docs/master/progress-tracker.md` and `docs/master/current-issues.md` track current phase, goalpost, completed tasks, modified files, verification results, known issues, and next authorized task.
 
 
 ### Stage 5: Senior QA & Deployment Engineer

@@ -3,15 +3,15 @@ Spec-Driven Documents Generator
 
 Folder Map
 
-    .kiro/specs/M1-Setup/
-    .kiro/specs/M2-Rows-Nav/
-    .kiro/specs/M3-Content/
-    .kiro/specs/M4-RAG-Backend/
-    .kiro/specs/M5-RAG-UI/
-    .kiro/specs/M6-PWA-i18n/
-    .kiro/specs/M7-Performance/
-    .kiro/specs/M8-Security/
-    .kiro/specs/M9-QA-Handoff/
+    docs/specs/M1-Setup/
+    docs/specs/M2-Rows-Nav/
+    docs/specs/M3-Content/
+    docs/specs/M4-RAG-Backend/
+    docs/specs/M5-RAG-UI/
+    docs/specs/M6-PWA-i18n/
+    docs/specs/M7-Performance/
+    docs/specs/M8-Security/
+    docs/specs/M9-QA-Handoff/
 
     Each milestone contains:
     - requirements.md - User stories and acceptance criteria (EARS notation)
@@ -20,7 +20,7 @@ Folder Map
 
 Spec Locations
 
-    All 27 spec files created in .kiro/specs/ subdirectories
+    All 27 spec files created in docs/specs/ subdirectories
 
 Media Files Location
 

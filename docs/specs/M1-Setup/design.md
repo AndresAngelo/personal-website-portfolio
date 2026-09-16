@@ -43,7 +43,7 @@ HTML Output
 ### Key Files
 
 ```
-.kiro/specs/M1-Setup/
+docs/specs/M1-Setup/
 ├── requirements.md
 ├── design.md
 └── tasks.md

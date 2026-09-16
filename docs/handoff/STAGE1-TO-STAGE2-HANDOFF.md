@@ -118,7 +118,7 @@ Stage 2 (Google AI Studio) should:
 
 5. **Generate `HANDOFF.md` for Stage 3**:
    - Folder map.  
-   - Spec locations (e.g., `.kiro/specs/` or equivalent).  
+   - Spec locations (e.g., `docs/master/` or equivalent).  
    - Environment overview (Vercel, HF Spaces, vector DB).  
    - Dependencies manifest.  
    - Immutable boundaries (what Stage 3 must not change without re-spec).

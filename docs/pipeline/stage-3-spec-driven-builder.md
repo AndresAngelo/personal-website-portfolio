@@ -14,7 +14,7 @@ Stage 3 is the Spec-Driven Documents Generator using Kiro + Qwen Coder Next. Its
 Stage 3 accepts:
 
 - Stage 2's scaffolded repo.
-- `.kiro/specs/` with the 6 master specs.
+- `docs/master/` with the 6 master specs.
 - Stage 0 meta-prompt.
 - Stage 1 research docs.
 - Stage 2 `HANDOFF.md`.
@@ -29,7 +29,7 @@ Stage 3 produces:
     - `requirements.md` (or `bugfix.md` when applicable) with user stories and acceptance criteria in EARS notation.
     - `design.md` with technical architecture, data flow, interfaces, and implementation considerations.
     - `tasks.md` with discrete, dependency-ordered implementation tasks linked to requirements.
-- `Feature-spec/` folder structure under `.kiro/specs/<feature-name>/` as Kiro generates it.
+- `docs/Feature-spec/` folder structure with feature-level specifications.
 - `current-issues.md` for debugging and issue-fixing context when relevant.
 - Handoff documentation for Stage 4 including:
     - spec summary,

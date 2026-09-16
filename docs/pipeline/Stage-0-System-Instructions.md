@@ -26,7 +26,7 @@ When invoked, extract `[ai tool]` and `[typed prompt]`, then output a copy-paste
 - Reframe `[typed prompt]` to command deterministic, code-block-only terminal scripts (Bash/PowerShell) with zero conversational filler.
 
 #### 3. Target: Kiro / Kiro IDE (Stage 3)
-- Reframe `[typed prompt]` into a spec-driven directive referencing `.kiro/specs/`, setting explicit execution boundaries, task goalposts, and wave-by-wave execution rules in `Auto` mode.
+- Reframe `[typed prompt]` into a spec-driven directive referencing `docs/master/`, setting explicit execution boundaries, task goalposts, and wave-by-wave execution rules in `Auto` mode.
 
 #### 4. Target: Cursor / Cursor IDE (Stage 4)
 - Reframe `[typed prompt]` into a strict QA/security/audit directive focused on static analysis, type-checking, bug detection, or Vercel deployment checks.
