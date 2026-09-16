@@ -1,6 +1,109 @@
-<section id="projects" class="row">
-  <h2>Projects</h2>
+---
+import BaseCard from './BaseCard.astro';
+import EmptyState from './EmptyState.astro';
+
+interface Project {
+  id: string;
+  title: string;
+  description: string;
+  tags: string[];
+  image?: string;
+  link?: string;
+}
+
+interface ProjectsRowProps {
+  projects: Project[];
+}
+
+const { projects } = Astro.props;
+---
+<section class="projects-row" aria-label="Projects">
+  <div class="projects-grid">
+    {#if projects.length > 0}
+      <ul role="list" aria-labelledby="projects-heading">
+        {#each projects as project}
+          <li>
+            <BaseCard
+              id={project.id}
+              title={project.title}
+              description={project.description}
+              tags={project.tags}
+              image={project.image}
+              link={project.link}
+            />
+          </li>
+        {/each}
+      </ul>
+    {:else}
+      <EmptyState message="No projects yet. Check back later!" icon="briefcase" />
+    {/if}
+  </div>
 </section>
-<style>
-  .row { height: 100vh; display: flex; align-items: center; justify-content: center; }
+
+<style is:global scope="projects-row">
+  /* Projects Row Container */
+  .projects-row {
+    padding: clamp(2rem, 4vw, 3rem) 0;
+    scroll-margin-top: calc(var(--header-height) + 1rem);
+  }
+
+  .projects-grid {
+    display: grid;
+    gap: clamp(1rem, 2.5vw, 1.75rem);
+    grid-template-columns:
+      repeat(auto-fit, minmax(min(300px, 46%), 1fr));
+    max-width: min(980px, 100%);
+    margin: 0 auto;
+    padding-left: clamp(1rem, 2vw, 2.5rem);
+    padding-right: clamp(1rem, 2vw, 2.5rem);
+  }
+
+  /* Staggered fade-in animation for project cards */
+  .projects-grid li {
+    opacity: 0;
+    transform: translateY(1.5rem) scale(0.98);
+    animation: fadeInUp 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    will-change: opacity, transform;
+  }
+
+  .projects-grid li:nth-child(1) { animation-delay: 0.05s; }
+  .projects-grid li:nth-child(2) { animation-delay: 0.1s; }
+  .projects-grid li:nth-child(3) { animation-delay: 0.15s; }
+  .projects-grid li:nth-child(4) { animation-delay: 0.2s; }
+  .projects-grid li:nth-child(5) { animation-delay: 0.25s; }
+  .projects-grid li:nth-child(6) { animation-delay: 0.3s; }
+
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  /* Hover effect on grid items */
+  .projects-grid li:hover li > *,
+  .projects-grid li:focus-within li > * {
+    animation: cardHover 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  }
+
+  @keyframes cardHover {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+    100% { transform: translateY(0); }
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .projects-grid li,
+    .projects-grid li:hover li > *,
+    .projects-grid li:focus-within li > * {
+      animation: none;
+      transition: none;
+    }
+
+    .projects-row {
+      scroll-margin-top: calc(var(--header-height) + 1rem);
+    }
+  }
 </style>
+

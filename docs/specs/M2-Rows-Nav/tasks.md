@@ -28,7 +28,7 @@ graph TD
 
 #### Task 2.1: HomeRow Component
 
-- **Status**: TODO
+- **Status**: DONE
 - **Estimate**: 45 minutes
 - **Dependencies**: []
 - **Type**: Component
@@ -42,7 +42,7 @@ graph TD
 
 #### Task 2.2: ProjectsRow Component
 
-- **Status**: TODO
+- **Status**: DONE
 - **Estimate**: 45 minutes
 - **Dependencies**: [2.1]
 - **Type**: Component

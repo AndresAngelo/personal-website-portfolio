@@ -1,0 +1,319 @@
+---
+/** @type {import("astro").PartialAstroProps} */
+interface Props {
+  experience?: Array<{
+    company: string;
+    role: string;
+    dates?: string;
+    description: string;
+    tags?: string[];
+    link?: string;
+    image?: string;
+  }>;
+}
+
+const props = Astro.props as Props;
+
+const emptyExperienceMessage = "No experience yet. Share your work journey with us!";
+---
+
+<section class="experience-row" id="experience">
+  <div class="row-header">
+    <h2>Experience</h2>
+    {props.experience?.length === 0 ? (
+      <p class="empty-message">{emptyExperienceMessage}</p>
+    ) : null}
+  </div>
+
+  <ul class="experience-grid" role="list">
+    {props.experience?.map((item, index) => (
+      <li 
+        class="experience-card" 
+        data-url={item.link || "#"}
+        style="--i: " + index + ";"
+      >
+        <a 
+          href={item.link || "#"} 
+          target="_blank"
+          rel="noopener noreferrer"
+          class="card-link-wrapper"
+        >
+          {item.image ? (
+            <img src={item.image} alt="" class="experience-image" loading="lazy" />
+          ) : (
+            <div class="experience-placeholder">
+              <span>Experience</span>
+            </div>
+          )}
+
+          <div class="card-content">
+            <h3>{item.company}</h3>
+            
+            {item.role ? (
+              <p class="role-title">{item.role}</p>
+            ) : null}
+
+            {item.dates ? (
+              <span class="date-badge">{item.dates}</span>
+            ) : null}
+
+            <p class="card-description">
+              {item.description}
+            </p>
+
+            {item.tags && item.tags.length > 0 ? (
+              <ul class="tags-list" role="list">
+                {item.tags.map((tag) => (
+                  <li key={tag}>{tag}</li>
+                ))}
+              </ul>
+            ) : null}
+
+            <span class="card-link-arrow">→</span>
+          </div>
+        </a>
+      </li>
+    ))}
+  </ul>
+</section>
+
+<style>
+  .experience-row {
+    padding: clamp(3rem, 6vw, 5rem) clamp(1.2rem, 4vw, 3rem);
+    background-color: rgba(0, 0, 0, 0.3);
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+
+    /* Smooth entry animation for the whole section */
+    opacity: 0;
+    transform: translateY(24px) scale(0.96);
+    animation: fadeInUp 0.7s ease forwards;
+    animation-delay: calc(var(--i) * 0.15s);
+  }
+
+  .row-header {
+    min-inline-size: fit-content;
+    flex-shrink: 0;
+    padding-block-end: clamp(1rem, 3vw, 1.5rem);
+    border-block-start: 2px solid rgba(255, 255, 255, 0.15);
+
+    h2 {
+      font-size: clamp(1.75rem, 6vw, 3rem);
+      margin: 0;
+      color: var(--color-text-primary);
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+
+      &:after {
+        content: "";
+        display: block;
+        width: calc(100% + 1rem);
+        height: 2px;
+        background: linear-gradient(to right, transparent, currentColor, transparent);
+        margin-top: clamp(0.5rem, 2vw, 0.75rem);
+      }
+    }
+
+    .empty-message {
+      font-size: clamp(1.1rem, 3vw, 1.4rem);
+      color: var(--color-text-secondary);
+      text-align: center;
+      max-inline-size: clamp(28ch, 65vw, 40ch);
+    }
+  }
+
+  .experience-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(clamp(300px, 35vw, 370px), 1fr));
+    gap: clamp(1.2rem, 4vw, 2rem);
+
+    @media (width <= 768px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .experience-card {
+    position: relative;
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    background-color: rgba(255, 255, 255, 0.03);
+    border-radius: clamp(1rem, 4vw, 1.5rem);
+    padding: clamp(1.1rem, 3.5vw, 1.75rem);
+    transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                background-color 0.3s ease;
+
+    &:hover {
+      transform: translateY(-4px) scale(1.02);
+      background-color: rgba(255, 255, 255, 0.06);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--color-primary);
+      outline-offset: 2px;
+    }
+
+    /* Smooth entry animation */
+    opacity: 0;
+    transform: translateY(24px) scale(0.96);
+    animation: fadeInUp 0.5s ease forwards;
+    animation-delay: calc(var(--i) * 0.1s);
+  }
+
+  .card-link-wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  .experience-image {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    border-radius: clamp(0.7rem, 2.5vw, 1rem);
+    overflow: hidden;
+    background-color: var(--color-surface-card);
+
+    & img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+      &:hover {
+        transform: scale(1.08);
+      }
+    }
+  }
+
+  .experience-placeholder {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    font-weight: 700;
+    border-radius: clamp(0.7rem, 2.5vw, 1rem);
+  }
+
+  .card-content {
+    padding-inline-start: clamp(0.8rem, 2vw, 1.1rem);
+    padding-block-end: clamp(1rem, 3vw, 1.4rem);
+    display: flex;
+    flex-direction: column;
+    gap: clamp(0.5rem, 1.5vw, 0.8rem);
+
+    h3 {
+      font-size: clamp(1.2rem, 4vw, 1.6rem);
+      margin: 0;
+      color: var(--color-text-primary);
+      line-height: 1.25;
+    }
+
+    .role-title {
+      font-size: clamp(0.9rem, 3vw, 1.1rem);
+      color: var(--color-text-secondary);
+      margin-bottom: clamp(0.25rem, 1vw, 0.4rem);
+    }
+
+    .date-badge {
+      display: inline-block;
+      font-size: clamp(0.7rem, 2vw, 0.85rem);
+      color: var(--color-text-secondary);
+      padding-inline: clamp(0.6rem, 1.5vw, 1rem);
+      padding-block: clamp(0.25rem, 0.7vw, 0.4rem);
+      border-radius: 999px;
+      background-color: rgba(255, 255, 255, 0.06);
+      margin-bottom: clamp(0.4rem, 1vw, 0.6rem);
+    }
+
+    .card-description {
+      flex-grow: 1;
+      font-size: clamp(0.85rem, 2.5vw, 0.95rem);
+      color: var(--color-text-secondary);
+      margin-bottom: 0;
+      line-height: 1.6;
+
+      /* Limit to ~3 lines */
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+  }
+
+  .tags-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: clamp(0.3rem, 1vw, 0.6rem);
+
+    li {
+      font-size: clamp(0.7rem, 2vw, 0.8rem);
+      padding-inline: clamp(0.5rem, 1.5vw, 0.8rem);
+      padding-block: clamp(0.25rem, 0.8vw, 0.4rem);
+      border-radius: 999px;
+      background-color: rgba(255, 255, 255, 0.06);
+      color: var(--color-text-secondary);
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      user-select: none;
+
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+      }
+    }
+  }
+
+  .card-link-arrow {
+    position: absolute;
+    top: clamp(50%, 65%);
+    left: clamp(90%, 95%);
+    font-size: clamp(2rem, 7vw, 3rem);
+    color: var(--color-text-primary);
+    opacity: 0;
+    transform: translateX(-8px) scale(0.8);
+    transition: all 0.3s ease;
+
+    &:hover {
+      opacity: 1;
+      transform: translateX(4px) scale(1.2);
+    }
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(24px) scale(0.96);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  .experience-row::-webkit-scrollbar {
+    height: clamp(8px, 2vw, 10px);
+  }
+
+  .experience-row::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 999px;
+  }
+
+  .experience-row::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 999px;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.5);
+    }
+  }
+</style>

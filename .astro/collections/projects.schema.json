@@ -1,0 +1,70 @@
+{
+  "$ref": "#/definitions/projects",
+  "definitions": {
+    "projects": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "tagline": {
+          "type": "string"
+        },
+        "problem": {
+          "type": "string"
+        },
+        "role": {
+          "type": "string"
+        },
+        "techStack": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "heroImage": {
+          "type": "string",
+          "description": "Optional hero image for the project",
+          "markdownDescription": "Optional hero image for the project"
+        },
+        "videoPitch": {
+          "type": "string",
+          "description": "Optional video pitch URL (YouTube/Vimeo)",
+          "markdownDescription": "Optional video pitch URL (YouTube/Vimeo)"
+        },
+        "pinned": {
+          "type": "boolean",
+          "description": "Pin this project to the top of the list",
+          "markdownDescription": "Pin this project to the top of the list"
+        },
+        "links": {
+          "type": "object",
+          "properties": {
+            "repo": {
+              "type": "string"
+            },
+            "demo": {
+              "type": "string"
+            },
+            "caseStudy": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        "$schema": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "title",
+        "tagline",
+        "problem",
+        "role",
+        "techStack"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#"
+}

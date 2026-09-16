@@ -1,0 +1,161 @@
+con---
+/** @type {import('astro').PartialAstroProps} */
+interface Props {
+  title: string;
+  subtitle?: string;
+  ctaText?: string;
+  ctaUrl?: string;
+  socialLinks?: Record<string, string>;
+}
+
+const props = Astro.props as Props;
+
+const socialIcons = {
+  github: "https://github.com",
+  linkedin: "https://linkedin.com",
+  twitter: "https://twitter.com",
+};
+---
+
+<section class="home-row" id="home">
+  <div class="hero-container">
+    <h1 class="hero-title">{props.title}</h1>
+    {props.subtitle ? <p class="hero-subtitle">{props.subtitle}</p> : null}
+    
+    {props.ctaText && props.ctaUrl ? (
+      <a href={props.ctaUrl} class="cta-button">
+        {props.ctaText} →
+      </a>
+    ) : null}
+
+    <div class="social-links">
+      {Object.entries(socialIcons).map(([platform, url]) => (
+        <a 
+          href={url} 
+          target="_blank" 
+          rel="noopener noreferrer"
+          class="social-link"
+          aria-label={`Visit ${platform}`}
+        >
+          <svg class="social-icon" width="24" height="24">
+            {
+              platform === 'github' && `
+                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-.232c-.37.131-.848.223-1.33.223-.866 0-1.514-.702-1.514-1.57 0-.908.615-1.533 1.215-1.533.857.012 1.472.628 1.472 1.424 0 .813-.564 1.39-1.276 1.39-.793 0-1.33-.588-1.33-1.372v-.51c-.44.216-1.062.362-1.74.362-1.643 0-2.996-1.192-2.996-2.864 0-1.35.688-2.468 1.68-2.827-.21-.516-.867-2.559.116-4.256 0 0 1.338-.42 2.793 1.216a3.386 3.386 0 0 0 2.593 1.12c.848 0 1.628-.314 1.628-.86v-.176c0-.553.41-1.03.94-1.12.646-.11 1.263.36 1.263 1.076v.16c0 .78-.62 1.47-1.35 1.47-.86 0-1.67-.69-1.67-1.56 0-.9.72-1.58 1.68-1.58.98 0 1.67.69 1.67 1.57v.23c0 .84-.63 1.53-1.46 1.53-.34 0-.66-.09-.92-.238l-.866 2.645a4.37 4.37 0 0 0 1.01 1.02c.67.53 1.54.53 2.16 0 .63-.53 1.02-1.38 1.02-2.29v-.16c0-.78.62-1.47 1.46-1.47.86 0 1.46.69 1.46 1.57 0 .83-.62 1.53-1.46 1.53-.35 0-.68-.08-.95-.22l.864-2.63z"
+            }
+          </svg>
+        </a>
+      ))}
+    </div>
+  </div>
+
+  <div class="hero-decoration">
+    <span class="decoration-line"></span>
+  </div>
+</section>
+
+<style>
+  .home-row {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 2rem;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-container {
+    max-width: 640px;
+    text-align: center;
+    z-index: 2;
+  }
+
+  .hero-title {
+    font-size: clamp(2.5rem, 8vw, 5rem);
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    color: #1a1a2e;
+    letter-spacing: -0.02em;
+  }
+
+  .hero-subtitle {
+    font-size: clamp(1rem, 3vw, 1.25rem);
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    color: #4a5568;
+  }
+
+  .cta-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5em;
+    padding: 0.9rem 1.75rem;
+    background: #2d3748;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 999px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .cta-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(45, 55, 72, 0.3);
+  }
+
+  .social-links {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .social-link {
+    width: 48px;
+    height: 48px;
+    display: grid;
+    place-items: center;
+    background: #2d3748;
+    color: #fff;
+    border-radius: 50%;
+    text-decoration: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .social-link:hover {
+    transform: translateY(-3px) scale(1.08);
+    box-shadow: 0 8px 25px rgba(45, 55, 72, 0.3);
+  }
+
+  .social-icon {
+    fill: currentColor;
+  }
+
+  .hero-decoration {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .decoration-line {
+    position: absolute;
+    top: -50px;
+    left: 20%;
+    width: 60%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #e2e8f0, transparent);
+  }
+
+  @media (max-width: 768px) {
+    .home-row {
+      padding: 3rem 1.5rem;
+    }
+
+    .hero-title {
+      font-size: clamp(2rem, 10vw, 4rem);
+    }
+  }
+</style>
+---

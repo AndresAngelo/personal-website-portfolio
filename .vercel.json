@@ -1,0 +1,24 @@
+{
+  "buildCommand": "astro build",
+  "outputDirectory": "dist",
+  "headers": [
+    {
+      "source": "/api/*",
+      "headers": {
+        "Cache-Control": "public, max-age=0, must-revalidate"
+      }
+    },
+    {
+      "source": "/",
+      "headers": {
+        "Content-Security-Policy": "default-src 'self' data: blob: https:; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://api.qwen.ai;"
+      }
+    }
+  ],
+  "env": {
+    "QWEN_API_KEY": "@QWEN_API_KEY",
+    "SUPABASE_URL": "@SUPABASE_URL",
+    "SUPABASE_ANON_KEY": "@SUPABASE_ANON_KEY"
+  },
+  "functions": {}
+}

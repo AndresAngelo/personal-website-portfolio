@@ -1,0 +1,312 @@
+---
+/** @type {import('astro').PartialAstroProps} */
+interface Props {
+  email?: string;
+  phone?: string;
+  address?: string;
+}
+
+const props = Astro.props as Props;
+
+// Simple client-side validation
+function validateEmail(email: string): boolean {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+function validateForm(name: string, email: string, message: string) {
+  if (!name.trim()) return "Name is required";
+  if (email && !validateEmail(email)) return "Please enter a valid email address";
+  if (!message.trim()) return "Message is required";
+  if (message.length < 10) return "Message must be at least 10 characters long";
+  return null;
+}
+
+// Form submission handler — in production, replace with server-side handling
+function handleSubmit(event: SubmitEvent) {
+  event.preventDefault();
+  const form = event.target as HTMLFormElement;
+  const formData = new FormData(form);
+  
+  const name = formData.get("name")?.toString().trim() || "";
+  const email = formData.get("email")?.toString().trim() || "";
+  const message = formData.get("message")?.toString().trim() || "";
+
+  const error = validateForm(name, email, message);
+  
+  if (error) {
+    // Show validation error — in production, attach to specific field
+    console.error(`Validation failed: ${error}`);
+    return;
+  }
+
+  // In production, send to server/email service here
+  alert("Thank you for your message! I'll get back to you soon.");
+}
+---
+
+<section class="contact-row" id="contact">
+  <div class="row-header">
+    <h2>Get in Touch</h2>
+    <p class="subtitle">Have a question or want to collaborate? Send me a message.</p>
+  </div>
+
+  <div class="contact-layout">
+    <!-- Form -->
+    <form 
+      id="contact-form"
+      action="#" 
+      method="POST"
+      onsubmit={handleSubmit}
+      novalidate
+      aria-label="Contact form"
+    >
+      <div class="form-group">
+        <label for="name" class="form-label">Name</label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          placeholder="Your full name"
+          aria-required="true"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="email" class="form-label">Email</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          placeholder="you@example.com"
+          aria-describedby="email-hint"
+        />
+        <span id="email-hint" class="hint" hidden>Please include a valid email address so I can respond.</span>
+      </div>
+
+      <div class="form-group">
+        <label for="message" class="form-label">Message</label>
+        <textarea
+          id="message"
+          name="message"
+          placeholder="Tell me about your project or question..."
+          rows={5}
+          aria-required="true"
+          required
+        ></textarea>
+      </div>
+
+      <button type="submit" class="submit-button">Send Message</button>
+    </form>
+
+    <!-- Alternative Contact Methods -->
+    <aside class="contact-alt-methods">
+      <h3>Or reach me elsewhere:</h3>
+
+      {props.email ? (
+        <a href={`mailto:${props.email}`} class="alt-link">
+          <span aria-hidden="true">✉</span>
+          <span>{props.email}</span>
+        </a>
+      ) : null}
+
+      {props.phone ? (
+        <a href={`tel:+${props.phone.replace(/[\s\-()]/g, "")}`} class="alt-link">
+          <span aria-hidden="true">📞</span>
+          <span>{props.phone}</span>
+        </a>
+      ) : null}
+
+      {props.address ? (
+        <address class="alt-link address">
+          <span aria-hidden="true">📍</span>
+          <p>{props.address}</p>
+        </address>
+      ) : null}
+
+      <div class="social-links">
+        <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="alt-social github">
+          GitHub
+        </a>
+        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="alt-social linkedin">
+          LinkedIn
+        </a>
+      </div>
+
+      <p class="privacy-note">
+        I respect your privacy. I never spam, and your email is only used to reply to your message.
+      </p>
+    </aside>
+  </div>
+</section>
+
+<style>
+  .contact-row {
+    padding: 4rem 2rem;
+    background: #f8f9fa;
+  }
+
+  .row-header {
+    max-width: 100%;
+    margin-bottom: 3rem;
+  }
+
+  .row-header h2 {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: 700;
+    color: #1a1a2e;
+    margin: 0 0 0.75rem;
+  }
+
+  .row-header .subtitle {
+    font-size: clamp(1rem, 1.8vw, 1.15rem);
+    color: #4a5568;
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  .contact-layout {
+    max-width: 900px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr minmax(320px, 450px);
+    gap: 2.5rem;
+  }
+
+  form {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+  }
+
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+
+  .form-label {
+    display: block;
+    font-size: clamp(0.825rem, 1.3vw, 0.925rem);
+    font-weight: 600;
+    color: #4a5568;
+    margin-bottom: 0.4em;
+  }
+
+  .form-group input[type="text"],
+  .form-group input[type="email"],
+  .form-group textarea {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 2px solid #e9ecef;
+    border-radius: 10px;
+    font-size: clamp(0.875rem, 1.4vw, 0.95rem);
+    background: #fff;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    resize: vertical;
+    min-height: 56px;
+  }
+
+  .form-group input:focus,
+  .form-group textarea:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.15);
+  }
+
+  .form-group input::placeholder,
+  .form-group textarea::placeholder {
+    color: #cbd5e0;
+  }
+
+  .hint {
+    display: block;
+    font-size: clamp(0.725rem, 1vw, 0.8rem);
+    color: #9aa5b3;
+    margin-top: 0.4em;
+  }
+
+  .submit-button {
+    width: 100%;
+    padding: 0.9rem 1.25rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: clamp(0.875rem, 1.4vw, 1rem);
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .submit-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.35);
+  }
+
+  .alt-methods h3 {
+    font-size: clamp(1rem, 1.7vw, 1.15rem);
+    color: #4a5568;
+    margin-bottom: 1rem;
+  }
+
+  .alt-link {
+    display: block;
+    padding: 0.75rem;
+    background: #fff;
+    border-radius: 10px;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    margin-bottom: 0.75rem;
+  }
+
+  .alt-link:hover {
+    transform: translateX(4px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  }
+
+  .alt-social {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background: #f1f3f4;
+    border-radius: 99px;
+    font-size: clamp(0.75rem, 1.2vw, 0.85rem);
+    color: #4a5568;
+    margin-right: 0.5em;
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+
+  .alt-social:hover {
+    background: #e9ecef;
+    transform: translateY(-2px);
+  }
+
+  .privacy-note {
+    font-size: clamp(0.7rem, 1vw, 0.75rem);
+    color: #a0aec0;
+    margin-top: 1rem;
+    line-height: 1.6;
+  }
+
+  @media (max-width: 900px) {
+    .contact-layout {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    form, aside.alt-methods {
+      padding: 1.5rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .contact-row {
+      padding: 3rem 1.5rem;
+    }
+
+    .submit-button {
+      font-size: clamp(0.825rem, 1.4vw, 0.95rem);
+    }
+  }
+</style>
+---

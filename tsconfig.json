@@ -12,13 +12,19 @@
     "paths": {
       "@/*": ["src/*"],
       "@components/*": ["src/components/*"]
-    }
+    },
+    "types": [
+      "astro/client"
+    ]
   },
   "include": [
     "astro.config.mjs",
-    "src/**/*"
+    "src/**/*",
+    "public/**/*.json"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    ".vercel",
+    "dist"
   ]
 }

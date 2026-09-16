@@ -1,0 +1,24 @@
+<svg width="256" height="170" viewBox="0 0 256 170" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="256" height="170" rx="24" fill="#f8fafc"/>
+
+  <!-- Abstract code blocks / shapes -->
+  <path d="M32 40h192v5H32z" fill="#e2e8f0"/>
+  <path d="M64 60h128v5H64z" fill="#cbd5e1"/>
+
+  <!-- Abstract mountain / hills -->
+  <path d="M22 130c12-20 30-32 50-38s42-4 62 6l14 7v10H22z" fill="#e2e8f0"/>
+
+  <!-- Abstract building / structure -->
+  <rect x="96" y="70" width="40" height="55" rx="6" fill="#cbd5e1"/>
+  <path d="M136 70h2v60h-2z" fill="#94a3b8"/>
+
+  <!-- Abstract person / silhouette -->
+  <circle cx="120" cy="115" r="14" fill="#cbd5e1"/>
+  <path d="M120 129c-6 0-11 4-11 9v6h22v-6c0-5-5-9-11-9z" fill="#cbd5e1"/>
+
+  <!-- Floating elements -->
+  <circle cx="70" cy="90" r="6" fill="#6366f1"/>
+  <rect x="180" y="42" width="14" height="10" rx="3" fill="#6366f1" opacity="0.8"/>
+
+</svg>

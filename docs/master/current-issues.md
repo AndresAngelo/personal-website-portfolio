@@ -1,7 +1,25 @@
 ﻿# Current Issues & Deviation Log
 
 
-## Status: `✅ STAGE 4 COMPLETE` | **Ready for Stage 5 (QA & Deployment)**
+## ✅ Completed in This Session (M2-Task 2.1)
+
+### [COMPLETED] — HomeRow Component Implementation
+
+**Task**: Create `HomeRow.astro` component with hero section, subtitle, CTA button, and social links.
+
+**Deliverable**: `src/components/rows/HomeRow.astro` created successfully.
+
+**Features Implemented**:
+- Hero title with responsive typography (`clamp(2.5rem, 8vw, 5rem)`)
+- Optional subtitle support
+- CTA button with hover animation (translateY + shadow elevation)
+- Social media links (GitHub icon via inline SVG)
+- Decorative background elements (gradient fade-lines)
+- Responsive design: adapts from desktop to mobile breakpoints
+
+**Build Verified**: Component renders correctly in dev server.
+
+**Status**: `RESOLVED — HomeRow component complete, ready for integration.`
 ---
 
 ## 📋 Overview

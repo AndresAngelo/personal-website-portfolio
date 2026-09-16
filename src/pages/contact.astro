@@ -1,0 +1,214 @@
+---
+/// <reference types="astro/client" />
+
+/** @type {import('astro').PageProps} */
+const props = Astro.props;
+
+// --- Meta Tags (SEO) ---
+const seo = {
+  title: 'Contact — AEA | Personal Portfolio',
+  description: 'Get in touch with AEA. Open to collaborations, speaking engagements, and consulting opportunities.',
+};
+
+// --- Form data (would be handled by a backend or Formspree/etc.) ---
+/** @type {{ [key: string]: unknown }} */
+const formData = {};
+---
+
+<!doctype html>
+<html lang="en" data-theme={props.theme ?? 'system'}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content={seo.description} />
+    <meta name="theme-color" content="#0f172a" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={seo.title} />
+    <meta property="og:description" content={seo.description} />
+    <meta property="og:url" content={Astro.site?.baseUrl + Astro.url.pathname} />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={seo.title} />
+    <meta name="twitter:description" content={seo.description} />
+
+    <title>{seo.title}</title>
+  </head>
+
+  <body class="antialiased bg-slate-950 text-slate-100 min-h-screen flex flex-col">
+
+    <!-- Reuse header from index (simplified here) -->
+    <header class="sticky top-0 z-50 border-b border-slate-800/60 bg-slate-950/80 backdrop-blur-md">
+      <nav aria-label="Main" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16">
+          <a href="/" class="group flex items-center gap-3">
+            <div class="w-9 h-9 rounded-lg bg-gradient-to-br from-indigo-500 to-violet-500 flex items-center justify-center shadow-lg shadow-indigo-500/20 group-hover:shadow-indigo-500/40 transition-all duration-300">
+              <span class="text-white font-bold text-sm">A</span>
+            </div>
+            <span class="font-semibold text-slate-100 tracking-tight">AEA</span>
+          </a>
+
+          <ul class="hidden md:flex items-center gap-6">
+            <li><a href="/" class="px-3 py-2 rounded-md text-sm font-medium text-indigo-400 bg-slate-800/60 transition-all duration-200">Home</a></li>
+            <li><a href="/projects" class="px-3 py-2 rounded-md text-sm font-medium text-slate-400 hover:text-white hover:bg-slate-800/30 transition-all duration-200">Projects</a></li>
+            <li><a href="/activities" class="px-3 py-2 rounded-md text-sm font-medium text-slate-400 hover:text-white hover:bg-slate-800/30 transition-all duration-200">Activities</a></li>
+            <li><a href="/contact" class="px-3 py-2 rounded-md text-sm font-medium bg-indigo-500/10 text-indigo-400 border border-indigo-500/30 transition-all duration-200">Contact</a></li>
+          </ul>
+
+          <button aria-label="Toggle navigation" class="md:hidden p-2 rounded-md text-slate-400 hover:bg-slate-800/50">☰</button>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow">
+      <!-- Hero / Title -->
+      <section class="py-24 px-4 text-center">
+        <h1 class="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-white to-slate-300 bg-clip-text text-transparent">
+          Get in Touch
+        </h1>
+        <p class="text-lg text-slate-400 max-w-xl mx-auto">
+          I'm always open to discussing new projects, creative ideas, or opportunities. 
+          Feel free to reach out!
+        </p>
+      </section>
+
+      <!-- Contact Form -->
+      <section class="py-12 px-4 max-w-2xl mx-auto">
+        <form action="/api/contact" method="POST" class="space-y-6">
+          <!-- Name -->
+          <div>
+            <label for="name" class="block text-sm font-medium text-slate-300 mb-2">Name</label>
+            <input
+              id="name"
+              name="name"
+              type="text"
+              required
+              placeholder="Your full name"
+              class="w-full px-4 py-3 rounded-lg bg-slate-900/50 border border-slate-700 text-slate-100 placeholder:text-slate-500 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all duration-200"
+            />
+          </div>
+
+          <!-- Email -->
+          <div>
+            <label for="email" class="block text-sm font-medium text-slate-300 mb-2">Email</label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              required
+              placeholder="you@example.com"
+              class="w-full px-4 py-3 rounded-lg bg-slate-900/50 border border-slate-700 text-slate-100 placeholder:text-slate-500 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all duration-200"
+            />
+          </div>
+
+          <!-- Subject -->
+          <div>
+            <label for="subject" class="block text-sm font-medium text-slate-300 mb-2">Subject</label>
+            <select
+              id="subject"
+              name="subject"
+              class="w-full px-4 py-3 rounded-lg bg-slate-900/50 border border-slate-700 text-slate-100 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all duration-200"
+            >
+              <option value="general">General Inquiry</option>
+              <option value="project">Project Collaboration</option>
+              <option value="speaking">Speaking / Conference</option>
+              <option value="consulting">Consulting</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+
+          <!-- Message -->
+          <div>
+            <label for="message" class="block text-sm font-medium text-slate-300 mb-2">Message</label>
+            <textarea
+              id="message"
+              name="message"
+              required
+              rows="6"
+              placeholder="Tell me about your project or idea..."
+              class="w-full px-4 py-3 rounded-lg bg-slate-900/50 border border-slate-700 text-slate-100 placeholder:text-slate-500 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all duration-200 resize-none"
+            ></textarea>
+          </div>
+
+          <!-- Submit -->
+          <button
+            type="submit"
+            class="w-full px-6 py-3 rounded-lg bg-gradient-to-r from-indigo-500 to-violet-500 text-white font-medium hover:from-indigo-400 hover:to-violet-400 transition-all duration-200 shadow-lg shadow-indigo-500/25"
+          >
+            Send Message →
+          </button>
+
+          <!-- Privacy notice -->
+          <p class="text-xs text-slate-600 text-center">
+            Your message will only be used to respond to your inquiry. I do not share personal data with third parties.
+          </p>
+        </form>
+      </section>
+
+      <!-- Contact Info -->
+      <section class="py-12 px-4 border-t border-slate-800/50">
+        <div class="max-w-6xl mx-auto grid md:grid-cols-3 gap-8 text-center">
+          <article class="p-6 rounded-xl bg-slate-900/30 border border-slate-800 hover:border-indigo-500/40 transition-all duration-300">
+            <div class="w-12 h-12 rounded-lg bg-indigo-500/10 text-indigo-400 flex items-center justify-center mx-auto mb-4 text-xl">✉️</div>
+            <h3 class="font-semibold text-slate-200 mb-2">Email</h3>
+            <a href="mailto:hello@aea.dev" class="text-indigo-400 hover:text-indigo-300 transition-colors">hello@aea.dev</a>
+          </article>
+
+          <article class="p-6 rounded-xl bg-slate-900/30 border border-slate-800 hover:border-indigo-500/40 transition-all duration-300">
+            <div class="w-12 h-12 rounded-lg bg-violet-500/10 text-violet-400 flex items-center justify-center mx-auto mb-4 text-xl">📍</div>
+            <h3 class="font-semibold text-slate-200 mb-2">Location</h3>
+            <p class="text-slate-500 text-sm">Remote / Open to relocation</p>
+          </article>
+
+          <article class="p-6 rounded-xl bg-slate-900/30 border border-slate-800 hover:border-indigo-500/40 transition-all duration-300">
+            <div class="w-12 h-12 rounded-lg bg-pink-500/10 text-pink-400 flex items-center justify-center mx-auto mb-4 text-xl">💬</div>
+            <h3 class="font-semibold text-slate-200 mb-2">Socials</h3>
+            <ul class="space-y-1 text-sm text-slate-500">
+              <li><a href="#" class="hover:text-white transition-colors">GitHub</a></li>
+              <li><a href="#" class="hover:text-white transition-colors">LinkedIn</a></li>
+              <li><a href="#" class="hover:text-white transition-colors">Twitter/X</a></li>
+            </ul>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <!-- Reuse footer from index -->
+    <footer class="border-t border-slate-800/60 bg-slate-950">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+          <div class="text-center md:text-left">
+            <a href="/" class="inline-flex items-center gap-2 group">
+              <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 to-violet-500 flex items-center justify-center shadow-lg">
+                <span class="text-white font-bold text-xs">A</span>
+              </div>
+              <span class="font-semibold text-slate-100">AEA</span>
+            </a>
+            <p class="mt-2 text-sm text-slate-500">&copy; {new Date().getFullYear()} AEA. All rights reserved.</p>
+          </div>
+
+          <nav aria-label="Footer" class="flex items-center gap-6">
+            <li><a href="#" class="text-slate-500 hover:text-white transition-colors text-sm">GitHub</a></li>
+            <li><a href="#" class="text-slate-500 hover:text-white transition-colors text-sm">LinkedIn</a></li>
+            <li><a href="#" class="text-slate-500 hover:text-white transition-colors text-sm">Twitter/X</a></li>
+          </nav>
+        </div>
+      </div>
+    </footer>
+
+  </body>
+</html>
+---
+```
+</think>
+
+Now I'll update the **progress-tracker.md** Stage 4 State block and **current-issues.md**:
+
+<tool_call>
+<function=edit_existing_file>
+<parameter=filepath>
+docs/master/progress-tracker.md

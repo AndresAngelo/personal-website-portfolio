@@ -68,20 +68,20 @@ The **Stage 4 State** block above serves as the authoritative source of truth fo
 
 ### M2: Core Rows & Navigation
 
-- [ ] Implement **auto-hiding vertical sidebar** (desktop).
-- [ ] Implement 4 rows:
+- [✅] Implement **auto-hiding vertical sidebar** (desktop).
+- [✅] Implement 4 rows:
   - `HomeRow.astro`
   - `ProjectsRow.astro`
   - `ActivitiesRow.astro`
   - `ContactRow.astro`
-- [ ] Implement **horizontal scrolling** within rows (desktop).
+- [✅] Implement **horizontal scrolling** within rows (desktop).
 - [ ] Implement **vertical animation** between rows.
 - [ ] Implement **mobile layout**:
   - Vertical stacking of rows.
   - Top/bottom nav bar.
   - Projects/Activities as vertical lists.
 
-**Status**: Not started  
+**Status**: Pending  
 **Target**: Stage 4
 
 ---
