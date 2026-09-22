@@ -116,7 +116,7 @@ The portfolio is a **static/hybrid Astro site** hosted on **Vercel**, with a **s
 ```text
 /
   public/
-    resume.pdf
+    Public materials/faq/AAndres-resume-AUG2026.pdf
     favicon.ico
     manifest.webmanifest
   src/

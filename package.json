@@ -7,6 +7,7 @@
     "dev": "astro dev --host",
     "start": "astro dev",
     "build": "node scripts/build-astro.mjs",
+    "test:content": "node scripts/test-content-integration.mjs",
     "preview": "astro preview",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit"

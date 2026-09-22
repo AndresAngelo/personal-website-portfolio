@@ -1,0 +1,134 @@
+---
+interface ProjectData {
+  title: string;
+  description: string;
+  tags: string[];
+  image: string;
+  link: string;
+  heroImage?: string;
+  pinned?: boolean;
+}
+
+interface Props {
+  project: ProjectData;
+  id?: string;
+}
+
+const { project, id } = Astro.props;
+const image = project.heroImage ?? project.image;
+---
+
+<article class="project-card" id={id}>
+  <img
+    src={image}
+    alt={`${project.title} project preview`}
+    loading="lazy"
+    decoding="async"
+    width="800"
+    height="450"
+  />
+
+  <div class="project-card__content">
+    <div class="project-card__heading">
+      <h3>{project.title}</h3>
+      {project.pinned && <span class="project-card__pinned">Pinned project</span>}
+    </div>
+
+    <p>{project.description}</p>
+
+    <ul class="project-card__tags" role="list" aria-label={`${project.title} technologies`}>
+      {project.tags.map((tag) => <li>{tag}</li>)}
+    </ul>
+
+    <a class="project-card__link" href={project.link} aria-label={`View details for ${project.title}`}>
+      View project <span aria-hidden="true">→</span>
+    </a>
+  </div>
+</article>
+
+<style>
+  .project-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+    border: 1px solid var(--border-subtle, #30363d);
+    border-radius: 1rem;
+    background: var(--surface-2, #161b22);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .project-card:hover,
+  .project-card:focus-within {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 28px rgb(0 0 0 / 20%);
+  }
+
+  .project-card img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+  }
+
+  .project-card__content {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 1rem;
+  }
+
+  .project-card__heading {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+
+  h3,
+  p {
+    margin: 0;
+  }
+
+  h3 { color: var(--foreground-900, #f0f6fc); font-size: 1.2rem; }
+  p { color: var(--foreground-600, #8b949e); line-height: 1.6; }
+
+  .project-card__pinned {
+    color: var(--primary-foreground, #58a6ff);
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+
+  .project-card__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: auto 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .project-card__tags li {
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+    background: var(--surface-3, #21262d);
+    color: var(--foreground-500, #8b949e);
+    font-size: 0.75rem;
+  }
+
+  .project-card__link {
+    align-self: flex-start;
+    color: var(--primary-foreground, #58a6ff);
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .project-card__link:hover,
+  .project-card__link:focus-visible { text-decoration: underline; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .project-card { transition: none; }
+  }
+</style>

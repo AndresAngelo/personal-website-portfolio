@@ -28,10 +28,10 @@ Media Files Location
     Subfolders:
     - Activities/ - Activity photos and media
     - Projects/ - Project photos, videos, and media
-    - faq/ - FAQ-related assets including resume.pdf
+    - faq/ - FAQ-related assets including AAndres-resume-AUG2026.pdf
 
     Specific files:
-    - Resume PDF: public/Public materials/faq/resume.pdf
+    - Resume PDF: public/Public materials/faq/AAndres-resume-AUG2026.pdf
     - Project media: Photos and videos in public/Public materials/Projects/
     - Activity media: Photos in public/Public materials/Activities/
 

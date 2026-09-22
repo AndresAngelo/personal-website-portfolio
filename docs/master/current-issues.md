@@ -1,5 +1,17 @@
 # Current Issues & Deviation Log
 
+### [FACT][RESOLVED] M3 Task 3.11 integration testing
+
+`npm.cmd run test:content` now validates all three Markdown collections and required frontmatter, checks collection loaders and card integration behavior, verifies pinned-project ordering wiring, and proves that an invalid project fixture causes the Astro build to fail. The temporary invalid fixture is removed in a `finally` block. Typecheck, lint, build, and diff checks pass on 2026-09-22. The next authorized task is M4 Task 4.1 Vector Database Setup.
+
+### [FACT][RESOLVED] M3 Task 3.10 content configuration
+
+`src/content.config.ts` registers the projects, activities, and FAQ collections with Astro glob loaders and their dedicated schemas. Typecheck, lint, build, and diff checks pass on 2026-09-22; the diff check reports only existing Windows line-ending warnings.
+
+### [INFERENCE] Next authorized task
+
+M3 Task 3.11 Integration Testing is authorized after the verified completion of Task 3.10.
+
 This is the sole authoritative Stage 4 issue, blocker, verification, and specification-drift ledger. The companion state file is `docs/master/progress-tracker.md`.
 
 ## Status
@@ -7,6 +19,18 @@ This is the sole authoritative Stage 4 issue, blocker, verification, and specifi
 **Overall status**: Stage 4 implementation in progress. Build, typecheck, lint, and production dependency audit now pass in the current Windows environment.
 
 **Severity**: No confirmed CRITICAL or BLOCKING issue remains in the repaired validation path. Remaining entries are documentation drift, unknown handoff completeness, or informational environment notes.
+
+### [FACT][RESOLVED] M3 Task 3.9 FAQCard
+
+`src/components/FAQCard.astro` now renders FAQ collection data as responsive, collapsible cards. Native disclosure semantics provide keyboard accessibility; category and related-project metadata are supported; expand/collapse animation and reduced-motion behavior are included. Typecheck, lint, build, and diff checks pass on 2026-09-22.
+
+### [FACT][RESOLVED] M3 Task 3.4 activities schema validation
+
+`src/content/activities/schema.ts` validates required activity metadata, ISO `YYYY-MM-DD` dates, and optional activity media/link fields. Typecheck, lint, and build pass. The repository-wide diff check reports only generated `.astro/content-assets.mjs` whitespace; the task-file diff check passes.
+
+### [FACT][RESOLVED] M3 Task 3.5 activities collection files
+
+Six activity Markdown files now provide valid required frontmatter, chronological ISO dates, and representative optional media/link fields. Date extraction verifies chronological ordering from 2024-03-15 through 2026-01-24. Typecheck, lint, build, and `git diff --check` pass on 2026-09-22.
 
 ## Resolved Issues
 
@@ -66,7 +90,27 @@ The Stage 4 contract requires implementation notes, development logs, and a Stag
 
 Several historical Markdown files contain garbled Unicode sequences. This does not necessarily affect runtime behavior but reduces documentation reliability and readability.
 
+### [FACT][RESOLVED] M3 Task 3.7 FAQ collection schema
+
+`src/content/faq/schema.ts` validates required question and answer fields plus optional non-empty categories and related project slug arrays. `src/content.config.ts` registers the dedicated schema. Typecheck, lint, and build pass on 2026-09-22. The repository-wide diff check reports only generated `.astro/content-assets.mjs` whitespace.
+
+### [FACT][RESOLVED] M3 Task 3.8 FAQ collection files
+
+Ten FAQ Markdown files now provide valid question, answer, and category frontmatter, with related project slugs on entries that reference known projects. Typecheck, lint, build, and `git diff --check` pass on 2026-09-22. The next authorized task is M3 Task 3.9 FAQCard Component.
+
 ## Verification Ledger
+
+### [FACT][RESOLVED] M3 Task 3.3 ProjectCard component
+
+`src/components/ProjectCard.astro` renders project collection data with image fallback, title, description, tags, project link, pinned indicator, responsive card styling, and reduced-motion handling. Typecheck, lint, production build, and `git diff --check` pass on 2026-09-22.
+
+### [FACT][RESOLVED] M3 Task 3.2.1 pinned projects sorting
+
+`src/lib/projects.ts` stably partitions projects into pinned and non-pinned groups, and `src/components/rows/ProjectsRow.astro` applies it to the Astro projects collection before rendering. Typecheck, lint, production build, and `git diff --check` pass on 2026-09-22.
+
+### [FACT][RESOLVED] M3 Task 3.1 projects schema
+
+The projects collection now uses the task-specific TypeScript schema in `src/content/projects/schema.ts`. Required project card metadata and optional media fields validate successfully through the Astro content sync and production build.
 
 ### [FACT][VERIFIED] Type checking
 
@@ -122,6 +166,10 @@ Task 2.8 static responsive verification is complete. The repository contains exp
 
 ## Policy
 
+### [FACT][RESOLVED] M3 Task 3.2 project files and resume resource
+
+Three project Markdown files now validate through the projects collection, including required card metadata, optional media fields, and a pinned portfolio entry. The live resume download and concrete documentation references use `public/Public materials/faq/AAndres-resume-AUG2026.pdf`.
+
 Stage 4 must not silently modify `requirements.md`, `design.md`, `tasks.md`, or `Feature-spec/`. Any specification conflict must remain documented here and be resolved through explicit authorization. Production deployment and final sign-off belong to Stage 5.
 
 ### [FACT][RESOLVED] M2 Task 2.6 page layout integration
@@ -139,3 +187,7 @@ Stage 4 must not silently modify `requirements.md`, `design.md`, `tasks.md`, or 
 ### [FACT][RESOLVED] M2 Task 2.8 static responsive verification
 
 Responsive implementation rules were checked against the M2 acceptance criteria and required breakpoint ranges. Sidebar navigation collapses below 768px, tablet navigation reduces labels between 768px and 1023px, and row layouts provide mobile stacking/list behavior with desktop grids or full-width sections. Typecheck, lint, build, and diff checks pass on 2026-09-22. Exact rendered viewport behavior remains an UNKNOWN because no browser surface is available.
+
+### [FACT][RESOLVED] M3 Task 3.6 ActivityCard
+
+`src/components/ActivityCard.astro` was added for activity collection data. It supports required activity metadata, optional background imagery and links, semantic UTC-safe date display, responsive layout, keyboard-visible links, and reduced-motion behavior. Typecheck, lint, build, and diff checks pass on 2026-09-22.

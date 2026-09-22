@@ -3,16 +3,23 @@
   "type": "object",
   "properties": {
     "title": {
-      "type": "string"
+      "type": "string",
+      "minLength": 1
     },
     "date": {
       "type": "string"
     },
     "description": {
-      "type": "string"
+      "type": "string",
+      "minLength": 1
+    },
+    "location": {
+      "type": "string",
+      "minLength": 1
     },
     "backgroundImage": {
-      "type": "string"
+      "type": "string",
+      "minLength": 1
     },
     "mediaType": {
       "type": "string",
@@ -26,10 +33,12 @@
       "type": "object",
       "properties": {
         "eventPage": {
-          "type": "string"
+          "type": "string",
+          "format": "uri"
         },
         "video": {
-          "type": "string"
+          "type": "string",
+          "format": "uri"
         }
       }
     },
@@ -40,6 +49,7 @@
   "required": [
     "title",
     "date",
-    "description"
+    "description",
+    "location"
   ]
 }

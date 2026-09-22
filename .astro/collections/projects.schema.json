@@ -3,7 +3,38 @@
   "type": "object",
   "properties": {
     "title": {
-      "type": "string"
+      "type": "string",
+      "minLength": 1
+    },
+    "description": {
+      "type": "string",
+      "minLength": 1
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "image": {
+      "type": "string",
+      "minLength": 1
+    },
+    "link": {
+      "type": "string",
+      "minLength": 1
+    },
+    "heroImage": {
+      "type": "string",
+      "minLength": 1
+    },
+    "videoPitch": {
+      "type": "string",
+      "format": "uri"
+    },
+    "pinned": {
+      "type": "boolean"
     },
     "tagline": {
       "type": "string"
@@ -17,29 +48,24 @@
     "techStack": {
       "type": "array",
       "items": {
-        "type": "string"
+        "type": "string",
+        "minLength": 1
       }
-    },
-    "heroImage": {
-      "type": "string"
-    },
-    "videoPitch": {
-      "type": "string"
-    },
-    "pinned": {
-      "type": "boolean"
     },
     "links": {
       "type": "object",
       "properties": {
         "repo": {
-          "type": "string"
+          "type": "string",
+          "format": "uri"
         },
         "demo": {
-          "type": "string"
+          "type": "string",
+          "format": "uri"
         },
         "caseStudy": {
-          "type": "string"
+          "type": "string",
+          "format": "uri"
         }
       }
     },
@@ -49,9 +75,9 @@
   },
   "required": [
     "title",
-    "tagline",
-    "problem",
-    "role",
-    "techStack"
+    "description",
+    "tags",
+    "image",
+    "link"
   ]
 }

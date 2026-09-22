@@ -1,6 +1,6 @@
 ---
-import BaseCard from './BaseCard.astro';
 import EmptyState from './EmptyState.astro';
+import ProjectCard from './ProjectCard.astro';
 
 interface Project {
   id: string;
@@ -9,6 +9,8 @@ interface Project {
   tags: string[];
   image?: string;
   link?: string;
+  heroImage?: string;
+  pinned?: boolean;
 }
 
 interface ProjectsRowProps {
@@ -23,14 +25,7 @@ const { projects } = Astro.props;
       <ul role="list" aria-labelledby="projects-heading">
         {projects.map((project) => (
           <li>
-            <BaseCard
-              id={project.id}
-              title={project.title}
-              description={project.description}
-              tags={project.tags}
-              image={project.image}
-              link={project.link}
-            />
+            <ProjectCard project={project} id={project.id} />
           </li>
         ))}
       </ul>

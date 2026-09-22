@@ -56,7 +56,7 @@ graph TD
 
 #### Task 2.3: ActivitiesRow Component
 
-- **Status**: TODO
+- **Status**: DONE
 - **Estimate**: 45 minutes
 - **Dependencies**: [2.1]
 - **Type**: Component
@@ -70,7 +70,7 @@ graph TD
 
 #### Task 2.4: ContactRow Component
 
-- **Status**: TODO
+- **Status**: DONE
 - **Estimate**: 45 minutes
 - **Dependencies**: [2.1]
 - **Type**: Component
@@ -86,7 +86,7 @@ graph TD
 
 #### Task 2.5: SidebarNav Component
 
-- **Status**: TODO
+- **Status**: DONE
 - **Estimate**: 40 minutes
 - **Dependencies**: [2.1]
 - **Type**: Component
@@ -100,7 +100,7 @@ graph TD
 
 #### Task 2.6: Page Layout Integration
 
-- **Status**: TODO
+- **Status**: DONE
 - **Estimate**: 20 minutes
 - **Dependencies**: [2.1, 2.5]
 - **Type**: Component
@@ -113,7 +113,7 @@ graph TD
 
 #### Task 2.7: Animations
 
-- **Status**: TODO
+- **Status**: DONE
 - **Estimate**: 30 minutes
 - **Dependencies**: [2.6]
 - **Type**: Component
@@ -126,7 +126,7 @@ graph TD
 
 #### Task 2.8: Responsive Testing
 
-- **Status**: TODO
+- **Status**: DONE
 - **Estimate**: 30 minutes
 - **Dependencies**: [2.7]
 - **Type**: Testing

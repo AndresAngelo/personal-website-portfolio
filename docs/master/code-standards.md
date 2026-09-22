@@ -20,7 +20,7 @@ Follow a clear, component-driven structure:
 ```text
 /
   public/
-    resume.pdf
+    Public materials/faq/AAndres-resume-AUG2026.pdf
     favicon.ico
     manifest.webmanifest
   src/

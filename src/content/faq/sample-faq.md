@@ -1,7 +1,6 @@
 ---
 question: "What is your primary tech stack?"
-answer: "Astro, TypeScript, and local/remote LLM integrations."
-# Enhanced Fields (uncomment and add your values)
-# category: "Technology"
-# relatedProjects: ["aea-portfolio", "ai-pipeline"]
+answer: "Astro, TypeScript, and documented local or remote LLM integrations are the primary technologies used across this portfolio."
+category: "Technology"
+relatedProjects: ["sample-project", "spec-driven-workflow"]
 ---

@@ -1,4 +1,6 @@
 ---
+import { getCollection } from 'astro:content';
+import { sortPinnedProjects } from '../../lib/projects';
 import ProjectsGrid from "../ProjectsRow.astro";
 
 interface Props {
@@ -9,10 +11,13 @@ interface Props {
     tags: string[];
     image?: string;
     link?: string;
+    heroImage?: string;
+    pinned?: boolean;
   }>;
 }
 
-const { projects = [] } = Astro.props as Props;
+const { projects: providedProjects } = Astro.props as Props;
+const projects = providedProjects ?? sortPinnedProjects((await getCollection('projects')).map(({ id, data }) => ({ id, ...data })));
 ---
 
 <ProjectsGrid projects={projects} />

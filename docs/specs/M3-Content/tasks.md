@@ -31,7 +31,7 @@ graph TD
 
 #### Task 3.1: Projects Collection Schema
 
-- **Status**: TODO
+- **Status**: DONE
 - **Estimate**: 20 minutes
 - **Dependencies**: []
 - **Type**: Setup
@@ -45,7 +45,7 @@ graph TD
 
 #### Task 3.2: Projects Collection Files
 
-- **Status**: TODO
+- **Status**: DONE
 - **Estimate**: 30 minutes
 - **Dependencies**: [3.1]
 - **Type**: Setup
@@ -59,7 +59,7 @@ graph TD
 
 #### Task 3.3: ProjectCard Component
 
-- **Status**: TODO
+- **Status**: DONE
 - **Estimate**: 25 minutes
 - **Dependencies**: [3.2]
 - **Type**: Component
@@ -74,7 +74,7 @@ graph TD
 
 #### Task 3.2.1: Pinned Projects Sorting Logic
 
-- **Status**: TODO
+- **Status**: DONE
 - **Estimate**: 15 minutes
 - **Dependencies**: [3.2]
 - **Type**: Logic
@@ -88,7 +88,7 @@ graph TD
 
 #### Task 3.4: Activities Collection Schema
 
-- **Status**: TODO
+- **Status**: DONE
 - **Estimate**: 20 minutes
 - **Dependencies**: [3.1]
 - **Type**: Setup
@@ -102,7 +102,7 @@ graph TD
 
 #### Task 3.5: Activities Collection Files
 
-- **Status**: TODO
+- **Status**: DONE
 - **Estimate**: 30 minutes
 - **Dependencies**: [3.4]
 - **Type**: Setup
@@ -115,7 +115,7 @@ graph TD
 
 #### Task 3.6: ActivityCard Component
 
-- **Status**: TODO
+- **Status**: DONE
 - **Estimate**: 25 minutes
 - **Dependencies**: [3.5]
 - **Type**: Component
@@ -129,7 +129,7 @@ graph TD
 
 #### Task 3.7: FAQ Collection Schema
 
-- **Status**: TODO
+- **Status**: DONE
 - **Estimate**: 20 minutes
 - **Dependencies**: [3.1]
 - **Type**: Setup
@@ -143,7 +143,7 @@ graph TD
 
 #### Task 3.8: FAQ Collection Files
 
-- **Status**: TODO
+- **Status**: DONE
 - **Estimate**: 30 minutes
 - **Dependencies**: [3.7]
 - **Type**: Setup
@@ -156,7 +156,7 @@ graph TD
 
 #### Task 3.9: FAQCard Component
 
-- **Status**: TODO
+- **Status**: DONE
 - **Estimate**: 25 minutes
 - **Dependencies**: [3.8]
 - **Type**: Component
@@ -170,7 +170,7 @@ graph TD
 
 #### Task 3.10: Content Configuration
 
-- **Status**: TODO
+- **Status**: DONE
 - **Estimate**: 15 minutes
 - **Dependencies**: [3.1, 3.4, 3.7]
 - **Type**: Setup
@@ -183,7 +183,7 @@ graph TD
 
 #### Task 3.11: Integration Testing
 
-- **Status**: TODO
+- **Status**: DONE
 - **Estimate**: 30 minutes
 - **Dependencies**: [3.3, 3.6, 3.9, 3.10]
 - **Type**: Testing

@@ -44,7 +44,7 @@ AEA-Website-Portfolio/
 │       └── global.css       # Global styles
 ├── public/                   # Static assets
 │   ├── manifest.webmanifest # PWA manifest
-│   ├── resume.pdf           # Resume download
+│   ├── Public materials/faq/AAndres-resume-AUG2026.pdf # Resume download
 │   ├── projects/            # Project media (hero images, videos)
 │   └── activities/          # Activity media (background images)
 ├── .kiro/                    # Kiro IDE configuration
@@ -115,7 +115,7 @@ The project uses Astro's Content Collections feature for structured content mana
 This project uses media files to enhance your portfolio with visual content:
 
 ### Resume PDF
-- **Location**: `public/resume.pdf`
+- **Location**: `public/Public materials/faq/AAndres-resume-AUG2026.pdf`
 - Replace this file with your actual resume PDF
 - The file is linked from the Contact section
 
@@ -204,7 +204,7 @@ The project includes a web app manifest (`public/manifest.webmanifest`) for prog
 
 1. **Replace placeholder files** with your actual content (see Placeholder Files section above)
 2. **Prepare media files**:
-   - Add your resume PDF to `public/resume.pdf`
+   - Add the current resume PDF to `public/Public materials/faq/AAndres-resume-AUG2026.pdf`
    - Create project hero images and place them in `public/projects/`
    - Add activity background images to `public/activities/`
 3. **Review HANDOFF documentation** for detailed specifications and implementation notes:
