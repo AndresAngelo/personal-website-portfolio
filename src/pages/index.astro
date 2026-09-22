@@ -5,6 +5,7 @@ import ExperienceRow from '../components/rows/ExperienceRow.astro';
 import HomeRow from '../components/rows/HomeRow.astro';
 import ProjectsRow from '../components/rows/ProjectsRow.astro';
 import SidebarNav from '../components/SidebarNav.astro';
+import ChatWidget from '../components/ChatWidget.astro';
 ---
 <SidebarNav />
 <main class="portfolio-content">
@@ -14,6 +15,7 @@ import SidebarNav from '../components/SidebarNav.astro';
   <ExperienceRow />
   <ContactRow email="hello@example.com" />
 </main>
+<ChatWidget />
 <script>
   const animatedRows = [...document.querySelectorAll<HTMLElement>('.portfolio-content > section')];
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;

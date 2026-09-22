@@ -1,4 +1,194 @@
 ---
+## Stage 4 Session Update - 2026-09-22 (M5 Task 5.10)
+
+**FACT - Completed task**: M5 Task 5.10 adds `scripts/test-m5-integration.mjs` and the `npm.cmd run test:m5` command. The integration harness verifies the composed widget components, streaming client behavior with conversation history and citations, input validation, localStorage history wiring, responsive/reduced-motion hooks, and accessibility markers. It also exposed and fixed a streaming callback timing defect in `ChatWidget.astro` by accumulating chunks independently of the unresolved promise result.
+
+**FACT - Verification**: `npm.cmd run test:m5` PASS; `npm.cmd run typecheck` PASS; `npm.cmd run lint` PASS; `npm.cmd run build` PASS (4 pages; existing POST-only API route warnings); `git diff --check` exits 0 with Windows line-ending warnings only.
+
+## Stage 4 State
+
+**Pipeline Stage**: 4
+**Status**: IMPLEMENTING
+**Current Phase**: Phase 4 / M5-RAG-UI
+**Current Goalpost**: M5 Task 5.10
+**Current Task**: Integration Testing
+**Completed Goalposts**: M4 Tasks 4.1 through 4.9; M5 Tasks 5.1 through 5.10
+**Last Verified Goalpost**: M5 Task 5.10
+**Modified Files**: `scripts/test-m5-integration.mjs`, `package.json`, `src/components/ChatWidget.astro`, `docs/master/progress-tracker.md`, `docs/master/current-issues.md`
+**Verification Results**: `npm.cmd run test:m5` PASS; `npm.cmd run typecheck` PASS; `npm.cmd run lint` PASS; `npm.cmd run build` PASS; `git diff --check` PASS with line-ending warnings only.
+**Known Issues**: See `docs/master/current-issues.md`.
+**Next Authorized Task**: M6 Task 6.1 — PWA Configuration.
+**Last Updated**: 2026-09-22
+
+## Stage 4 Session Update - 2026-09-22 (M5 Task 5.9)
+
+**FACT - Completed task**: M5 Task 5.9 adds responsive chat styling with safe-area-aware floating placement, a viewport-bounded panel, full-width mobile presentation, narrow-screen header/input adaptations, touch-friendly controls, and responsive message sizing. Reduced-motion behavior remains preserved.
+
+**FACT - Verification**: `npm.cmd run typecheck` PASS; `npm.cmd run lint` PASS; `npm.cmd run build` PASS (4 pages; existing POST-only API route warnings); `git diff --check` exits 0 with Windows line-ending warnings only.
+
+## Stage 4 State
+
+**Pipeline Stage**: 4
+**Status**: IMPLEMENTING
+**Current Phase**: Phase 4 / M5-RAG-UI
+**Current Goalpost**: M5 Task 5.9
+**Current Task**: Responsive Styling
+**Completed Goalposts**: M4 Tasks 4.1 through 4.9; M5 Tasks 5.1 through 5.9
+**Last Verified Goalpost**: M5 Task 5.9
+**Modified Files**: `src/components/ChatWidget.astro`, `src/components/ChatMessages.astro`, `src/components/ChatHeader.astro`, `src/components/ChatInput.astro`, `src/components/StreamingIndicator.astro`, `docs/master/progress-tracker.md`, `docs/master/current-issues.md`
+**Verification Results**: `npm.cmd run typecheck` PASS; `npm.cmd run lint` PASS; `npm.cmd run build` PASS; `git diff --check` PASS with line-ending warnings only.
+**Known Issues**: See `docs/master/current-issues.md`.
+**Next Authorized Task**: M5 Task 5.10 — Integration Testing.
+**Last Updated**: 2026-09-22
+
+## Stage 4 Session Update - 2026-09-22 (M5 Task 5.8)
+
+**FACT - Completed task**: M5 Task 5.8 adds bounded conversation history persistence to `ChatWidget.astro` using validated localStorage records, restores history on initialization, timestamps dynamically added messages, and provides an accessible clear-history control in `ChatHeader.astro`. Requests now use the typed `sendMessage()` client.
+
+**FACT - Verification**: `npm.cmd run typecheck` PASS; `npm.cmd run lint` PASS; `npm.cmd run build` PASS (4 pages; existing POST-only API route warnings); `git diff --check` exits 0 with Windows line-ending warnings only.
+
+## Stage 4 State
+
+**Pipeline Stage**: 4
+**Status**: IMPLEMENTING
+**Current Phase**: Phase 4 / M5-RAG-UI
+**Current Goalpost**: M5 Task 5.8
+**Current Task**: History Management
+**Completed Goalposts**: M4 Tasks 4.1 through 4.9; M5 Tasks 5.1 through 5.8
+**Last Verified Goalpost**: M5 Task 5.8
+**Modified Files**: `src/components/ChatWidget.astro`, `src/components/ChatHeader.astro`, `docs/master/progress-tracker.md`, `docs/master/current-issues.md`
+**Verification Results**: `npm.cmd run typecheck` PASS; `npm.cmd run lint` PASS; `npm.cmd run build` PASS; `git diff --check` PASS with line-ending warnings only.
+**Known Issues**: See `docs/master/current-issues.md`.
+**Next Authorized Task**: M5 Task 5.9 — Responsive Styling.
+**Last Updated**: 2026-09-22
+
+## Stage 4 Session Update - 2026-09-22 (M5 Task 5.7)
+
+**FACT - Completed task**: M5 Task 5.7 adds `src/lib/chatClient.ts`, a typed chat API client with query validation, conversation history, cancellation support, normalized HTTP/API errors, JSON fallback handling, SSE/plain-text stream parsing, incremental chunk callbacks, and citation/source preservation.
+
+**FACT - Verification**: `npm.cmd run typecheck` PASS; `npm.cmd run lint` PASS; `npm.cmd run build` PASS (4 pages; existing POST-only API route warnings); `git diff --check` exits 0 with existing Windows line-ending warnings.
+
+## Stage 4 State
+
+**Pipeline Stage**: 4
+**Status**: IMPLEMENTING
+**Current Phase**: Phase 4 / M5-RAG-UI
+**Current Goalpost**: M5 Task 5.7
+**Current Task**: API Client
+**Completed Goalposts**: M4 Tasks 4.1 through 4.9; M5 Tasks 5.1 through 5.7
+**Last Verified Goalpost**: M5 Task 5.7
+**Modified Files**: `src/lib/chatClient.ts`, `docs/master/progress-tracker.md`, `docs/master/current-issues.md`
+**Verification Results**: `npm.cmd run typecheck` PASS; `npm.cmd run lint` PASS; `npm.cmd run build` PASS; `git diff --check` PASS with line-ending warnings only.
+**Known Issues**: See `docs/master/current-issues.md`.
+**Next Authorized Task**: M5 Task 5.8 — History Management.
+**Last Updated**: 2026-09-22
+
+## Stage 4 Session Update - 2026-09-22 (M5 Task 5.6)
+
+**FACT - Completed task**: M5 Task 5.6 adds frontend streaming integration to `ChatWidget.astro`, including incremental response rendering, SSE/plain-text chunk handling, live scrolling, an accessible typing indicator, cancellation through `AbortController`, and graceful error handling. `StreamingIndicator.astro` provides the indicator and Stop control.
+
+**FACT - Verification**: `npm.cmd run typecheck` PASS; `npm.cmd run lint` PASS; `npm.cmd run build` PASS (4 pages; existing POST-only API route warnings); `git diff --check` exits 0 with existing Windows line-ending warnings.
+
+## Stage 4 State
+
+**Pipeline Stage**: 4
+**Status**: IMPLEMENTING
+**Current Phase**: Phase 4 / M5-RAG-UI
+**Current Goalpost**: M5 Task 5.6
+**Current Task**: Streaming Integration
+**Completed Goalposts**: M4 Tasks 4.1 through 4.9; M5 Tasks 5.1 through 5.6
+**Last Verified Goalpost**: M5 Task 5.6
+**Modified Files**: `src/components/ChatWidget.astro`, `src/components/StreamingIndicator.astro`, `docs/master/progress-tracker.md`, `docs/master/current-issues.md`
+**Verification Results**: `npm.cmd run typecheck` PASS; `npm.cmd run lint` PASS; `npm.cmd run build` PASS; `git diff --check` PASS with line-ending warnings only.
+**Known Issues**: See `docs/master/current-issues.md`.
+**Next Authorized Task**: M5 Task 5.7 — API Client.
+**Last Updated**: 2026-09-22
+
+## Stage 4 Session Update - 2026-09-22 (M5 Task 5.5)
+
+**FACT - Completed task**: M5 Task 5.5 adds typed `CitationDisplay.astro` with numbered source links, inline `[n]` citation anchors, source previews, external-link handling, and distinct accessible styling. Assistant messages accept optional citations and render the citation display.
+
+**FACT - Verification**: `npm.cmd run typecheck` PASS; `npm.cmd run lint` PASS; `npm.cmd run build` PASS (4 pages; existing POST-only API route warnings); `git diff --check` exits 0 with existing Windows line-ending warnings.
+
+## Stage 4 State
+
+**Pipeline Stage**: 4
+**Status**: IMPLEMENTING
+**Current Phase**: Phase 4 / M5-RAG-UI
+**Current Goalpost**: M5 Task 5.5
+**Current Task**: Citation Display
+**Completed Goalposts**: M4 Tasks 4.1 through 4.9; M5 Tasks 5.1 through 5.5
+**Last Verified Goalpost**: M5 Task 5.5
+**Modified Files**: `src/components/CitationDisplay.astro`, `src/components/ChatMessages.astro`, `docs/master/progress-tracker.md`, `docs/master/current-issues.md`
+**Verification Results**: `npm.cmd run typecheck` PASS; `npm.cmd run lint` PASS; `npm.cmd run build` PASS; `git diff --check` PASS with line-ending warnings only.
+**Known Issues**: See `docs/master/current-issues.md`.
+**Next Authorized Task**: M5 Task 5.6 — Streaming Integration.
+**Last Updated**: 2026-09-22
+
+## Stage 4 Session Update - 2026-09-22 (M5 Task 5.3)
+
+**FACT - Completed task**: M5 Task 5.3 adds reusable `ChatMessages.astro` with typed user/assistant messages, distinct message styling, timestamp rendering, accessible live-region semantics, scrollable layout, reduced-motion support, and an empty state. `ChatWidget.astro` now composes it with the initial assistant welcome message.
+
+**FACT - Verification**: `npm.cmd run typecheck` PASS; `npm.cmd run lint` PASS; `npm.cmd run build` PASS (4 pages; existing POST-only API route warnings); `git diff --check` reports line-ending warnings only.
+
+## Stage 4 State
+
+**Pipeline Stage**: 4
+**Status**: IMPLEMENTING
+**Current Phase**: Phase 4 / M5-RAG-UI
+**Current Goalpost**: M5 Task 5.3
+**Current Task**: Chat Messages
+**Completed Goalposts**: M4 Tasks 4.1 through 4.9; M5 Tasks 5.1 through 5.3
+**Last Verified Goalpost**: M5 Task 5.3
+**Modified Files**: `src/components/ChatMessages.astro`, `src/components/ChatWidget.astro`, `docs/master/progress-tracker.md`, `docs/master/current-issues.md`
+**Verification Results**: `npm.cmd run typecheck` PASS; `npm.cmd run lint` PASS; `npm.cmd run build` PASS; `git diff --check` line-ending warnings only.
+**Known Issues**: See `docs/master/current-issues.md`.
+**Next Authorized Task**: M5 Task 5.4 — Chat Input.
+**Last Updated**: 2026-09-22
+
+## Stage 4 Session Update - 2026-09-22 (M5 Task 5.2)
+
+**FACT - Completed task**: M5 Task 5.2 extracts the widget header into reusable `ChatHeader.astro` with title/eyebrow props, an accessible close button, focus-visible styling, and light/dark-compatible contrast. `ChatWidget.astro` now composes the header while preserving existing open/close and focus-return behavior.
+
+**FACT - Verification**: `npm.cmd run typecheck` PASS; `npm.cmd run lint` PASS; `npm.cmd run build` PASS (4 pages; existing POST-only API route warnings); `git diff --check` reports line-ending warnings only.
+
+## Stage 4 State
+
+**Pipeline Stage**: 4
+**Status**: IMPLEMENTING
+**Current Phase**: Phase 4 / M5-RAG-UI
+**Current Goalpost**: M5 Task 5.2
+**Current Task**: Chat Header
+**Completed Goalposts**: M4 Tasks 4.1 through 4.9; M5 Tasks 5.1 through 5.2
+**Last Verified Goalpost**: M5 Task 5.2
+**Modified Files**: `src/components/ChatHeader.astro`, `src/components/ChatWidget.astro`, `docs/master/progress-tracker.md`, `docs/master/current-issues.md`
+**Verification Results**: `npm.cmd run typecheck` PASS; `npm.cmd run lint` PASS; `npm.cmd run build` PASS; `git diff --check` line-ending warnings only.
+**Known Issues**: See `docs/master/current-issues.md`.
+**Next Authorized Task**: M5 Task 5.3 — Chat Messages.
+**Last Updated**: 2026-09-22
+
+## Stage 4 Session Update - 2026-09-22 (M5 Task 5.1)
+
+**FACT - Completed task**: M5 Task 5.1 adds a reusable floating `ChatWidget` wrapper with an accessible open/close launcher, unread indicator, panel shell, Escape-to-close behavior, focus return, responsive mobile sizing, and reduced-motion support. It is integrated into the home page and shared `Layout.astro`.
+
+**FACT - Verification**: `npm.cmd run typecheck` PASS; `npm.cmd run lint` PASS; `npm.cmd run build` PASS (4 pages; existing POST-only API route warnings); `git diff --check` reports line-ending warnings only.
+
+**UNKNOWN - Deferred M5 features**: Messages, input, citations, streaming, API client, and history are intentionally deferred to their authorized dependent tasks.
+
+## Stage 4 State
+
+**Pipeline Stage**: 4
+**Status**: IMPLEMENTING
+**Current Phase**: Phase 4 / M5-RAG-UI
+**Current Goalpost**: M5 Task 5.1
+**Current Task**: Chat Widget Wrapper
+**Completed Goalposts**: M4 Tasks 4.1 through 4.9; M5 Task 5.1
+**Last Verified Goalpost**: M5 Task 5.1
+**Modified Files**: `src/components/ChatWidget.astro`, `src/pages/index.astro`, `src/layouts/Layout.astro`, `docs/master/progress-tracker.md`, `docs/master/current-issues.md`
+**Verification Results**: `npm.cmd run typecheck` PASS; `npm.cmd run lint` PASS; `npm.cmd run build` PASS; `git diff --check` line-ending warnings only.
+**Known Issues**: See `docs/master/current-issues.md`.
+**Next Authorized Task**: M5 Task 5.2 — Chat Header.
+**Last Updated**: 2026-09-22
 
 ## Stage 4 Session Update - 2026-09-22 (M4 Task 4.9)
 
@@ -612,3 +802,23 @@ pm.cmd run build`, and `git diff --check` all pass.
 **FACT â€” Modified implementation file**: `src/pages/index.astro`.
 
 **INFERENCE â€” Next authorized task**: M2 Task 2.8 Responsive Testing, based on the task dependency graph and verified completion of Task 2.7.
+## Stage 4 Session Update - 2026-09-22 (M5 Task 5.4)
+
+**FACT - Completed task**: M5 Task 5.4 adds reusable `ChatInput.astro` with a bounded question textarea, send button, Enter-to-submit behavior, validation messaging, character count, loading state, accessible labels/live feedback, and a `chat:submit` event for later API integration. `ChatWidget.astro` now composes the input below the message list.
+
+**FACT - Verification**: `npm.cmd run typecheck` PASS; `npm.cmd run lint` PASS; `npm.cmd run build` PASS (4 pages; existing POST-only API route warnings); `git diff --check` reports line-ending warnings only.
+
+## Stage 4 State
+
+**Pipeline Stage**: 4
+**Status**: IMPLEMENTING
+**Current Phase**: Phase 4 / M5-RAG-UI
+**Current Goalpost**: M5 Task 5.4
+**Current Task**: Chat Input
+**Completed Goalposts**: M4 Tasks 4.1 through 4.9; M5 Tasks 5.1 through 5.4
+**Last Verified Goalpost**: M5 Task 5.4
+**Modified Files**: `src/components/ChatInput.astro`, `src/components/ChatWidget.astro`, `docs/master/progress-tracker.md`, `docs/master/current-issues.md`
+**Verification Results**: `npm.cmd run typecheck` PASS; `npm.cmd run lint` PASS; `npm.cmd run build` PASS; `git diff --check` line-ending warnings only.
+**Known Issues**: See `docs/master/current-issues.md`.
+**Next Authorized Task**: M5 Task 5.5 — Citation Display.
+**Last Updated**: 2026-09-22

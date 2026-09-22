@@ -1,0 +1,54 @@
+---
+export interface Citation {
+  source: string;
+  content?: string;
+  href?: string;
+  score?: number;
+}
+
+interface Props {
+  citations?: Citation[];
+}
+
+const { citations = [] } = Astro.props;
+
+function citationHref(citation: Citation) {
+  if (citation.href) return citation.href;
+  if (/^(https?:\/\/|\/)/.test(citation.source)) return citation.source;
+  return `#source-${citation.source.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
+}
+---
+
+{citations.length > 0 && (
+  <section class="citation-display" aria-label="Sources">
+    <p class="citation-heading">Sources</p>
+    <ol class="citation-list">
+      {citations.map((citation, index) => (
+        <li id={`citation-${index + 1}`}>
+          <a class="citation-link" href={citationHref(citation)} target={citationHref(citation).startsWith('http') ? '_blank' : undefined} rel="noreferrer">
+            <span class="citation-number" aria-hidden="true">[{index + 1}]</span>
+            <span>{citation.source}</span>
+          </a>
+          {citation.content && (
+            <details class="citation-preview">
+              <summary>Preview source</summary>
+              <p>{citation.content}</p>
+            </details>
+          )}
+        </li>
+      ))}
+    </ol>
+  </section>
+)}
+
+<style>
+  .citation-display { margin-top: .7rem; padding-top: .6rem; border-top: 1px solid rgb(148 163 184 / 20%); }
+  .citation-heading { margin: 0 0 .35rem; color: #c4b5fd; font-size: .68rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; }
+  .citation-list { display: grid; gap: .3rem; margin: 0; padding-left: 0; list-style: none; }
+  .citation-link { display: inline-flex; gap: .3rem; color: #a5b4fc; font-size: .75rem; text-decoration: underline; text-underline-offset: 2px; }
+  .citation-link:hover { color: #c4b5fd; }
+  .citation-number { flex: 0 0 auto; color: #ddd6fe; font-weight: 700; }
+  .citation-preview { margin: .25rem 0 0 1.45rem; color: #cbd5e1; font-size: .72rem; line-height: 1.4; }
+  .citation-preview summary { cursor: pointer; color: #94a3b8; }
+  .citation-preview p { margin: .25rem 0 0; white-space: pre-wrap; }
+</style>

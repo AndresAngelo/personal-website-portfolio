@@ -1,0 +1,89 @@
+---
+interface Props {
+  maxLength?: number;
+  placeholder?: string;
+}
+
+const { maxLength = 500, placeholder = 'Ask about this portfolio...' } = Astro.props;
+---
+
+<form class="chat-input" data-chat-input novalidate>
+  <label class="sr-only" for="chat-question">Your question</label>
+  <textarea
+    id="chat-question"
+    name="question"
+    rows="1"
+    maxlength={maxLength}
+    placeholder={placeholder}
+    autocomplete="off"
+    required
+    data-chat-question
+  ></textarea>
+  <div class="chat-input-footer">
+    <p class="chat-input-hint" data-chat-input-message aria-live="polite">Press Enter to send</p>
+    <span class="chat-input-count" data-chat-input-count>0/{maxLength}</span>
+    <button type="submit" class="chat-send" data-chat-send aria-label="Send question">Send</button>
+  </div>
+</form>
+
+<script define:vars={{ maxLength }}>
+  const form = document.querySelector<HTMLFormElement>('[data-chat-input]');
+  const input = form?.querySelector<HTMLTextAreaElement>('[data-chat-question]');
+  const button = form?.querySelector<HTMLButtonElement>('[data-chat-send]');
+  const message = form?.querySelector<HTMLElement>('[data-chat-input-message]');
+  const count = form?.querySelector<HTMLElement>('[data-chat-input-count]');
+
+  function updateCount() {
+    if (!input || !count) return;
+    count.textContent = `${input.value.length}/${maxLength}`;
+  }
+
+  function setMessage(text: string, error = false) {
+    if (!message) return;
+    message.textContent = text;
+    message.classList.toggle('is-error', error);
+  }
+
+  input?.addEventListener('input', updateCount);
+  input?.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter' && !event.shiftKey) {
+      event.preventDefault();
+      form?.requestSubmit();
+    }
+  });
+
+  form?.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const value = input?.value.trim() ?? '';
+    if (!value) {
+      setMessage('Enter a question before sending.', true);
+      input?.focus();
+      return;
+    }
+    if (value.length > maxLength) {
+      setMessage(`Keep your question under ${maxLength} characters.`, true);
+      input?.focus();
+      return;
+    }
+
+    setMessage('Sending...');
+    form.dispatchEvent(new CustomEvent('chat:submit', { bubbles: true, detail: { content: value } }));
+  });
+
+  form?.addEventListener('chat:complete', () => { if (button) button.disabled = false; setMessage('Press Enter to send'); });
+
+  updateCount();
+</script>
+
+<style>
+  .chat-input { padding: .75rem; border-top: 1px solid rgb(148 163 184 / 18%); background: #172033; }
+  .chat-input textarea { display: block; width: 100%; min-height: 2.75rem; max-height: 7rem; resize: vertical; padding: .7rem .75rem; border: 1px solid rgb(148 163 184 / 30%); border-radius: .65rem; color: #e2e8f0; background: #0f172a; font: inherit; font-size: .85rem; line-height: 1.4; }
+  .chat-input textarea:focus { outline: 2px solid #a5b4fc; outline-offset: 2px; border-color: #a5b4fc; }
+  .chat-input-footer { display: flex; align-items: center; gap: .5rem; margin-top: .45rem; }
+  .chat-input-hint, .chat-input-count { margin: 0; color: #94a3b8; font-size: .68rem; }
+  .chat-input-hint { flex: 1; }.chat-input-hint.is-error { color: #fca5a5; }
+  .chat-send { min-height: 2rem; padding: .4rem .7rem; border: 0; border-radius: .5rem; color: #fff; background: #4f46e5; cursor: pointer; font: inherit; font-size: .75rem; font-weight: 700; }
+  .chat-send:hover:not(:disabled) { background: #6366f1; }.chat-send:disabled { cursor: wait; opacity: .65; }
+  .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+  @media (max-width: 360px) { .chat-input { padding: .6rem; } .chat-input-footer { align-items: flex-end; flex-wrap: wrap; } .chat-input-hint { flex-basis: 100%; order: 3; } .chat-send { min-height: 2.75rem; padding-inline: .85rem; } }
+</style>

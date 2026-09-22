@@ -1,12 +1,59 @@
-<aside class="chat-widget">
-  <button id="chat-toggle">Chat</button>
-</aside>
+---
+import ChatHeader from './ChatHeader.astro';
+import ChatMessages from './ChatMessages.astro';
+import ChatInput from './ChatInput.astro';
+import StreamingIndicator from './StreamingIndicator.astro';
 
+const welcomeMessage = {
+  role: 'assistant' as const,
+  content: 'Ask me about projects, experience, or how this portfolio was built.',
+};
+---
+
+<aside class="chat-widget" data-chat-widget>
+  <button class="chat-launcher" id="chat-toggle" type="button" aria-controls="chat-panel" aria-expanded="false" aria-label="Open portfolio assistant"><span aria-hidden="true">✦</span><span>Ask me</span><span class="chat-unread" aria-label="New assistant message">1</span></button>
+  <section class="chat-panel" id="chat-panel" aria-labelledby="chat-title" aria-hidden="true" hidden>
+    <ChatHeader />
+    <ChatMessages messages={[welcomeMessage]} />
+    <StreamingIndicator />
+    <ChatInput />
+  </section>
+</aside>
+<script>
+  import { sendMessage, type ChatMessage } from '../lib/chatClient';
+  const HISTORY_KEY = 'portfolio-assistant-history'; const MAX_HISTORY = 50;
+  const widget = document.querySelector<HTMLElement>('[data-chat-widget]'); const toggle = widget?.querySelector<HTMLButtonElement>('#chat-toggle'); const panel = widget?.querySelector<HTMLElement>('#chat-panel'); const close = widget?.querySelector<HTMLButtonElement>('[data-chat-close]'); const clear = widget?.querySelector<HTMLButtonElement>('[data-chat-clear]'); const unread = widget?.querySelector<HTMLElement>('.chat-unread'); const messages = widget?.querySelector<HTMLElement>('[data-chat-messages]'); const indicator = widget?.querySelector<HTMLElement>('[data-streaming-indicator]'); const cancel = widget?.querySelector<HTMLButtonElement>('[data-streaming-cancel]'); const input = widget?.querySelector<HTMLTextAreaElement>('[data-chat-question]'); const send = widget?.querySelector<HTMLButtonElement>('[data-chat-send]');
+  let controller: AbortController | undefined;
+  function storedHistory(): ChatMessage[] { try { const value = JSON.parse(localStorage.getItem(HISTORY_KEY) ?? '[]'); return Array.isArray(value) ? value.filter((item): item is ChatMessage => item && (item.role === 'user' || item.role === 'assistant') && typeof item.content === 'string').slice(-MAX_HISTORY) : []; } catch { return []; } }
+  function saveHistory() { if (!messages) return; const history = Array.from(messages.querySelectorAll<HTMLElement>('[data-message-role]')).map((message) => ({ role: message.dataset.messageRole, content: message.querySelector('.chat-message-content')?.textContent ?? '' })).filter((item): item is ChatMessage => (item.role === 'user' || item.role === 'assistant') && Boolean(item.content.trim())).slice(-MAX_HISTORY); localStorage.setItem(HISTORY_KEY, JSON.stringify(history)); }
+  function setStreaming(active: boolean) { if (indicator) indicator.hidden = !active; }
+  function appendMessage(role: 'user' | 'assistant', content: string) { const article = document.createElement('article'); article.className = `chat-message chat-message-${role}`; article.dataset.messageRole = role; article.innerHTML = `<p class="chat-message-label">${role === 'user' ? 'You' : 'Assistant'}</p><p class="chat-message-content"></p><time class="chat-message-time">${new Intl.DateTimeFormat('en', { hour: 'numeric', minute: '2-digit' }).format(new Date())}</time>`; const contentNode = article.querySelector('.chat-message-content'); if (contentNode) contentNode.textContent = content; messages?.append(article); messages?.scrollTo({ top: messages.scrollHeight, behavior: 'smooth' }); return contentNode; }
+  function loadHistory() { const history = storedHistory(); if (!messages || !history.length) return; messages.innerHTML = ''; history.forEach((item) => appendMessage(item.role, item.content)); }
+  function parseChunk(chunk: string) { return chunk.split(/\r?\n/).map((line) => line.startsWith('data:') ? line.slice(5).trim() : line).filter((line) => line && line !== '[DONE]').join(''); }
+  async function streamResponse(question: string) { if (controller) { controller.abort(); return; } controller = new AbortController(); const history = Array.from(messages?.querySelectorAll<HTMLElement>('[data-message-role]') ?? []).map((message) => ({ role: message.dataset.messageRole, content: message.querySelector('.chat-message-content')?.textContent ?? '' })).filter((item): item is ChatMessage => (item.role === 'user' || item.role === 'assistant') && Boolean(item.content.trim())); appendMessage('user', question); const assistant = appendMessage('assistant', ''); setStreaming(true); let streamedText = ''; try { const result = await sendMessage(question, { history, signal: controller.signal, onChunk: (chunk) => { streamedText = resultText(streamedText, chunk); if (assistant) assistant.textContent = streamedText; messages?.scrollTo({ top: messages.scrollHeight, behavior: 'smooth' }); } }); if (assistant) assistant.textContent = result.answer; saveHistory(); } catch (error) { if ((error as Error).name !== 'AbortError' && assistant) assistant.textContent = error instanceof Error ? error.message : 'The assistant could not answer right now.'; } finally { controller = undefined; setStreaming(false); if (input) input.value = ''; } }
+  function resultText(current: string, chunk: string) { return chunk === current || current.endsWith(chunk) ? current : current + chunk; }
+  function setOpen(open: boolean) { if (!toggle || !panel) return; toggle.setAttribute('aria-expanded', String(open)); panel.setAttribute('aria-hidden', String(!open)); panel.hidden = !open; if (open) { unread?.setAttribute('hidden', 'true'); close?.focus(); } else toggle.focus(); }
+  toggle?.addEventListener('click', () => setOpen(toggle.getAttribute('aria-expanded') !== 'true')); close?.addEventListener('click', () => setOpen(false)); document.addEventListener('keydown', (event) => { if (event.key === 'Escape' && toggle?.getAttribute('aria-expanded') === 'true') setOpen(false); });
+  widget?.addEventListener('chat:submit', (event) => { const content = (event as CustomEvent<{ content?: string }>).detail?.content?.trim(); if (content) void streamResponse(content); });
+  cancel?.addEventListener('click', () => { if (controller) controller.abort(); });
+  clear?.addEventListener('click', () => { localStorage.removeItem(HISTORY_KEY); if (messages) messages.innerHTML = ''; appendMessage('assistant', 'Ask me about projects, experience, or how this portfolio was built.'); });
+  loadHistory();
+</script>
 <style>
-  .chat-widget {
-    position: fixed;
-    bottom: var(--spacing-lg);
-    right: var(--spacing-lg);
-    z-index: 200;
+  .chat-widget { position: fixed; right: max(clamp(1rem, 3vw, 2rem), env(safe-area-inset-right)); bottom: max(clamp(1rem, 3vw, 2rem), env(safe-area-inset-bottom)); z-index: 200; }
+  .chat-launcher, .chat-close { border: 0; cursor: pointer; font: inherit; }
+  .chat-launcher { display: inline-flex; align-items: center; gap: .5rem; min-height: 3rem; padding: .75rem 1rem; border-radius: 999px; color: white; background: linear-gradient(135deg, #4f46e5, #9333ea); box-shadow: 0 .75rem 2rem rgb(15 23 42 / 35%); font-weight: 700; transition: transform 180ms ease, box-shadow 180ms ease; }
+  .chat-launcher:hover { transform: translateY(-2px); }
+  .chat-unread { display: grid; place-items: center; width: 1.25rem; height: 1.25rem; border-radius: 50%; color: #312e81; background: white; font-size: .75rem; }
+  .chat-panel { position: absolute; right: 0; bottom: 4.25rem; display: flex; flex-direction: column; width: min(22rem, calc(100vw - 2rem)); height: min(34rem, calc(100dvh - 6rem)); min-height: 20rem; overflow: hidden; border: 1px solid rgb(148 163 184 / 25%); border-radius: 1rem; color: #e2e8f0; background: #172033; box-shadow: 0 1.5rem 3rem rgb(2 6 23 / 45%); animation: chat-panel-in 180ms ease-out; }
+  .chat-panel-body { flex: 1; padding: 1.25rem; color: #cbd5e1; font-size: .9rem; }
+  .chat-panel-body p { margin: 0; }
+  @keyframes chat-panel-in { from { opacity: 0; transform: translateY(.5rem) scale(.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
+  @media (max-width: 480px) {
+    .chat-widget { right: max(.75rem, env(safe-area-inset-right)); bottom: max(.75rem, env(safe-area-inset-bottom)); }
+    .chat-launcher { min-height: 3.25rem; padding-inline: .9rem; }
+    .chat-panel { position: fixed; inset: max(.5rem, env(safe-area-inset-top)) max(.5rem, env(safe-area-inset-right)) max(5rem, calc(env(safe-area-inset-bottom) + 4.5rem)) max(.5rem, env(safe-area-inset-left)); width: auto; height: auto; min-height: 0; border-radius: .85rem; }
   }
+  @media (max-width: 360px) { .chat-launcher > span:nth-child(2) { display: none; } .chat-panel { inset-inline: .25rem; } }
+  @media (prefers-reduced-motion: reduce) { .chat-panel, .chat-launcher { animation: none; transition: none; } }
 </style>

@@ -1,5 +1,33 @@
 # Current Issues & Deviation Log
 
+### [FACT][RESOLVED] M5 Task 5.9 responsive styling
+
+The chat widget now uses safe-area-aware positioning, a viewport-bounded panel, full-width mobile layout, responsive message sizing, and narrow-screen adaptations for the header, input, and streaming indicator. Typecheck, lint, production build, and diff checks pass on 2026-09-22; the build retains existing POST-only API route warnings and diff check reports only line-ending warnings. The next authorized task is M5 Task 5.10 Integration Testing.
+
+### [FACT][RESOLVED] M5 Task 5.6 streaming integration
+
+`ChatWidget.astro` now consumes streamed SSE or plain-text response chunks, updates the assistant message incrementally, shows an accessible streaming indicator, supports cancellation, and handles JSON responses from the current `/api/chat` endpoint. `StreamingIndicator.astro` provides the live status and Stop control. Typecheck, lint, production build, and diff checks pass on 2026-09-22; the build retains existing POST-only API route warnings and diff check reports only line-ending warnings. The next authorized task is M5 Task 5.7 API Client.
+
+### [FACT][OPEN] M5 backend response is currently non-streaming
+
+`src/pages/api/chat.ts` currently returns a completed JSON response from `chat()`. The M5 Task 5.6 frontend is prepared for SSE/plain-text streaming and falls back to the existing JSON shape, but true end-to-end incremental provider streaming requires the authorized backend/API work in the M4/M5 integration path.
+
+### [FACT][RESOLVED] M5 Task 5.3 chat messages
+
+`ChatMessages.astro` renders typed user and assistant messages with distinct styling, timestamps, accessible live-region semantics, scrollable layout, reduced-motion support, and an empty state. `ChatWidget.astro` composes the component with its initial assistant welcome message. Typecheck, lint, production build, and diff checks pass on 2026-09-22; the build retains existing POST-only API route warnings and diff check reports only line-ending warnings. The next authorized task is M5 Task 5.4 Chat Input.
+
+### [FACT][RESOLVED] M5 Task 5.2 chat header
+
+`ChatHeader.astro` provides the widget title, eyebrow, accessible close button, focus-visible state, and contrast styling. `ChatWidget.astro` composes the header and retains its existing close, Escape, and focus-return behavior. Typecheck, lint, production build, and diff checks pass on 2026-09-22; the build retains existing POST-only API route warnings and diff check reports only line-ending warnings.
+
+### [FACT][RESOLVED] M5 Task 5.1 chat widget wrapper
+
+`ChatWidget.astro` now provides the floating launcher and responsive open/close panel shell, integrated into the home page and shared layout. Typecheck, lint, and production build pass on 2026-09-22. The build retains existing POST-only API route warnings; diff check reports only line-ending warnings.
+
+### [UNKNOWN][OPEN] M5 UI feature dependencies remain pending
+
+Message rendering, input, citations, streaming, API client, history persistence, responsive validation, and integration testing remain authorized future tasks in the M5 dependency graph.
+
 ### [FACT][RESOLVED] M4 Task 4.9 integration testing
 
 `scripts/test-m4-integration.mjs` verifies the injected end-to-end ingestion and grounded chat flow, embedding/vector metadata propagation, status tracking, no-context fallback, API validation/error responses, and the local response-time budget. `npm.cmd run test:m4`, typecheck, lint, and production build pass on 2026-09-22. `git diff --check` exits non-zero only for pre-existing historical tracker whitespace warnings.
@@ -224,6 +252,10 @@ Three project Markdown files now validate through the projects collection, inclu
 
 Stage 4 must not silently modify `requirements.md`, `design.md`, `tasks.md`, or `Feature-spec/`. Any specification conflict must remain documented here and be resolved through explicit authorization. Production deployment and final sign-off belong to Stage 5.
 
+### [FACT][RESOLVED] M5 Task 5.8 history management
+
+`ChatWidget.astro` now restores validated user/assistant messages from localStorage, bounds retained history to 50 messages, persists completed responses, and clears history through the accessible control added to `ChatHeader.astro`. The widget uses `sendMessage()` for requests and retains session history for subsequent API calls. Typecheck, lint, build, and diff checks pass on 2026-09-22. The next authorized task is M5 Task 5.9 Responsive Styling.
+
 ### [FACT][RESOLVED] M2 Task 2.6 page layout integration
 
 `src/pages/index.astro` imports and renders the row components in the approved page layout. The rendered rows expose the `home`, `projects`, `activities`, `experience`, and `contact` section IDs consumed by `SidebarNav.astro`. Navigation-to-section integration is verified by successful typecheck, lint, build, and diff checks on 2026-09-22.
@@ -246,3 +278,16 @@ Responsive implementation rules were checked against the M2 acceptance criteria 
 ### [FACT][RESOLVED] M4 embedding provider migration
 
 M4 now uses the official `@huggingface/inference` client with `sentence-transformers/all-MiniLM-L6-v2` for both ingestion and chat-query embeddings. Pinecone is configured for 384 dimensions; configuration and vector validation report an actionable migration error when an existing index is still 1536-dimensional. `HF_TOKEN` is server-only and `GROQ_API_KEY` remains the chat-generation credential. Existing 1536-dimensional indexes must be replaced or re-embedded; vectors from the two models must not be mixed.
+### [FACT][RESOLVED] M5 Task 5.4 Chat Input
+
+`src/components/ChatInput.astro` provides the validated question form, maximum-length enforcement, Enter-key submission, accessible status feedback, character count, disabled sending state, and a `chat:submit` custom event for the later API-client task. It is integrated into `ChatWidget.astro`. Typecheck, lint, build, and diff checks pass on 2026-09-22. The event is intentionally not connected to the backend until M5 Tasks 5.6 and 5.7.
+
+### [FACT][RESOLVED] M5 Task 5.5 Citation Display
+
+`src/components/CitationDisplay.astro` renders numbered source links with optional source previews and external-link handling. `ChatMessages.astro` supports optional assistant citations and links inline `[n]` references to the corresponding source entry. Typecheck, lint, production build, and `git diff --check` pass on 2026-09-22; the diff check reports only existing Windows line-ending warnings.
+### [FACT][RESOLVED] M5 Task 5.7 API client
+
+`src/lib/chatClient.ts` provides a typed `sendMessage()` client for `/api/chat`, validates non-empty queries, sends conversation history, supports `AbortSignal` cancellation, normalizes HTTP and API errors, handles JSON responses, and parses SSE/plain-text streaming responses while preserving citations and exposing incremental chunks. Typecheck, lint, build, and diff checks pass on 2026-09-22. Live provider verification remains unavailable without operator credentials.
+### [FACT][RESOLVED] M5 Task 5.10 integration testing
+
+`scripts/test-m5-integration.mjs` verifies M5 component composition, streaming chunks and citations through the API client, conversation-history request wiring, input validation, localStorage history bounds, responsive/reduced-motion hooks, and accessibility markers. It also fixed a timing defect where `ChatWidget.astro` read the unresolved streaming result from its chunk callback. `npm.cmd run test:m5`, typecheck, lint, build, and diff checks pass on 2026-09-22. The next authorized task is M6 Task 6.1 PWA Configuration.
