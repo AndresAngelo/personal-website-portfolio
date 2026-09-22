@@ -1,0 +1,48 @@
+---
+import { defaultLanguage, supportedLanguages, type SupportedLanguage, t } from '../lib/i18n';
+
+interface Props {
+  currentLanguage?: SupportedLanguage;
+}
+
+const { currentLanguage = defaultLanguage } = Astro.props;
+const languageNames: Record<SupportedLanguage, string> = { en: 'English', es: 'Español' };
+---
+
+<label class="inline-flex items-center gap-2 text-sm text-slate-300">
+  <span class="sr-only">{t(currentLanguage, 'common.language')}</span>
+  <span aria-hidden="true">🌐</span>
+  <select
+    class="rounded-lg border border-slate-700 bg-slate-900 px-2 py-1.5 text-sm text-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+    data-language-selector
+    aria-label={t(currentLanguage, 'common.language')}
+  >
+    {supportedLanguages.map((language) => (
+      <option value={language} selected={language === currentLanguage}>{languageNames[language]}</option>
+    ))}
+  </select>
+</label>
+
+<script>
+  const storageKey = 'preferred-language';
+  const supportedLanguages = ['en', 'es'];
+
+  function localizedPath(language: string): string {
+    const path = window.location.pathname.replace(/^\/(en|es)(?=\/|$)/, '') || '/';
+    return `/${language}${path}${window.location.search}${window.location.hash}`;
+  }
+
+  document.querySelectorAll<HTMLSelectElement>('[data-language-selector]').forEach((selector) => {
+    const stored = window.localStorage.getItem(storageKey);
+    if (stored && supportedLanguages.includes(stored) && stored !== selector.value) {
+      selector.value = stored;
+    }
+
+    selector.addEventListener('change', () => {
+      const language = selector.value;
+      if (!supportedLanguages.includes(language)) return;
+      window.localStorage.setItem(storageKey, language);
+      window.location.assign(localizedPath(language));
+    });
+  });
+</script>

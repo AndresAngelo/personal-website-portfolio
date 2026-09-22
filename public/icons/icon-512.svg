@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-labelledby="title">
+  <title id="title">Angelo Andres portfolio icon</title>
+  <rect width="512" height="512" rx="102" fill="#0d1117"/>
+  <rect x="32" y="32" width="448" height="448" rx="80" fill="none" stroke="#58a6ff" stroke-width="16"/>
+  <path d="M141 365 229 147h54l88 218h-54l-19-51H211l-19 51h-51Zm85-96h56l-28-77-28 77Z" fill="#f0f6fc"/>
+</svg>

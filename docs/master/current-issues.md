@@ -1,5 +1,29 @@
 # Current Issues & Deviation Log
 
+### [FACT][RESOLVED] M6 Task 6.9 testing
+
+`scripts/test-m6-integration.mjs` and `npm.cmd run test:m6` validate the PWA manifest, service-worker install/activate/fetch behavior with cache-first static and network-first API handling, translation-key parity, locale-prefixed routing, and language preference persistence/URL construction. The test found that the active static home routes lacked manifest and service-worker integration; `src/pages/index.astro` and `src/pages/[lang]/index.astro` now provide both. Typecheck, lint, build, and diff checks pass on 2026-09-22. Lighthouse PWA audit is UNKNOWN because no browser audit surface is available in this environment. Existing duplicate-route, POST-only API, and Windows line-ending warnings remain non-blocking. The next authorized task is M7 Task 7.1 Performance Audit Setup.
+
+### [FACT][RESOLVED] M6 Task 6.8 i18n integration
+
+Locale-aware translation lookup is now integrated into section navigation, the shared layout, home/contact/activity/experience content, and static `/en/` and `/es/` home routes. Typecheck, lint, build, and diff checks pass on 2026-09-22. Existing duplicate-route, POST-only API, and Windows line-ending warnings remain non-blocking. The next authorized task is M6 Task 6.9 Testing.
+
+### [FACT][RESOLVED] M6 Task 6.7 language selector
+
+`src/components/LanguageSelector.astro` provides an accessible English/Spanish selector in both site layouts, stores the preference under `preferred-language`, and updates the locale-prefixed URL while preserving the current path, query string, and hash. Typecheck, lint, production build, and diff checks pass on 2026-09-22; existing build warnings and Windows line-ending warnings remain non-blocking. The next authorized task is M6 Task 6.8 i18n Integration.
+
+### [FACT][RESOLVED] M6 Task 6.6 i18n configuration
+
+`astro.config.mjs` configures Astro routing for `en` and `es`, uses English as the default locale, prefixes the default locale to satisfy the `/{lang}/{path}` URL structure, and configures Spanish fallback to English. Typecheck, lint, and production build pass on 2026-09-22. `git diff --check` reports only existing generated `.astro/content-assets.mjs` whitespace and Windows line-ending warnings; the build retains existing duplicate-route and POST-only API warnings. The next authorized task is M6 Task 6.7 Language Selector.
+
+### [FACT][RESOLVED] M6 Task 6.2 service worker setup
+
+`src/scripts/sw.js` and deployable `public/sw.js` implement install, activate, and fetch lifecycle handlers. `src/components/Layout.astro` registers `/sw.js` after page load so the worker is served from the site root in production. Cache policy remains intentionally deferred to M6 Task 6.3. Typecheck, lint, production build, and diff checks pass on 2026-09-22; existing POST-only API route warnings and line-ending warnings remain non-blocking. The next authorized task is M6 Task 6.3 Cache Strategy.
+
+### [FACT][RESOLVED] M6 Task 6.1 PWA manifest
+
+`public/manifest.webmanifest` now includes required application metadata, standalone display mode, theme/background colors, and 192x192 and 512x512 install icons in `public/icons/`. Manifest validation, typecheck, lint, production build, and diff checks pass on 2026-09-22. The next authorized task is M6 Task 6.2 Service Worker Setup.
+
 ### [FACT][RESOLVED] M5 Task 5.9 responsive styling
 
 The chat widget now uses safe-area-aware positioning, a viewport-bounded panel, full-width mobile layout, responsive message sizing, and narrow-screen adaptations for the header, input, and streaming indicator. Typecheck, lint, production build, and diff checks pass on 2026-09-22; the build retains existing POST-only API route warnings and diff check reports only line-ending warnings. The next authorized task is M5 Task 5.10 Integration Testing.
@@ -291,3 +315,12 @@ M4 now uses the official `@huggingface/inference` client with `sentence-transfor
 ### [FACT][RESOLVED] M5 Task 5.10 integration testing
 
 `scripts/test-m5-integration.mjs` verifies M5 component composition, streaming chunks and citations through the API client, conversation-history request wiring, input validation, localStorage history bounds, responsive/reduced-motion hooks, and accessibility markers. It also fixed a timing defect where `ChatWidget.astro` read the unresolved streaming result from its chunk callback. `npm.cmd run test:m5`, typecheck, lint, build, and diff checks pass on 2026-09-22. The next authorized task is M6 Task 6.1 PWA Configuration.
+### [FACT][RESOLVED] M6 Task 6.3 cache strategy
+
+`src/scripts/sw.js` and the deployable `public/sw.js` now use versioned static/runtime caches, precache the shell manifest/icons, apply cache-first handling to same-origin non-navigation GET requests, apply network-first handling to `/api/` and navigations, cache successful runtime GET responses, and remove stale `portfolio-*` caches on activation. Typecheck, lint, build, and diff checks pass on 2026-09-22. The existing build warnings for POST-only API routes and Windows line endings are non-blocking.
+### [FACT][RESOLVED] M6 Task 6.4 translation structure
+
+`src/content/i18n/en.json` and `src/content/i18n/es.json` define the structured translation namespaces. `src/lib/i18n.ts` exposes English/Spanish locale types, dot-notation translation keys, English fallback lookup, and missing-key detection with development warnings. Typecheck, lint, build, and `git diff --check` pass on 2026-09-22. The next authorized task is M6 Task 6.5 Translation Files.
+### [FACT][RESOLVED] M6 Task 6.5 translation files
+
+`src/content/i18n/en.json` and `src/content/i18n/es.json` now provide matching structured translations for the existing navigation, common controls, portfolio sections, contact form, chat assistant, accessibility labels, and error messaging. JSON syntax and 67-leaf-key parity pass. Typecheck, lint, build, and `git diff --check` pass on 2026-09-22. The next authorized task is M6 Task 6.6 i18n Configuration.

@@ -6,16 +6,24 @@ import HomeRow from '../components/rows/HomeRow.astro';
 import ProjectsRow from '../components/rows/ProjectsRow.astro';
 import SidebarNav from '../components/SidebarNav.astro';
 import ChatWidget from '../components/ChatWidget.astro';
+import { getLanguageFromPath, t } from '../lib/i18n';
+const language = getLanguageFromPath(Astro.url.pathname);
 ---
+<link rel="manifest" href="/manifest.webmanifest" />
 <SidebarNav />
 <main class="portfolio-content">
-  <HomeRow title="AEA Personal Portfolio" subtitle="A focused collection of projects, activities, and experience." ctaText="View projects" ctaUrl="#projects" />
+  <HomeRow title={t(language, 'site.title')} subtitle={t(language, 'site.description')} ctaText={t(language, 'navigation.projects')} ctaUrl="#projects" />
   <ProjectsRow />
-  <ActivitiesRow />
-  <ExperienceRow />
-  <ContactRow email="hello@example.com" />
+  <ActivitiesRow title={t(language, 'navigation.activities')} />
+  <ExperienceRow title={t(language, 'navigation.experience')} />
+  <ContactRow title={t(language, 'contact.getInTouch')} subtitle={t(language, 'contact.subtitle')} email="hello@example.com" />
 </main>
 <ChatWidget />
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => navigator.serviceWorker.register('/sw.js'));
+  }
+</script>
 <script>
   const animatedRows = [...document.querySelectorAll<HTMLElement>('.portfolio-content > section')];
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;

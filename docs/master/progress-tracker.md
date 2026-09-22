@@ -1,4 +1,159 @@
+## Stage 4 Session Update - 2026-09-22 (M6 Task 6.9)
+
+**FACT - Completed task**: M6 Task 6.9 adds `npm.cmd run test:m6`, which validates the manifest contract, deployable service-worker lifecycle and cache strategies, translation-key parity, Astro locale routing, and language-selector persistence/URL behavior. The test also exposed and this task repaired missing manifest/service-worker integration on the static home routes.
+
+**FACT - Verification**: `npm.cmd run test:m6`, `npm.cmd run typecheck`, `npm.cmd run lint`, `npm.cmd run build`, and `git diff --check` completed successfully. The build emits existing duplicate-route and POST-only API warnings; diff check emits existing Windows line-ending warnings. Lighthouse PWA audit remains unavailable in this environment because no browser audit surface is exposed.
+
+## Stage 4 State
+
+**Pipeline Stage**: 4
+**Status**: IMPLEMENTING
+**Current Phase**: Phase 5 / M6-PWA-i18n
+**Current Goalpost**: M6 Task 6.9
+**Current Task**: Testing
+**Completed Goalposts**: M4 Tasks 4.1 through 4.9; M5 Tasks 5.1 through 5.10; M6 Tasks 6.1 through 6.9
+**Last Verified Goalpost**: M6 Task 6.9
+**Modified Files**: `scripts/test-m6-integration.mjs`, `package.json`, `src/pages/index.astro`, `src/pages/[lang]/index.astro`, `docs/master/progress-tracker.md`, `docs/master/current-issues.md`
+**Verification Results**: M6 integration test PASS; typecheck PASS; lint PASS; build PASS; diff check completed with existing warnings.
+**Known Issues**: See `docs/master/current-issues.md`.
+**Next Authorized Task**: M7 Task 7.1 — Performance Audit Setup.
+**Last Updated**: 2026-09-22
+
 ---
+
+## Stage 4 Session Update - 2026-09-22 (M6 Task 6.8)
+
+**FACT - Completed task**: M6 Task 6.8 integrates the existing translation utilities into locale-aware section navigation, the shared layout, home/contact/activity/experience content, and static `/en/` and `/es/` home routes. Locale detection preserves English fallback behavior.
+
+**FACT - Verification**: `npm.cmd run typecheck`, `npm.cmd run lint`, `npm.cmd run build`, and `git diff --check` completed successfully. The build emits existing duplicate-route and POST-only API warnings; diff check emits existing Windows line-ending warnings.
+
+## Stage 4 State
+
+**Pipeline Stage**: 4
+**Status**: IMPLEMENTING
+**Current Phase**: Phase 5 / M6-PWA-i18n
+**Current Goalpost**: M6 Task 6.8
+**Current Task**: i18n Integration
+**Completed Goalposts**: M4 Tasks 4.1 through 4.9; M5 Tasks 5.1 through 5.10; M6 Tasks 6.1 through 6.8
+**Last Verified Goalpost**: M6 Task 6.8
+**Modified Files**: `src/lib/i18n.ts`, `src/components/SidebarNav.astro`, `src/layouts/Layout.astro`, `src/pages/index.astro`, `src/pages/[lang]/index.astro`, translated row components, `docs/master/progress-tracker.md`, `docs/master/current-issues.md`
+**Verification Results**: Typecheck PASS; lint PASS; build PASS; diff check completed with existing warnings.
+**Known Issues**: See `docs/master/current-issues.md`.
+**Next Authorized Task**: M6 Task 6.9 — Testing.
+**Last Updated**: 2026-09-22
+
+---
+
+## Stage 4 Session Update - 2026-09-22 (M6 Task 6.6)
+
+**FACT - Completed task**: M6 Task 6.6 configures Astro i18n routing for English and Spanish, prefixes the default locale in URLs, and falls back Spanish translations to English.
+
+**FACT - Verification**: `npm.cmd run typecheck`, `npm.cmd run lint`, `npm.cmd run build`, and `git diff --check` completed. Typecheck, lint, and build pass. The diff check reports existing generated `.astro/content-assets.mjs` whitespace and Windows line-ending warnings. The build retains existing duplicate-route and POST-only API warnings.
+
+## Stage 4 State
+
+**Pipeline Stage**: 4
+**Status**: IMPLEMENTING
+**Current Phase**: Phase 5 / M6-PWA-i18n
+**Current Goalpost**: M6 Task 6.6
+**Current Task**: i18n Configuration
+**Completed Goalposts**: M4 Tasks 4.1 through 4.9; M5 Tasks 5.1 through 5.10; M6 Tasks 6.1 through 6.6
+**Last Verified Goalpost**: M6 Task 6.6
+**Modified Files**: `astro.config.mjs`, `docs/master/progress-tracker.md`, `docs/master/current-issues.md`
+**Verification Results**: Typecheck PASS; lint PASS; build PASS; diff check completed with existing warnings.
+**Known Issues**: See `docs/master/current-issues.md`.
+**Next Authorized Task**: M6 Task 6.7 — Language Selector.
+**Last Updated**: 2026-09-22
+
+---
+
+## Stage 4 Session Update - 2026-09-22 (M6 Task 6.4)
+
+**FACT - Completed task**: M6 Task 6.4 adds structured English and Spanish JSON translations, typed dot-notation translation keys, English fallback lookup, and missing-key detection with development warnings.
+
+**FACT - Verification**: `npm.cmd run typecheck`, `npm.cmd run lint`, `npm.cmd run build`, and `git diff --check` PASS. The production build emits the existing cache-strategy worker. Existing POST-only API route warnings and Windows line-ending warnings remain non-blocking.
+
+## Stage 4 State
+
+**Pipeline Stage**: 4
+**Status**: IMPLEMENTING
+**Current Phase**: Phase 5 / M6-PWA-i18n
+**Current Goalpost**: M6 Task 6.4
+**Current Task**: Translation Structure
+**Completed Goalposts**: M4 Tasks 4.1 through 4.9; M5 Tasks 5.1 through 5.10; M6 Tasks 6.1 through 6.4
+**Last Verified Goalpost**: M6 Task 6.4
+**Modified Files**: `src/content/i18n/en.json`, `src/content/i18n/es.json`, `src/lib/i18n.ts`, `tsconfig.json`, `docs/master/progress-tracker.md`, `docs/master/current-issues.md`
+**Verification Results**: Typecheck PASS; lint PASS; build PASS; diff check PASS.
+**Known Issues**: See `docs/master/current-issues.md`.
+**Next Authorized Task**: M6 Task 6.5 — Translation Files.
+**Last Updated**: 2026-09-22
+
+---
+
+## Stage 4 Session Update - 2026-09-22 (M6 Task 6.3)
+
+**FACT - Completed task**: M6 Task 6.3 adds versioned service-worker caching. The worker precaches the shell manifest/icons, uses cache-first for same-origin static resources, network-first for API and navigations, caches successful dynamic GET responses, and removes stale portfolio caches during activation.
+
+**FACT - Verification**: `npm.cmd run typecheck`, `npm.cmd run lint`, `npm.cmd run build`, and `git diff --check` PASS. The production build emits the cache-strategy worker at `dist/sw.js`. Existing POST-only API route warnings and Windows line-ending warnings remain non-blocking.
+
+## Stage 4 State
+
+**Pipeline Stage**: 4
+**Status**: IMPLEMENTING
+**Current Phase**: Phase 5 / M6-PWA-i18n
+**Current Goalpost**: M6 Task 6.3
+**Current Task**: Cache Strategy
+**Completed Goalposts**: M4 Tasks 4.1 through 4.9; M5 Tasks 5.1 through 5.10; M6 Tasks 6.1 through 6.3
+**Last Verified Goalpost**: M6 Task 6.3
+**Modified Files**: `src/scripts/sw.js`, `public/sw.js`, `docs/master/progress-tracker.md`, `docs/master/current-issues.md`
+**Verification Results**: Typecheck PASS; lint PASS; build PASS; diff check PASS; production `dist/sw.js` cache-strategy assertion PASS.
+**Known Issues**: See `docs/master/current-issues.md`.
+**Next Authorized Task**: M6 Task 6.4 — Translation Structure.
+**Last Updated**: 2026-09-22
+
+---
+## Stage 4 Session Update - 2026-09-22 (M6 Task 6.2)
+
+**FACT - Completed task**: M6 Task 6.2 adds service-worker lifecycle handlers, a deployable root-level worker, and page-load registration. Cache policy remains deferred to M6 Task 6.3.
+
+**FACT - Verification**: `npm.cmd run typecheck`, `npm.cmd run lint`, `npm.cmd run build`, and `git diff --check` PASS. The production build emits `dist/sw.js` with install, activate, and fetch handlers. Existing POST-only API route warnings and Windows line-ending warnings remain non-blocking.
+
+## Stage 4 State
+
+**Pipeline Stage**: 4
+**Status**: IMPLEMENTING
+**Current Phase**: Phase 5 / M6-PWA-i18n
+**Current Goalpost**: M6 Task 6.2
+**Current Task**: Service Worker Setup
+**Completed Goalposts**: M4 Tasks 4.1 through 4.9; M5 Tasks 5.1 through 5.10; M6 Tasks 6.1 through 6.2
+**Last Verified Goalpost**: M6 Task 6.2
+**Modified Files**: `src/scripts/sw.js`, `public/sw.js`, `src/components/Layout.astro`, `docs/master/progress-tracker.md`, `docs/master/current-issues.md`
+**Verification Results**: Typecheck PASS; lint PASS; build PASS; diff check PASS; production `dist/sw.js` assertion PASS.
+**Known Issues**: See `docs/master/current-issues.md`.
+**Next Authorized Task**: M6 Task 6.3 — Cache Strategy.
+**Last Updated**: 2026-09-22
+
+## Stage 4 Session Update - 2026-09-22 (M6 Task 6.1)
+
+**FACT - Completed task**: M6 Task 6.1 completes the PWA manifest with application metadata, standalone display configuration, theme/background colors, and 192x192 and 512x512 install icons.
+
+**FACT - Verification**: Manifest validation, `npm.cmd run typecheck`, `npm.cmd run lint`, `npm.cmd run build`, and `git diff --check` PASS. The build retains existing POST-only API route warnings; diff check reports Windows line-ending warnings only.
+
+## Stage 4 State
+
+**Pipeline Stage**: 4
+**Status**: IMPLEMENTING
+**Current Phase**: Phase 5 / M6-PWA-i18n
+**Current Goalpost**: M6 Task 6.1
+**Current Task**: PWA Manifest
+**Completed Goalposts**: M4 Tasks 4.1 through 4.9; M5 Tasks 5.1 through 5.10; M6 Task 6.1
+**Last Verified Goalpost**: M6 Task 6.1
+**Modified Files**: `public/manifest.webmanifest`, `public/icons/icon-192.svg`, `public/icons/icon-512.svg`, `docs/master/progress-tracker.md`, `docs/master/current-issues.md`
+**Verification Results**: Manifest validation PASS; `npm.cmd run typecheck` PASS; `npm.cmd run lint` PASS; `npm.cmd run build` PASS; `git diff --check` PASS with line-ending warnings only.
+**Known Issues**: See `docs/master/current-issues.md`.
+**Next Authorized Task**: M6 Task 6.2 — Service Worker Setup.
+**Last Updated**: 2026-09-22
+
 ## Stage 4 Session Update - 2026-09-22 (M5 Task 5.10)
 
 **FACT - Completed task**: M5 Task 5.10 adds `scripts/test-m5-integration.mjs` and the `npm.cmd run test:m5` command. The integration harness verifies the composed widget components, streaming client behavior with conversation history and citations, input validation, localStorage history wiring, responsive/reduced-motion hooks, and accessibility markers. It also exposed and fixed a streaming callback timing defect in `ChatWidget.astro` by accumulating chunks independently of the unresolved promise result.
@@ -822,3 +977,45 @@ pm.cmd run build`, and `git diff --check` all pass.
 **Known Issues**: See `docs/master/current-issues.md`.
 **Next Authorized Task**: M5 Task 5.5 — Citation Display.
 **Last Updated**: 2026-09-22
+## Stage 4 Session Update - 2026-09-22 (M6 Task 6.5)
+
+**FACT - Completed task**: M6 Task 6.5 expands the English and Spanish JSON translation files to cover the existing navigation, common controls, portfolio sections, contact form, chat assistant, accessibility labels, and error messaging. Both files contain matching structured keys and valid JSON.
+
+**FACT - Verification**: Translation JSON syntax and key parity validation passed with 67 leaf keys. `npm.cmd run typecheck`, `npm.cmd run lint`, `npm.cmd run build`, and `git diff --check` PASS. The production build emits the existing cache-strategy worker, POST-only API route warnings, and Windows line-ending warnings; these remain non-blocking.
+
+## Stage 4 State
+
+**Pipeline Stage**: 4
+**Status**: IMPLEMENTING
+**Current Phase**: Phase 5 / M6-PWA-i18n
+**Current Goalpost**: M6 Task 6.5
+**Current Task**: Translation Files
+**Completed Goalposts**: M4 Tasks 4.1 through 4.9; M5 Tasks 5.1 through 5.10; M6 Tasks 6.1 through 6.5
+**Last Verified Goalpost**: M6 Task 6.5
+**Modified Files**: `src/content/i18n/en.json`, `src/content/i18n/es.json`, `docs/master/progress-tracker.md`, `docs/master/current-issues.md`
+**Verification Results**: Translation JSON/key parity PASS (67 keys); typecheck PASS; lint PASS; build PASS; diff check PASS.
+**Known Issues**: See `docs/master/current-issues.md`.
+**Next Authorized Task**: M6 Task 6.6 — i18n Configuration.
+**Last Updated**: 2026-09-22
+## Stage 4 Session Update - 2026-09-22 (M6 Task 6.7)
+
+**FACT - Completed task**: M6 Task 6.7 adds a reusable accessible language selector to both site layouts. It lists English and Spanish, persists the selected locale in localStorage, and preserves the current path, query, and hash while navigating to the locale-prefixed URL.
+
+**FACT - Verification**: `npm.cmd run typecheck`, `npm.cmd run lint`, `npm.cmd run build`, and `git diff --check` completed. Typecheck, lint, and build pass. The diff check reports existing Windows line-ending warnings. The build retains existing duplicate-route and POST-only API warnings.
+
+## Stage 4 State
+
+**Pipeline Stage**: 4
+**Status**: IMPLEMENTING
+**Current Phase**: Phase 5 / M6-PWA-i18n
+**Current Goalpost**: M6 Task 6.7
+**Current Task**: Language Selector
+**Completed Goalposts**: M4 Tasks 4.1 through 4.9; M5 Tasks 5.1 through 5.10; M6 Tasks 6.1 through 6.7
+**Last Verified Goalpost**: M6 Task 6.7
+**Modified Files**: `src/components/LanguageSelector.astro`, `src/layouts/Layout.astro`, `src/layouts/RootLayout.astro`, `docs/master/progress-tracker.md`, `docs/master/current-issues.md`
+**Verification Results**: Typecheck PASS; lint PASS; build PASS; diff check completed with existing warnings.
+**Known Issues**: See `docs/master/current-issues.md`.
+**Next Authorized Task**: M6 Task 6.8 — i18n Integration.
+**Last Updated**: 2026-09-22
+
+---

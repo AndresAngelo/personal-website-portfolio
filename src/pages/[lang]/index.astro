@@ -1,0 +1,31 @@
+---
+import ActivitiesRow from '../../components/rows/ActivitiesRow.astro';
+import ContactRow from '../../components/rows/ContactRow.astro';
+import ExperienceRow from '../../components/rows/ExperienceRow.astro';
+import HomeRow from '../../components/rows/HomeRow.astro';
+import ProjectsRow from '../../components/rows/ProjectsRow.astro';
+import SidebarNav from '../../components/SidebarNav.astro';
+import ChatWidget from '../../components/ChatWidget.astro';
+import { supportedLanguages, t, type SupportedLanguage } from '../../lib/i18n';
+
+export function getStaticPaths() {
+  return supportedLanguages.map((lang) => ({ params: { lang }, props: { lang } }));
+}
+
+const language = Astro.props.lang as SupportedLanguage;
+---
+<link rel="manifest" href="/manifest.webmanifest" />
+<SidebarNav />
+<main class="portfolio-content">
+  <HomeRow title={t(language, 'site.title')} subtitle={t(language, 'site.description')} ctaText={t(language, 'navigation.projects')} ctaUrl="#projects" />
+  <ProjectsRow />
+  <ActivitiesRow title={t(language, 'navigation.activities')} />
+  <ExperienceRow title={t(language, 'navigation.experience')} />
+  <ContactRow title={t(language, 'contact.getInTouch')} subtitle={t(language, 'contact.subtitle')} email="hello@example.com" />
+</main>
+<ChatWidget />
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => navigator.serviceWorker.register('/sw.js'));
+  }
+</script>

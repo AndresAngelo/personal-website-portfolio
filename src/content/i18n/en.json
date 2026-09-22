@@ -1,0 +1,12 @@
+{
+  "site": { "title": "Angelo Andres Portfolio", "description": "Personal portfolio and projects" },
+  "navigation": { "home": "Home", "projects": "Projects", "activities": "Activities", "experience": "Experience", "contact": "Contact", "main": "Main navigation", "sections": "Section navigation", "footer": "Footer navigation" },
+  "common": { "language": "Language", "loading": "Loading", "openMenu": "Open menu", "closeMenu": "Close menu", "close": "Close", "send": "Send", "stop": "Stop", "save": "Save", "sources": "Sources", "previewSource": "Preview source", "viewSource": "View source", "tags": "Tags", "latestMessage": "Latest message" },
+  "home": { "title": "Home / About", "visitPlatform": "Visit {platform}" },
+  "projects": { "title": "Projects", "pinned": "Pinned project", "viewDetails": "View details for {title}", "technologies": "{title} technologies" },
+  "activities": { "title": "Activities", "personal": "Personal", "community": "Community", "work": "Work" },
+  "experience": { "title": "Experience", "label": "Experience" },
+  "contact": { "title": "Contact", "getInTouch": "Get in Touch", "subtitle": "Have a question or want to collaborate? Send me a message.", "form": "Contact form", "name": "Name", "fullName": "Your full name", "email": "Email", "emailPlaceholder": "you@example.com", "emailHint": "Please include a valid email address so I can respond.", "message": "Message", "messagePlaceholder": "Tell me about your project or question...", "sendMessage": "Send Message", "success": "Thank you for your message! I'll get back to you soon.", "reachElsewhere": "Or reach me elsewhere:", "location": "Location", "remote": "Remote / Open to relocation", "socials": "Socials", "downloadResume": "Download Resume" },
+  "chat": { "askMe": "Ask me", "newMessage": "New assistant message", "openAssistant": "Open portfolio assistant", "closeAssistant": "Close portfolio assistant", "clearHistory": "Clear conversation history", "yourQuestion": "Your question", "questionPlaceholder": "Ask a question about my portfolio...", "pressEnter": "Press Enter to send", "sendQuestion": "Send question", "conversationMessages": "Conversation messages", "assistantTyping": "Assistant is typing…", "you": "You", "assistant": "Assistant" },
+  "errors": { "assistantUnavailable": "The assistant could not answer right now." }
+}

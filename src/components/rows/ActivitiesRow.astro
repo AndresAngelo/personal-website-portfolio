@@ -1,6 +1,7 @@
 ---
 /** @type {import('astro').PartialAstroProps} */
 interface Props {
+  title?: string;
   activities?: Array<{
     title: string;
     description: string;
@@ -27,7 +28,7 @@ const emptyActivitiesMessage = "No activities yet. This section will display you
 
 <section class="activities-row" id="activities">
   <div class="row-header">
-    <h2>Activities</h2>
+    <h2>{props.title ?? 'Activities'}</h2>
     {props.activities?.length === 0 ? (
       <p class="empty-message">{emptyActivitiesMessage}</p>
     ) : null}

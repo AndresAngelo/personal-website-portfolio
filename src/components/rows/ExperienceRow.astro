@@ -1,6 +1,7 @@
 ---
 /** @type {import("astro").PartialAstroProps} */
 interface Props {
+  title?: string;
   experience?: Array<{
     company: string;
     role: string;
@@ -19,7 +20,7 @@ const emptyExperienceMessage = "No experience yet. Share your work journey with 
 
 <section class="experience-row" id="experience">
   <div class="row-header">
-    <h2>Experience</h2>
+    <h2>{props.title ?? 'Experience'}</h2>
     {props.experience?.length === 0 ? (
       <p class="empty-message">{emptyExperienceMessage}</p>
     ) : null}

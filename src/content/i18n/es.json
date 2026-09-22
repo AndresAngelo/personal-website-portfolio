@@ -1,0 +1,12 @@
+{
+  "site": { "title": "Portafolio de Angelo Andres", "description": "Portafolio personal y proyectos" },
+  "navigation": { "home": "Inicio", "projects": "Proyectos", "activities": "Actividades", "experience": "Experiencia", "contact": "Contacto", "main": "Navegación principal", "sections": "Navegación de secciones", "footer": "Navegación del pie de página" },
+  "common": { "language": "Idioma", "loading": "Cargando", "openMenu": "Abrir menú", "closeMenu": "Cerrar menú", "close": "Cerrar", "send": "Enviar", "stop": "Detener", "save": "Guardar", "sources": "Fuentes", "previewSource": "Vista previa de la fuente", "viewSource": "Ver fuente", "tags": "Etiquetas", "latestMessage": "Último mensaje" },
+  "home": { "title": "Inicio / Sobre mí", "visitPlatform": "Visitar {platform}" },
+  "projects": { "title": "Proyectos", "pinned": "Proyecto destacado", "viewDetails": "Ver detalles de {title}", "technologies": "Tecnologías de {title}" },
+  "activities": { "title": "Actividades", "personal": "Personal", "community": "Comunidad", "work": "Trabajo" },
+  "experience": { "title": "Experiencia", "label": "Experiencia" },
+  "contact": { "title": "Contacto", "getInTouch": "Ponte en contacto", "subtitle": "¿Tienes una pregunta o quieres colaborar? Envíame un mensaje.", "form": "Formulario de contacto", "name": "Nombre", "fullName": "Tu nombre completo", "email": "Correo electrónico", "emailPlaceholder": "tu@ejemplo.com", "emailHint": "Incluye un correo válido para que pueda responderte.", "message": "Mensaje", "messagePlaceholder": "Cuéntame sobre tu proyecto o idea...", "sendMessage": "Enviar mensaje", "success": "¡Gracias por tu mensaje! Te responderé pronto.", "reachElsewhere": "O contáctame por otro medio:", "location": "Ubicación", "remote": "Remoto / Abierto a reubicación", "socials": "Redes sociales", "downloadResume": "Descargar currículum" },
+  "chat": { "askMe": "Pregúntame", "newMessage": "Nuevo mensaje del asistente", "openAssistant": "Abrir asistente del portafolio", "closeAssistant": "Cerrar asistente del portafolio", "clearHistory": "Borrar historial de conversación", "yourQuestion": "Tu pregunta", "questionPlaceholder": "Pregunta sobre mi portafolio...", "pressEnter": "Presiona Enter para enviar", "sendQuestion": "Enviar pregunta", "conversationMessages": "Mensajes de la conversación", "assistantTyping": "El asistente está escribiendo…", "you": "Tú", "assistant": "Asistente" },
+  "errors": { "assistantUnavailable": "El asistente no puede responder en este momento." }
+}
