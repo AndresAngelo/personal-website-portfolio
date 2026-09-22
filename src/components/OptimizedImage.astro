@@ -1,0 +1,48 @@
+---
+import { Picture } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+  src: ImageMetadata;
+  alt: string;
+  width?: number;
+  height?: number;
+  sizes?: string;
+  widths?: number[];
+  loading?: 'eager' | 'lazy';
+  fetchpriority?: 'high' | 'low' | 'auto';
+  class?: string;
+}
+
+const {
+  src,
+  alt,
+  width,
+  height,
+  sizes = '100vw',
+  widths = [320, 640, 960, 1280],
+  loading = 'lazy',
+  fetchpriority = loading === 'eager' ? 'high' : 'auto',
+  class: className,
+} = Astro.props;
+
+const resolvedWidth = width ?? src.width;
+const resolvedHeight = height ?? src.height;
+const blurData = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 ${resolvedWidth} ${resolvedHeight}'%3E%3Cfilter id='b'%3E%3CfeGaussianBlur stdDeviation='18'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' fill='%2321262d' filter='url(%23b)'/%3E%3C/svg%3E`;
+---
+
+<Picture
+  src={src}
+  widths={widths}
+  sizes={sizes}
+  formats={['webp', 'avif']}
+  alt={alt}
+  width={resolvedWidth}
+  height={resolvedHeight}
+  loading={loading}
+  decoding="async"
+  fetchpriority={fetchpriority}
+  class={className}
+  style={`background-image: url("${blurData}"); background-size: cover;`}
+  data-optimized-image
+/>

@@ -1,5 +1,29 @@
 # Current Issues & Deviation Log
 
+### [FACT][RESOLVED] M7 Task 7.9 deterministic integration testing
+
+`scripts/test-m7-integration.mjs` and `npm.cmd run test:m7` validate the optimized image, SEO, structured-data, sitemap, and robots.txt contracts, including the generated Vercel server chunks after a production build. Typecheck, lint, build, and `git diff --check` pass on 2026-09-22. External Lighthouse, Core Web Vitals, and search-console validation remain unavailable and are deferred to Stage 5 QA. The next authorized task is M8 Task 8.1 Security Headers Configuration.
+
+### [FACT][RESOLVED] M7 Task 7.8 robots.txt
+
+`src/pages/robots.txt.ts` generates a plain-text `/robots.txt` response that allows public crawling, disallows private/API paths, and points crawlers to the generated sitemap. Typecheck, lint, production build, M7 integration testing, and `git diff --check` pass on 2026-09-22. The next authorized task is M7 Task 7.9 Testing.
+
+### [FACT][RESOLVED] M7 Task 7.7 sitemap generation
+
+`src/pages/sitemap.xml.ts` generates `/sitemap.xml` from public routes and the projects/activities content collections, including ISO `lastmod` values and English/Spanish hreflang alternates for localized home pages. Typecheck, lint, production build, and `git diff --check` pass on 2026-09-22. The existing dynamic-route build warning and Windows line-ending warnings remain non-blocking. The next authorized task is M7 Task 7.8 Robots.txt.
+
+### [FACT][RESOLVED] M7 Task 7.6 structured data
+
+`src/components/StructuredData.astro` emits safe JSON-LD for the portfolio Person, WebSite, content-driven Project entries, and Activity/Event entries, and `src/layouts/Layout.astro` includes it in the shared head. Optional URLs and images are omitted when invalid or unavailable; collection validation supplies the required fields. Typecheck, lint, build, and diff checks pass on 2026-09-22. The build's existing dynamic-route warning and Windows line-ending warnings remain non-blocking. The next authorized task is M7 Task 7.7 Sitemap Generation.
+
+### [FACT][RESOLVED] M7 Task 7.5 SEO component
+
+`src/components/SEO.astro` provides reusable title/description, canonical, robots, Open Graph, Twitter card, locale, and hreflang metadata. `src/layouts/Layout.astro` integrates it into the shared document head. Typecheck, lint, build, and diff checks pass on 2026-09-22. The existing dynamic-route `getStaticPaths()` warning and Windows line-ending warnings remain non-blocking. The next authorized task is M7 Task 7.6 Structured Data.
+
+### [FACT][RESOLVED] M7 Task 7.3 code splitting
+
+`ChatWidget.astro` now server-renders its accessible shell and dynamically imports `src/scripts/chat-widget.ts`, which contains the interactive behavior and `chatClient` dependency. The production build emits a separate `chat-widget.*.js` asset, confirming the non-critical chat code is split from the component bootstrap. Typecheck, lint, build, and diff checks pass on 2026-09-22. The next authorized task is M7 Task 7.4 Critical CSS.
+
 ### [FACT][RESOLVED] M6 Task 6.9 testing
 
 `scripts/test-m6-integration.mjs` and `npm.cmd run test:m6` validate the PWA manifest, service-worker install/activate/fetch behavior with cache-first static and network-first API handling, translation-key parity, locale-prefixed routing, and language preference persistence/URL construction. The test found that the active static home routes lacked manifest and service-worker integration; `src/pages/index.astro` and `src/pages/[lang]/index.astro` now provide both. Typecheck, lint, build, and diff checks pass on 2026-09-22. Lighthouse PWA audit is UNKNOWN because no browser audit surface is available in this environment. Existing duplicate-route, POST-only API, and Windows line-ending warnings remain non-blocking. The next authorized task is M7 Task 7.1 Performance Audit Setup.
@@ -119,6 +143,10 @@ M3 Task 3.11 Integration Testing is authorized after the verified completion of 
 This is the sole authoritative Stage 4 issue, blocker, verification, and specification-drift ledger. The companion state file is `docs/master/progress-tracker.md`.
 
 ## Status
+
+### [FACT][RESOLVED] M7 Task 7.4 critical CSS
+
+`src/styles/critical.css` contains the minimal document-shell styles required for the initial render and is inlined by `src/layouts/Layout.astro`. The active layout no longer requests the non-existent `/styles/main.css`; Astro continues to manage remaining component styles. Typecheck, lint, build, and diff checks pass on 2026-09-22. The build's existing dynamic-route `getStaticPaths()` warning and Windows line-ending warnings remain non-blocking.
 
 **Overall status**: Stage 4 implementation in progress. Build, typecheck, lint, and production dependency audit now pass in the current Windows environment.
 
@@ -324,3 +352,17 @@ M4 now uses the official `@huggingface/inference` client with `sentence-transfor
 ### [FACT][RESOLVED] M6 Task 6.5 translation files
 
 `src/content/i18n/en.json` and `src/content/i18n/es.json` now provide matching structured translations for the existing navigation, common controls, portfolio sections, contact form, chat assistant, accessibility labels, and error messaging. JSON syntax and 67-leaf-key parity pass. Typecheck, lint, build, and `git diff --check` pass on 2026-09-22. The next authorized task is M6 Task 6.6 i18n Configuration.
+### [FACT][RESOLVED] M7 Task 7.1 Astro performance configuration
+
+`astro.config.mjs` now explicitly enables server output, HTML compression, automatic stylesheet inlining, viewport-based prefetch hints, and esbuild minification while preserving the Vercel adapter and existing i18n configuration. Typecheck, lint, build, and diff checks passed on 2026-09-22. The production build continues to emit the existing dynamic-route `getStaticPaths()` warning; it is unrelated to this task and is non-blocking.
+
+### [FACT][RESOLVED] M7 Task 7.2 image optimization component
+
+`src/components/OptimizedImage.astro` uses Astro's built-in `Picture` component for imported `ImageMetadata`, generating responsive width variants and WebP/AVIF sources while preserving explicit dimensions, loading/priority controls, async decoding, and a low-cost SVG blur placeholder. Existing content image fields are string URLs and remain outside this component until a content-asset migration is authorized; no specification conflict was introduced. Typecheck, lint, build, and diff checks pass on 2026-09-22.
+### [FACT][RESOLVED] M7 Task 7.9 deterministic integration testing
+
+`scripts/test-m7-integration.mjs` validates the optimized image, SEO, structured-data, sitemap, and robots.txt contracts, including the generated Vercel server chunks after a production build. `npm.cmd run build`, `npm.cmd run test:m7`, `npm.cmd run typecheck`, `npm.cmd run lint`, and `git diff --check` pass on 2026-09-22.
+
+### [UNKNOWN][OPEN] M7 external performance and search audits unavailable
+
+No browser/Lighthouse surface, Core Web Vitals telemetry, Google Rich Results Test, or Google Search Console credentials are available in this environment. Lighthouse scores, live CWV thresholds, and external search-console validation remain Stage 5 QA work; the local M7 integration checks do not claim those results.

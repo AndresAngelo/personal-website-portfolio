@@ -1,3 +1,122 @@
+## Stage 4 Session Update - 2026-09-22 (M7 Task 7.9)
+
+**FACT - Completed task**: M7 Task 7.9 adds `scripts/test-m7-integration.mjs` and the `test:m7` npm script. The integration checks cover optimized image contracts, SEO/structured-data source contracts, and the built Vercel server chunks for sitemap and robots output.
+
+**FACT - Verification**: `npm.cmd run build`, `npm.cmd run test:m7`, `npm.cmd run typecheck`, `npm.cmd run lint`, and `git diff --check` pass. The build retains the existing non-blocking dynamic-route `getStaticPaths()` warning; diff check reports Windows line-ending warnings.
+
+## Stage 4 State
+
+**Pipeline Stage**: 4
+**Status**: IMPLEMENTING
+**Current Phase**: Phase 6 / M7-Performance
+**Current Goalpost**: M7 Task 7.9
+**Current Task**: Testing
+**Completed Goalposts**: M4 Tasks 4.1 through 4.9; M5 Tasks 5.1 through 5.10; M6 Tasks 6.1 through 6.9; M7 Tasks 7.1 through 7.9
+**Last Verified Goalpost**: M7 Task 7.9
+**Modified Files**: `scripts/test-m7-integration.mjs`, `package.json`, `docs/master/progress-tracker.md`, `docs/master/current-issues.md`
+**Verification Results**: build PASS; `test:m7` PASS; typecheck PASS; lint PASS; diff check PASS with Windows line-ending warnings.
+**Known Issues**: See `docs/master/current-issues.md`.
+**Next Authorized Task**: M7 Task 7.8 — Robots.txt.
+**Last Updated**: 2026-09-22
+
+---
+
+## Stage 4 Session Update - 2026-09-22 (M7 Task 7.6)
+
+**FACT - Completed task**: M7 Task 7.6 adds `src/components/StructuredData.astro`, which emits a safe JSON-LD Schema.org graph for the site Person, WebSite, content-driven Project entries, and Activity/Event entries. `src/layouts/Layout.astro` includes the component in the shared document head; collection data is read at build/request time so changes flow into the markup automatically.
+
+**FACT - Verification**: `npm.cmd run typecheck`, `npm.cmd run lint`, `npm.cmd run build`, and `git diff --check` completed successfully. The build retains the existing non-blocking dynamic-route `getStaticPaths()` warning; diff check reports Windows line-ending warnings.
+
+## Stage 4 State
+
+**Pipeline Stage**: 4
+**Status**: IMPLEMENTING
+**Current Phase**: Phase 6 / M7-Performance
+**Current Goalpost**: M7 Task 7.6
+**Current Task**: Structured Data
+**Completed Goalposts**: M4 Tasks 4.1 through 4.9; M5 Tasks 5.1 through 5.10; M6 Tasks 6.1 through 6.9; M7 Tasks 7.1 through 7.6
+**Last Verified Goalpost**: M7 Task 7.6
+**Modified Files**: `src/components/StructuredData.astro`, `src/layouts/Layout.astro`, `docs/master/progress-tracker.md`, `docs/master/current-issues.md`
+**Verification Results**: typecheck PASS; lint PASS; build PASS; diff check PASS with Windows line-ending warnings.
+**Known Issues**: See `docs/master/current-issues.md`.
+**Next Authorized Task**: M7 Task 7.7 — Sitemap Generation.
+**Last Updated**: 2026-09-22
+
+---
+
+## Stage 4 Session Update - 2026-09-22 (M7 Task 7.5)
+
+**FACT - Completed task**: M7 Task 7.5 adds `src/components/SEO.astro` with reusable title and description metadata, canonical URLs, robots directives, Open Graph and Twitter cards, locale metadata, and English/Spanish hreflang alternates. `src/layouts/Layout.astro` now consumes the component for its shared document head.
+
+**FACT - Verification**: `npm.cmd run typecheck`, `npm.cmd run lint`, `npm.cmd run build`, and `git diff --check` completed successfully. The build retains the existing non-blocking dynamic-route `getStaticPaths()` warning; diff check reports Windows line-ending warnings.
+
+## Stage 4 State
+
+**Pipeline Stage**: 4
+**Status**: IMPLEMENTING
+**Current Phase**: Phase 6 / M7-Performance
+**Current Goalpost**: M7 Task 7.5
+**Current Task**: SEO Component
+**Completed Goalposts**: M4 Tasks 4.1 through 4.9; M5 Tasks 5.1 through 5.10; M6 Tasks 6.1 through 6.9; M7 Tasks 7.1 through 7.5
+**Last Verified Goalpost**: M7 Task 7.5
+**Modified Files**: `src/components/SEO.astro`, `src/layouts/Layout.astro`, `docs/master/progress-tracker.md`, `docs/master/current-issues.md`
+**Verification Results**: typecheck PASS; lint PASS; build PASS; diff check PASS with Windows line-ending warnings.
+**Known Issues**: See `docs/master/current-issues.md`.
+**Next Authorized Task**: M7 Task 7.6 — Structured Data.
+**Last Updated**: 2026-09-22
+
+---
+
+## Stage 4 Session Update - 2026-09-22 (M7 Task 7.4)
+
+**FACT - Completed task**: M7 Task 7.4 adds `src/styles/critical.css` for the initial document shell and inlines it in the active `src/layouts/Layout.astro` head through a raw CSS import. The stale reference to the non-existent `/styles/main.css` stylesheet was removed; remaining component styles continue through Astro's stylesheet pipeline.
+
+**FACT - Verification**: `npm.cmd run typecheck`, `npm.cmd run lint`, `npm.cmd run build`, and `git diff --check` completed successfully. The build retains the existing non-blocking dynamic-route `getStaticPaths()` warning; diff check reports Windows line-ending warnings.
+
+**FACT - Completed task**: M7 Task 7.3 moves the ChatWidget's client behavior and chat-client dependency behind a dynamic import in `src/scripts/chat-widget.ts`, preserving server-rendered widget markup while emitting a separate `chat-widget` browser chunk. Astro continues to provide route-level splitting for page entrypoints.
+
+**FACT - Verification**: `npm.cmd run typecheck`, `npm.cmd run lint`, `npm.cmd run build`, and `git diff --check` completed successfully. The production output contains separate `chat-widget.*.js` and `ChatWidget.astro_astro_type_script_*.js` assets. The build retains the existing non-blocking dynamic-route `getStaticPaths()` warning; diff check reports Windows line-ending warnings.
+
+## Stage 4 State
+
+**Pipeline Stage**: 4
+**Status**: IMPLEMENTING
+**Current Phase**: Phase 6 / M7-Performance
+**Current Goalpost**: M7 Task 7.4
+**Current Task**: Critical CSS
+**Completed Goalposts**: M4 Tasks 4.1 through 4.9; M5 Tasks 5.1 through 5.10; M6 Tasks 6.1 through 6.9; M7 Tasks 7.1 through 7.4
+**Last Verified Goalpost**: M7 Task 7.4
+**Modified Files**: `src/styles/critical.css`, `src/layouts/Layout.astro`, `docs/master/progress-tracker.md`, `docs/master/current-issues.md`
+**Verification Results**: typecheck PASS; lint PASS; build PASS; diff check completed with existing warnings.
+**Known Issues**: See `docs/master/current-issues.md`.
+**Next Authorized Task**: M7 Task 7.5 — SEO Component.
+**Last Updated**: 2026-09-22
+
+---
+
+## Stage 4 Session Update - 2026-09-22 (M7 Task 7.2)
+
+**FACT - Completed task**: M7 Task 7.2 adds `src/components/OptimizedImage.astro`, a reusable Astro `Picture` wrapper that emits responsive `srcset` variants, WebP/AVIF sources, explicit dimensions, lazy/eager loading controls, async decoding, fetch priority, and a lightweight SVG blur placeholder.
+
+**FACT - Verification**: `npm.cmd run typecheck`, `npm.cmd run lint`, `npm.cmd run build`, and `git diff --check` completed successfully. The production build retains the existing non-blocking dynamic-route `getStaticPaths()` warning; diff check reports existing Windows line-ending warnings.
+
+## Stage 4 State
+
+**Pipeline Stage**: 4
+**Status**: IMPLEMENTING
+**Current Phase**: Phase 6 / M7-Performance
+**Current Goalpost**: M7 Task 7.2
+**Current Task**: Image Optimization
+**Completed Goalposts**: M4 Tasks 4.1 through 4.9; M5 Tasks 5.1 through 5.10; M6 Tasks 6.1 through 6.9; M7 Tasks 7.1 through 7.2
+**Last Verified Goalpost**: M7 Task 7.2
+**Modified Files**: `src/components/OptimizedImage.astro`, `docs/master/progress-tracker.md`, `docs/master/current-issues.md`
+**Verification Results**: typecheck PASS; lint PASS; build PASS; diff check completed with existing warnings.
+**Known Issues**: See `docs/master/current-issues.md`.
+**Next Authorized Task**: M7 Task 7.3 — Code Splitting.
+**Last Updated**: 2026-09-22
+
+---
+
 ## Stage 4 Session Update - 2026-09-22 (M6 Task 6.9)
 
 **FACT - Completed task**: M6 Task 6.9 adds `npm.cmd run test:m6`, which validates the manifest contract, deployable service-worker lifecycle and cache strategies, translation-key parity, Astro locale routing, and language-selector persistence/URL behavior. The test also exposed and this task repaired missing manifest/service-worker integration on the static home routes.
@@ -1019,3 +1138,45 @@ pm.cmd run build`, and `git diff --check` all pass.
 **Last Updated**: 2026-09-22
 
 ---
+## Stage 4 Session Update - 2026-09-22 (M7 Task 7.1)
+
+**FACT - Completed task**: M7 Task 7.1 configures Astro for the existing Vercel server deployment with explicit server output, compressed HTML, automatic stylesheet inlining, viewport-based link prefetch hints, and esbuild production minification.
+
+**FACT - Verification**: `npm.cmd run typecheck`, `npm.cmd run lint`, and `npm.cmd run build` passed. The build confirmed server output and the Vercel adapter. `git diff --check` completed with the repository's existing Windows line-ending warnings only.
+
+## Stage 4 State
+
+**Pipeline Stage**: 4
+**Status**: IMPLEMENTING
+**Current Phase**: Phase 6 / M7-Performance
+**Current Goalpost**: M7 Task 7.1
+**Current Task**: Astro Configuration
+**Completed Goalposts**: M4 Tasks 4.1 through 4.9; M5 Tasks 5.1 through 5.10; M6 Tasks 6.1 through 6.9; M7 Task 7.1
+**Last Verified Goalpost**: M7 Task 7.1
+**Modified Files**: `astro.config.mjs`, `docs/master/progress-tracker.md`, `docs/master/current-issues.md`
+**Verification Results**: Typecheck PASS; lint PASS; build PASS; diff check completed with existing line-ending warnings.
+**Known Issues**: See `docs/master/current-issues.md`.
+**Next Authorized Task**: M7 Task 7.2 - Image Optimization.
+**Last Updated**: 2026-09-22
+
+---
+## Stage 4 Session Update - 2026-09-22 (M7 Task 7.9)
+
+**FACT - Completed task**: M7 Task 7.9 adds `scripts/test-m7-integration.mjs` and the `test:m7` npm script. The integration checks cover optimized image contracts, SEO/structured-data source contracts, and the built Vercel server chunks for sitemap and robots output.
+
+**FACT - Verification**: `npm.cmd run build`, `npm.cmd run test:m7`, `npm.cmd run typecheck`, `npm.cmd run lint`, and `git diff --check` pass. The build retains the existing non-blocking dynamic-route `getStaticPaths()` warning; diff check reports Windows line-ending warnings.
+
+## Stage 4 State
+
+**Pipeline Stage**: 4
+**Status**: IMPLEMENTING
+**Current Phase**: Phase 6 / M7-Performance
+**Current Goalpost**: M7 Task 7.9
+**Current Task**: Testing
+**Completed Goalposts**: M4 Tasks 4.1 through 4.9; M5 Tasks 5.1 through 5.10; M6 Tasks 6.1 through 6.9; M7 Tasks 7.1 through 7.9
+**Last Verified Goalpost**: M7 Task 7.9
+**Modified Files**: `scripts/test-m7-integration.mjs`, `package.json`, `docs/master/progress-tracker.md`, `docs/master/current-issues.md`
+**Verification Results**: build PASS; `test:m7` PASS; typecheck PASS; lint PASS; diff check PASS with Windows line-ending warnings.
+**Known Issues**: See `docs/master/current-issues.md`.
+**Next Authorized Task**: M8 Task 8.1 — Security audit setup.
+**Last Updated**: 2026-09-22

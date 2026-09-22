@@ -1,7 +1,10 @@
 ---
 import ChatWidget from '../components/ChatWidget.astro';
+import SEO from '../components/SEO.astro';
+import StructuredData from '../components/StructuredData.astro';
 import LanguageSelector from '../components/LanguageSelector.astro';
 import { getLanguageFromPath, t } from '../lib/i18n';
+import criticalCss from '../styles/critical.css?raw';
 const language = getLanguageFromPath(Astro.url.pathname);
 ---
 <!DOCTYPE html>
@@ -9,23 +12,14 @@ const language = getLanguageFromPath(Astro.url.pathname);
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>{ title ?? t(language, 'site.title') }</title>
+  <SEO title={title ?? t(language, 'site.title')} description={description ?? t(language, 'site.description')} language={language} />
+  <StructuredData />
   
-  <!-- Favicon -->
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   
-  <!-- Meta Tags for SEO -->
-  <meta name="description" content="{ description || 'A personal portfolio website built with Astro.' }" />
-  <meta name="author" content="AEA" />
   
-  <!-- Open Graph / Social Cards -->
-  <meta property="og:type" content="website" />
-  <meta property="og:title" content="{ title } — AEA Personal Portfolio" />
-  <meta property="og:description" content="{ description || 'A personal portfolio website built with Astro.' }" />
-  <meta property="og:image" content="/og-image.png" />
   
-  <!-- CSS -->
-  <link rel="stylesheet" href="/styles/main.css" />
+  <!-- Critical CSS is inlined to render the document shell without a stylesheet request. -->
+  <style set:html={criticalCss}></style>
   
   <!-- Preload critical assets -->
   <link rel="preload" as="image" href="/favicon.svg" />

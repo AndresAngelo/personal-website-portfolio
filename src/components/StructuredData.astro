@@ -1,0 +1,69 @@
+---
+import { getCollection } from 'astro:content';
+
+const [projects, activities] = await Promise.all([
+  getCollection('projects'),
+  getCollection('activities'),
+]);
+
+const siteUrl = Astro.url.origin;
+const personId = `${siteUrl}/#person`;
+const siteId = `${siteUrl}/#website`;
+
+const toAbsoluteUrl = (value: string) => {
+  try {
+    return new URL(value, siteUrl).toString();
+  } catch {
+    return undefined;
+  }
+};
+
+const graph = [
+  {
+    '@type': 'Person',
+    '@id': personId,
+    name: 'AEA',
+    url: siteUrl,
+    description: 'Independent developer and creator of digital projects.',
+  },
+  {
+    '@type': 'WebSite',
+    '@id': siteId,
+    url: siteUrl,
+    name: 'AEA Personal Portfolio',
+    publisher: { '@id': personId },
+  },
+  ...projects.map(({ id, data }) => {
+    const url = toAbsoluteUrl(data.link);
+    return {
+      '@type': 'Project',
+      '@id': `${siteUrl}/projects/${id}#project`,
+      name: data.title,
+      description: data.description,
+      url,
+      image: toAbsoluteUrl(data.heroImage ?? data.image),
+      keywords: data.tags,
+      creator: { '@id': personId },
+      isPartOf: { '@id': siteId },
+    };
+  }),
+  ...activities.map(({ id, data }) => ({
+    '@type': 'Event',
+    '@id': `${siteUrl}/activities/${id}#activity`,
+    name: data.title,
+    description: data.description,
+    startDate: `${data.date}T00:00:00Z`,
+    location: { '@type': 'Place', name: data.location },
+    image: toAbsoluteUrl(data.backgroundImage ?? ''),
+    organizer: { '@id': personId },
+    isPartOf: { '@id': siteId },
+  })),
+].map((entry) => Object.fromEntries(Object.entries(entry).filter(([, value]) => value !== undefined)));
+
+// Prevent user-authored content from prematurely closing the JSON-LD script.
+const jsonLd = JSON.stringify({ '@context': 'https://schema.org', '@graph': graph })
+  .replace(/</g, '\\u003c')
+  .replace(/>/g, '\\u003e')
+  .replace(/&/g, '\\u0026');
+---
+<script type="application/ld+json" set:html={jsonLd}></script>

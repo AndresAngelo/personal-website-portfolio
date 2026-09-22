@@ -11,6 +11,7 @@
     "test:m4": "tsx scripts/test-m4-integration.mjs",
     "test:m5": "tsx scripts/test-m5-integration.mjs",
     "test:m6": "node scripts/test-m6-integration.mjs",
+    "test:m7": "node scripts/test-m7-integration.mjs",
     "preview": "astro preview",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit"

@@ -1,0 +1,40 @@
+---
+import { supportedLanguages, type SupportedLanguage } from '../lib/i18n';
+
+interface Props {
+  title?: string;
+  description?: string;
+  language?: SupportedLanguage;
+  image?: string;
+  type?: 'website' | 'article';
+  noindex?: boolean;
+}
+
+const { title = 'AEA Personal Portfolio', description = 'A personal portfolio website built with Astro.', language = 'en', image = '/og-image.png', type = 'website', noindex = false } = Astro.props;
+const canonicalUrl = new URL(Astro.url.pathname, Astro.url).toString();
+const siteOrigin = Astro.url.origin;
+const alternatePath = (locale: SupportedLanguage) => {
+  const path = Astro.url.pathname.replace(/^\/(en|es)(?=\/|$)/, '') || '/';
+  return `/${locale}${path === '/' ? '/' : path}`;
+};
+const imageUrl = new URL(image, siteOrigin).toString();
+---
+<title>{title}</title>
+<meta name="description" content={description} />
+<meta name="author" content="AEA" />
+<meta name="robots" content={noindex ? 'noindex, nofollow' : 'index, follow'} />
+<link rel="canonical" href={canonicalUrl} />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<meta property="og:type" content={type} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonicalUrl} />
+<meta property="og:site_name" content="AEA Personal Portfolio" />
+<meta property="og:locale" content={language === 'es' ? 'es_ES' : 'en_US'} />
+<meta property="og:image" content={imageUrl} />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={imageUrl} />
+{supportedLanguages.map((locale) => <link rel="alternate" hreflang={locale} href={new URL(alternatePath(locale), siteOrigin).toString()} />)}
+<link rel="alternate" hreflang="x-default" href={new URL(alternatePath('en'), siteOrigin).toString()} />
