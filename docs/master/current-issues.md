@@ -1,5 +1,57 @@
 # Current Issues & Deviation Log
 
+### [FACT][RESOLVED] M4 Task 4.9 integration testing
+
+`scripts/test-m4-integration.mjs` verifies the injected end-to-end ingestion and grounded chat flow, embedding/vector metadata propagation, status tracking, no-context fallback, API validation/error responses, and the local response-time budget. `npm.cmd run test:m4`, typecheck, lint, and production build pass on 2026-09-22. `git diff --check` exits non-zero only for pre-existing historical tracker whitespace warnings.
+
+### [UNKNOWN][OPEN] M4 live provider integration verification unavailable
+
+No Hugging Face, Pinecone, or Groq credentials are present in the repository environment. M4 integration testing therefore uses deterministic dependency injection and API error-path checks; Stage 5 should run credentialed provider verification.
+
+### [FACT][RESOLVED] M4 Task 4.8 status API endpoint
+
+`src/pages/api/status.ts` provides GET `/api/status` with Pinecone connectivity and 384-dimensional index checks, version information, and structured healthy/degraded JSON responses. Typecheck, lint, production build, and diff checks pass on 2026-09-22. The next authorized task is M4 Task 4.9 Integration Testing.
+
+### [FACT][RESOLVED] M4 Task 4.7 ingestion API endpoint
+
+`src/pages/api/ingest.ts` provides POST `/api/ingest` with JSON content-type validation, Markdown/HTML/text format validation, ingestion-service delegation, ingestion ID/status output, and structured errors. Typecheck, lint, production build, and diff checks pass on 2026-09-22. The next authorized task is M4 Task 4.8 Status API Endpoint.
+
+### [FACT][RESOLVED] M4 Task 4.6 chat API endpoint
+
+`src/pages/api/chat.ts` provides POST `/api/chat` with validated query/history input, grounded RAG delegation, JSON answer/source output, and clear `GROQ_API_KEY` configuration errors. Typecheck, lint, and production build pass on 2026-09-22. The next authorized task is M4 Task 4.7 Ingestion API Endpoint.
+
+### [FACT][RESOLVED] M4 Task 4.5 chat service
+
+`src/lib/rag.ts` orchestrates query embedding, top-K vector retrieval, bounded context formatting, conversation history, and grounded OpenAI chat completion responses. It returns source metadata and a no-context fallback, with injectable dependencies for deterministic local verification. Typecheck, lint, and build pass on 2026-09-22. The next authorized task is M4 Task 4.6 Chat API Endpoint.
+
+### [FACT][RESOLVED] M4 Task 4.4 ingestion service
+
+`src/lib/ingestion.ts` normalizes Markdown/text and HTML documents, chunks content with bounded overlap, preserves source and chunk metadata, embeds and upserts chunks through the M4 services, and tracks ingestion status in memory. Injectable dependencies support deterministic local verification. Typecheck, lint, and build pass on 2026-09-22. The next authorized task is M4 Task 4.5 Chat Service.
+
+### [UNKNOWN][OPEN] M4 live ingestion provider verification unavailable
+
+No OpenAI or Pinecone credentials are present in the repository environment, so live ingestion against external providers was not performed. Local verification covers type contracts and production compilation; operator-provided credentials are required for end-to-end provider verification.
+
+### [FACT][RESOLVED] M4 Task 4.3 vector store integration
+
+`src/lib/vectorStore.ts` provides validated 384-dimensional Pinecone upserts in batches of 100 and top-K similarity search with metadata and score preservation. It supports injected index clients for deterministic verification and requires no live Pinecone credentials during local checks. Typecheck, lint, build, and diff checks pass on 2026-09-22. The next authorized task is M4 Task 4.4 Ingestion Service.
+
+### [FACT][RESOLVED] M4 Task 4.2 embeddings service
+
+`src/lib/embeddings.ts` integrates the OpenAI embeddings API with the 1536-dimensional `text-embedding-3-small` model, validates server-side configuration, chunks long text with overlap, processes requests in batches of 100, retries failed requests up to three times, and preserves IDs/metadata through `embedChunks`. Typecheck, lint, build, and diff checks pass on 2026-09-22. The next authorized task is M4 Task 4.3 Vector Store Integration.
+
+### [UNKNOWN][OPEN] M4 live Hugging Face embedding verification unavailable
+
+No `HF_TOKEN` is present in the repository environment, so live API calls were not performed. The service exposes an injectable client for deterministic testing; Stage 5 should verify the provider integration with operator-provided credentials.
+
+### [FACT][RESOLVED] M4 Task 4.1 vector database setup
+
+Pinecone configuration is implemented in `src/lib/pinecone.ts` with a 384-dimensional cosine index, secure server-side environment configuration, index creation, and connection/dimension verification. Typecheck, lint, build, and diff checks pass on 2026-09-22. No Pinecone credentials are committed; live connection verification requires operator-provided environment variables.
+
+### [UNKNOWN][OPEN] M4 vector database provider recommendation drift
+
+The approved M4 task and design specify Pinecone, while the Stage 3 handoff and master architecture recommend Supabase Postgres with pgvector. Task 4.1 follows the approved M4 task specification; provider unification remains unresolved and must be addressed before later tasks assume a different vector-store API.
+
 ### [FACT][RESOLVED] M3 Task 3.11 integration testing
 
 `npm.cmd run test:content` now validates all three Markdown collections and required frontmatter, checks collection loaders and card integration behavior, verifies pinned-project ordering wiring, and proves that an invalid project fixture causes the Astro build to fail. The temporary invalid fixture is removed in a `finally` block. Typecheck, lint, build, and diff checks pass on 2026-09-22. The next authorized task is M4 Task 4.1 Vector Database Setup.
@@ -191,3 +243,6 @@ Responsive implementation rules were checked against the M2 acceptance criteria 
 ### [FACT][RESOLVED] M3 Task 3.6 ActivityCard
 
 `src/components/ActivityCard.astro` was added for activity collection data. It supports required activity metadata, optional background imagery and links, semantic UTC-safe date display, responsive layout, keyboard-visible links, and reduced-motion behavior. Typecheck, lint, build, and diff checks pass on 2026-09-22.
+### [FACT][RESOLVED] M4 embedding provider migration
+
+M4 now uses the official `@huggingface/inference` client with `sentence-transformers/all-MiniLM-L6-v2` for both ingestion and chat-query embeddings. Pinecone is configured for 384 dimensions; configuration and vector validation report an actionable migration error when an existing index is still 1536-dimensional. `HF_TOKEN` is server-only and `GROQ_API_KEY` remains the chat-generation credential. Existing 1536-dimensional indexes must be replaced or re-embedded; vectors from the two models must not be mixed.

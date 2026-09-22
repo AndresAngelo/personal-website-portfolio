@@ -29,7 +29,7 @@ graph TD
 
 #### Task 4.1: Vector Database Setup
 
-- **Status**: TODO
+- **Status**: DONE
 - **Estimate**: 45 minutes
 - **Dependencies**: []
 - **Type**: Setup
@@ -37,19 +37,19 @@ graph TD
 - **Steps**:
   1. Create Pinecone account and API key
   2. Install Pinecone client library
-  3. Create index with 1536 dimensions
+  3. Create index with 384 dimensions
   4. Test database connection
   5. Configure environment variables
 
 #### Task 4.2: Embeddings Service
 
-- **Status**: TODO
+- **Status**: DONE
 - **Estimate**: 30 minutes
 - **Dependencies**: []
 - **Type**: Component
-- **Description**: Create OpenAI embeddings integration
+- **Description**: Create Hugging Face embeddings integration
 - **Steps**:
-  1. Install OpenAI SDK
+  1. Install the official Hugging Face inference SDK
   2. Create `src/lib/embeddings.ts`
   3. Implement `generateEmbeddings()` function
   4. Handle batch processing
@@ -59,7 +59,7 @@ graph TD
 
 #### Task 4.3: Vector Store Integration
 
-- **Status**: TODO
+- **Status**: DONE
 - **Estimate**: 40 minutes
 - **Dependencies**: [4.1, 4.2]
 - **Type**: Component
@@ -73,7 +73,7 @@ graph TD
 
 #### Task 4.4: Ingestion Service
 
-- **Status**: TODO
+- **Status**: DONE
 - **Estimate**: 45 minutes
 - **Dependencies**: [4.3]
 - **Type**: Component
@@ -87,7 +87,7 @@ graph TD
 
 #### Task 4.5: Chat Service
 
-- **Status**: TODO
+- **Status**: DONE
 - **Estimate**: 50 minutes
 - **Dependencies**: [4.3]
 - **Type**: Component
@@ -103,7 +103,7 @@ graph TD
 
 #### Task 4.6: Chat API Endpoint
 
-- **Status**: TODO
+- **Status**: DONE
 - **Estimate**: 30 minutes
 - **Dependencies**: [4.5]
 - **Type**: Component
@@ -117,7 +117,7 @@ graph TD
 
 #### Task 4.7: Ingestion API Endpoint
 
-- **Status**: TODO
+- **Status**: DONE
 - **Estimate**: 25 minutes
 - **Dependencies**: [4.4]
 - **Type**: Component
@@ -131,7 +131,7 @@ graph TD
 
 #### Task 4.8: Status API Endpoint
 
-- **Status**: TODO
+- **Status**: DONE
 - **Estimate**: 15 minutes
 - **Dependencies**: [4.3]
 - **Type**: Component
@@ -145,7 +145,7 @@ graph TD
 
 #### Task 4.9: Integration Testing
 
-- **Status**: TODO
+- **Status**: DONE
 - **Estimate**: 45 minutes
 - **Dependencies**: [4.6, 4.7, 4.8]
 - **Type**: Testing

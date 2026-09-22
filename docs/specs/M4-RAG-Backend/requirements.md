@@ -11,7 +11,7 @@ This milestone implements the backend infrastructure for the RAG (Retrieval-Augm
 
 **Scope:**
 - Vector database using Pinecone or similar
-- Document embedding generation with OpenAI
+- Document embedding generation with Hugging Face using `sentence-transformers/all-MiniLM-L6-v2`
 - API endpoints for chat interactions
 - Document ingestion pipeline
 - Retrieval functionality for relevant context
@@ -41,7 +41,7 @@ This milestone implements the backend infrastructure for the RAG (Retrieval-Augm
 #### Acceptance Criteria
 
 1. Vector database (Pinecone or similar) is configured
-2. Database supports dimensionality of embeddings (typically 1536)
+2. Database supports the embedding model's 384-dimensional vectors
 3. Index creation and management works
 4. Vector similarity search returns results
 5. Database connection is secure
@@ -52,7 +52,7 @@ This milestone implements the backend infrastructure for the RAG (Retrieval-Augm
 
 #### Acceptance Criteria
 
-1. OpenAI embeddings API is integrated
+1. The hosted Hugging Face feature-extraction API is integrated through the official `@huggingface/inference` client
 2. Text chunks are converted to embeddings
 3. Embeddings are stored with document metadata
 4. Chunking strategy handles documents > token limit
@@ -96,14 +96,14 @@ This milestone implements the backend infrastructure for the RAG (Retrieval-Augm
 
 ## Constraints
 
-- Must use OpenAI embeddings API
+- Must use the Hugging Face `sentence-transformers/all-MiniLM-L6-v2` embedding model
 - Must support at least 10,000 documents
-- Embedding dimensionality must be 1536
+- Embedding dimensionality must be 384
 - API must be RESTful
 - Response time for chat must be < 5 seconds
 
 ## References
 
-- [OpenAI Embeddings](https://platform.openai.com/docs/guides/embeddings)
+- [Hugging Face Inference Providers](https://huggingface.co/docs/huggingface.js/inference/README)
 - [RAG Paper](https://arxiv.org/abs/2005.11401)
 - [Pinecone Documentation](https://www.pinecone.io/docs/)

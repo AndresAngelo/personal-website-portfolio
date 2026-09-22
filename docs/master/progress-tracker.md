@@ -1,46 +1,248 @@
 ---
+
+## Stage 4 Session Update - 2026-09-22 (M4 Task 4.9)
+
+**FACT - Completed task**: `scripts/test-m4-integration.mjs` exercises the local M4 pipeline with injected embedding, vector-store, and chat dependencies. It verifies document ingestion, embedding dimensionality and metadata flow, completed status tracking, grounded chat responses, no-context fallback, API validation/error responses, and the local response-time budget. `package.json` adds the `test:m4` command and `tsx` test runner.
+
+**FACT - Verification**: `npm.cmd run test:m4`, `npm.cmd run typecheck`, `npm.cmd run lint`, and `npm.cmd run build` pass. Build uses the documented Windows WASI compiler fallback. `git diff --check` reports pre-existing whitespace warnings in the historical state ledger and exits non-zero.
+
+**UNKNOWN - Provider verification**: Live OpenAI, Pinecone, and Groq calls remain unavailable without operator credentials; this task verifies the complete local flow through dependency injection and endpoint validation.
+
+**INFERENCE - Next authorized task**: M5 Task 5.1 Chat UI Foundation, based on the completed M4 dependency graph and milestone sequence.
+
+## Stage 4 State
+
+**Pipeline Stage**: 4
+**Status**: IMPLEMENTING
+**Current Phase**: Phase 3 / M4-RAG-Backend
+**Current Goalpost**: M4 Task 4.9
+**Current Task**: Integration Testing
+**Completed Goalposts**: M4 Tasks 4.1 through 4.9
+**Last Verified Goalpost**: M4 Task 4.9
+**Modified Files**: `scripts/test-m4-integration.mjs`, `package.json`, `package-lock.json`, `docs/master/progress-tracker.md`, `docs/master/current-issues.md`
+**Verification Results**: `npm.cmd run test:m4` PASS; `npm.cmd run typecheck` PASS; `npm.cmd run lint` PASS; `npm.cmd run build` PASS; `git diff --check` FAILS on pre-existing whitespace warnings in the historical state ledger.
+**Known Issues**: See `docs/master/current-issues.md`.
+**Next Authorized Task**: M5 Task 5.1 — Chat UI Foundation.
+**Last Updated**: 2026-09-22
+
+## Stage 4 Session Update - 2026-09-22 (M4 Task 4.8)
+
+**FACT - Completed task**: `src/pages/api/status.ts` adds GET `/api/status`. It checks Pinecone connectivity and index dimensionality, reports service health and version information, and returns a structured HTTP 503 degraded response when the vector database is unavailable.
+
+**FACT - Verification**: `npm.cmd run typecheck`, `npm.cmd run lint`, `npm.cmd run build`, and `git diff --check` completed. The diff check reports pre-existing whitespace warnings in this state ledger only.
+
+**INFERENCE - Next authorized task**: M4 Task 4.9 Integration Testing, based on the M4 dependency graph.
+
+**FACT - Completed task**: `src/pages/api/ingest.ts` adds POST `/api/ingest`. It validates JSON document payloads, supports Markdown, HTML, and plain text formats, delegates to the ingestion service, returns an ingestion ID and final status record, and reports malformed requests or provider failures with JSON errors.
+
+**FACT - Verification**: 
+pm.cmd run typecheck`, 
+pm.cmd run lint`, 
+pm.cmd run build`, and `git diff --check` completed for the task. Live provider ingestion was not performed because external credentials are not available in the repository environment.
+
+**INFERENCE - Next authorized task**: M4 Task 4.8 Status API Endpoint, based on the M4 dependency graph.
+
+## Stage 4 State
+
+**Pipeline Stage**: 4
+**Status**: IMPLEMENTING
+**Current Phase**: Phase 3 / M4-RAG-Backend
+**Current Goalpost**: M4 Task 4.8
+**Current Task**: Status API Endpoint
+**Completed Goalposts**: M4 Tasks 4.1 through 4.8
+**Last Verified Goalpost**: M4 Task 4.8
+**Modified Files**: `src/pages/api/status.ts`, `docs/master/progress-tracker.md`, `docs/master/current-issues.md`
+**Verification Results**: 
+pm.cmd run typecheck` PASS; 
+pm.cmd run lint` PASS; 
+pm.cmd run build` PASS; `git diff --check` PASS with existing whitespace warnings only.
+**Known Issues**: See `docs/master/current-issues.md`.
+**Next Authorized Task**: M4 Task 4.8 — Status API Endpoint.
+**Last Updated**: 2026-09-22
+
+**Current Next Authorized Task**: M4 Task 4.9 — Integration Testing.
+
+## Stage 4 Session Update - 2026-09-22 (M4 Task 4.6)
+
+**FACT - Completed task**: `src/pages/api/chat.ts` adds the POST `/api/chat` endpoint. It accepts a query and validated conversation history, delegates to the grounded RAG chat service, returns answer/source metadata as JSON, and reports configuration/request failures with appropriate status codes. Groq is used for chat completion through `GROQ_API_KEY`.
+
+**FACT - Verification**: 
+pm.cmd run typecheck`, 
+pm.cmd run lint`, 
+pm.cmd run build`, and `git diff --check` completed. The build generated the `/api/chat` route and four static pages; `git diff --check` reports only pre-existing tracker whitespace and Windows line-ending warnings.
+
+**INFERENCE - Next authorized task**: M4 Task 4.7 Ingestion API Endpoint, based on the M4 dependency graph.
+
+## Stage 4 State
+
+**Pipeline Stage**: 4  
+**Status**: IMPLEMENTING  
+**Current Phase**: Phase 3 / M4-RAG-Backend  
+**Current Goalpost**: M4 Task 4.6  
+**Current Task**: Chat API Endpoint  
+**Completed Goalposts**: M4 Tasks 4.1 through 4.6  
+**Last Verified Goalpost**: M4 Task 4.6  
+**Modified Files**: `src/pages/api/chat.ts`, `src/lib/rag.ts`, `package.json`, `package-lock.json`, `.env.example`  
+**Verification Results**: 
+pm.cmd run typecheck` PASS; 
+pm.cmd run lint` PASS; 
+pm.cmd run build` PASS; `git diff --check` PASS with existing whitespace warnings only.  
+**Known Issues**: See `docs/master/current-issues.md`.  
+**Next Authorized Task**: M4 Task 4.7 â€” Ingestion API Endpoint.  
+**Last Updated**: 2026-09-22
+
+## Stage 4 Session Update - 2026-09-22 (M4 Task 4.5)
+
+**FACT - Completed task**: `src/lib/rag.ts` now orchestrates query embedding, ranked vector retrieval, bounded context formatting, conversation history, and grounded OpenAI chat completion responses. It returns source metadata and a deterministic no-context fallback; embedding, search, and chat dependencies are injectable for local verification.
+
+**FACT - Verification**: 
+pm.cmd run typecheck`, 
+pm.cmd run lint`, and 
+pm.cmd run build` pass. `git diff --check` reports existing tracker whitespace and Windows line-ending warnings only.
+
+**INFERENCE - Next authorized task**: M4 Task 4.6 Chat API Endpoint, based on the M4 dependency graph.
+
+## Stage 4 Session Update - 2026-09-22 (M4 Task 4.4)
+
+**FACT - Completed task**: `src/lib/ingestion.ts` adds the document ingestion pipeline. It normalizes Markdown/text and HTML, chunks content into overlapping bounded windows, preserves source metadata, embeds chunks, upserts vectors, and tracks queued/processing/completed/failed status in memory. Embedding and vector-store dependencies are injectable for deterministic local verification.
+
+**FACT - Verification**: 
+pm.cmd run typecheck`, 
+pm.cmd run lint`, and 
+pm.cmd run build` pass. `git diff --check` reports only pre-existing tracker whitespace and Windows line-ending warnings.
+
+**INFERENCE - Next authorized task**: M4 Task 4.5 Chat Service, based on the M4 dependency graph.
+
+## Stage 4 Session Update - 2026-09-22 (M4 Task 4.3)
+
+**FACT - Completed task**: `src/lib/vectorStore.ts` adds validated Pinecone vector upserts in batches of 100 and top-K similarity search with metadata and score preservation. Injectable index clients support deterministic verification without live credentials.
+
+**FACT - Verification**: 
+pm.cmd run typecheck`, 
+pm.cmd run lint`, 
+pm.cmd run build`, and `git diff --check` pass; the diff check reports only existing Windows line-ending warnings.
+
+**INFERENCE - Next authorized task**: M4 Task 4.4 Ingestion Service, based on the M4 dependency graph.
+
+## Stage 4 Session Update - 2026-09-22 (M4 Task 4.1)
+
+**FACT - Completed task**: M4 Task 4.1 adds Pinecone vector-database configuration in `src/lib/pinecone.ts`. The setup validates server-only environment variables, creates a 1536-dimensional cosine index with configurable serverless cloud/region settings, and verifies an existing index connection and dimensionality. `.env.example` documents the required configuration and `@pinecone-database/pinecone` is now a runtime dependency.
+
+**FACT - Verification**: 
+pm.cmd run typecheck`, 
+pm.cmd run lint`, 
+pm.cmd run build`, and `git diff --check` pass. The build generates four static routes using Astro's WASI compiler fallback.
+
+**INFERENCE - Next authorized task**: M4 Task 4.2 Embeddings Service.
 name: progress-tracker
 description: Authoritative Stage 4 implementation state for the AEA personal portfolio.
 ---
 
-# Progress Tracker — Personal Portfolio (AEA)
+# Progress Tracker â€” Personal Portfolio (AEA)
+
+## Stage 4 State
+
+**Pipeline Stage**: 4  
+**Status**: IMPLEMENTING  
+**Current Phase**: Phase 1 / M4-RAG-Backend  
+**Current Goalpost**: M4 Task 4.5  
+**Current Task**: Chat Service
+
+**Completed Goalposts**: M4 Task 4.1 â€” Vector Database Setup; M4 Task 4.2 â€” Embeddings Service
+
+**Last Verified Goalpost**: M4 Task 4.5 â€” Chat Service
+
+**Modified Files**:
+- `src/lib/embeddings.ts`
+- `src/lib/vectorStore.ts`
+- `src/lib/ingestion.ts`
+- `src/lib/rag.ts`
+- `package.json`
+- `package-lock.json`
+- `docs/master/progress-tracker.md`
+- `docs/master/current-issues.md`
+
+**Verification Results**:
+- 
+pm.cmd run typecheck`: PASS
+- 
+pm.cmd run lint`: PASS
+- 
+pm.cmd run build`: PASS (4 static routes; Windows WASI compiler fallback)
+- `git diff --check`: PASS (Windows line-ending warnings only)
+
+**Known Issues**: See `docs/master/current-issues.md`.
+
+**Next Authorized Task**: M4 Task 4.6 â€” Chat API Endpoint.
+
+**Last Updated**: 2026-09-22
 
 ## Stage 4 Session Update - 2026-09-22 (M3 Task 3.11)
 
-**FACT - Completed task**: M3 Task 3.11 adds `scripts/test-content-integration.mjs` and the `npm.cmd run test:content` command. The check validates required frontmatter across all three collections, verifies collection schemas/loaders and card behaviors, confirms pinned-project sorting, runs a production build with intentionally invalid content, and confirms invalid content is rejected.
+**FACT - Completed task**: M3 Task 3.11 adds `scripts/test-content-integration.mjs` and the 
+pm.cmd run test:content` command. The check validates required frontmatter across all three collections, verifies collection schemas/loaders and card behaviors, confirms pinned-project sorting, runs a production build with intentionally invalid content, and confirms invalid content is rejected.
 
-**FACT - Verification**: `npm.cmd run test:content`, `npm.cmd run typecheck`, `npm.cmd run lint`, `npm.cmd run build`, and `git diff --check` pass. The build generated four static routes. The diff check reports only existing Windows line-ending warnings.
+**FACT - Verification**: 
+pm.cmd run test:content`, 
+pm.cmd run typecheck`, 
+pm.cmd run lint`, 
+pm.cmd run build`, and `git diff --check` pass. The build generated four static routes. The diff check reports only existing Windows line-ending warnings.
 
 **INFERENCE - Next authorized task**: M4 Task 4.1 Vector Database Setup, because all M3 task dependencies are verified and M4 Task 4.1 has no dependencies.
 
 **FACT - Completed task**: `src/content.config.ts` configures the projects, activities, and FAQ Astro content collections with their dedicated glob loaders and TypeScript schemas.
 
-**FACT - Verification**: `npm.cmd run typecheck`, `npm.cmd run lint`, `npm.cmd run build`, and `git diff --check` pass. The production build generated four static routes. The diff check reports only existing Windows line-ending warnings.
+**FACT - Verification**: 
+pm.cmd run typecheck`, 
+pm.cmd run lint`, 
+pm.cmd run build`, and `git diff --check` pass. The production build generated four static routes. The diff check reports only existing Windows line-ending warnings.
 
 **INFERENCE - Next authorized task**: M3 Task 3.11 Integration Testing, because the three collection schemas, collection files, card components, and content configuration are verified.
 
 ## Stage 4 State
 
-**Current Verified Goalpost**: M3 Task 3.11 - Integration Testing
+**Current Verified Goalpost**: M4 Task 4.1 - Vector Database Setup
 **Current Task Status**: Completed and verified on 2026-09-22.
-**Next Authorized Task**: M4 Task 4.1 - Vector Database Setup.
+**Next Authorized Task**: M4 Task 4.2 - Embeddings Service.
+
+**Task 4.1 Modified Files**:
+- `.env.example`
+- `package.json`
+- `package-lock.json`
+- `src/lib/pinecone.ts`
+
+**Task 4.1 Verification**:
+- 
+pm.cmd run typecheck`: PASS.
+- 
+pm.cmd run lint`: PASS.
+- 
+pm.cmd run build`: PASS - 4 static routes built successfully using the Astro WASI compiler fallback.
+- `git diff --check`: PASS; existing Windows line-ending warnings only.
 
 **Task 3.11 Modified Files**:
 - `scripts/test-content-integration.mjs`
 - `package.json`
 
 **Task 3.11 Verification**:
-- `npm.cmd run test:content`: PASS - all collection frontmatter and integration checks pass; invalid content is rejected by the build.
-- `npm.cmd run typecheck`: PASS.
-- `npm.cmd run lint`: PASS.
-- `npm.cmd run build`: PASS - 4 static routes built successfully.
+- 
+pm.cmd run test:content`: PASS - all collection frontmatter and integration checks pass; invalid content is rejected by the build.
+- 
+pm.cmd run typecheck`: PASS.
+- 
+pm.cmd run lint`: PASS.
+- 
+pm.cmd run build`: PASS - 4 static routes built successfully.
 - `git diff --check`: PASS; existing Windows line-ending warnings only.
 
 **Task 3.10 Verification**:
 - Projects, activities, and FAQ collections are registered with glob loaders and their schemas.
-- `npm.cmd run typecheck`: PASS.
-- `npm.cmd run lint`: PASS.
-- `npm.cmd run build`: PASS - 4 static routes built successfully.
+- 
+pm.cmd run typecheck`: PASS.
+- 
+pm.cmd run lint`: PASS.
+- 
+pm.cmd run build`: PASS - 4 static routes built successfully.
 - `git diff --check`: PASS; existing Windows line-ending warnings only.
 
 **Task 3.9 Modified Files**:
@@ -49,9 +251,12 @@ description: Authoritative Stage 4 implementation state for the AEA personal por
 **Task 3.9 Verification**:
 - FAQ card accepts collection-shaped FAQ data and renders question, answer, category, and related-project metadata.
 - Native `details`/`summary` disclosure provides keyboard-accessible expand/collapse behavior, with animated reveal and reduced-motion support.
-- `npm.cmd run typecheck`: PASS.
-- `npm.cmd run lint`: PASS.
-- `npm.cmd run build`: PASS - 4 static routes built successfully.
+- 
+pm.cmd run typecheck`: PASS.
+- 
+pm.cmd run lint`: PASS.
+- 
+pm.cmd run build`: PASS - 4 static routes built successfully.
 - `git diff --check`: PASS; existing repository line-ending warnings only.
 
 **Task 3.8 Modified Files**:
@@ -59,9 +264,12 @@ description: Authoritative Stage 4 implementation state for the AEA personal por
 
 **Task 3.8 Verification**:
 - FAQ collection contains 10 Markdown files with valid question, answer, and category metadata.
-- `npm.cmd run typecheck`: PASS.
-- `npm.cmd run lint`: PASS.
-- `npm.cmd run build`: PASS - 4 static routes built successfully.
+- 
+pm.cmd run typecheck`: PASS.
+- 
+pm.cmd run lint`: PASS.
+- 
+pm.cmd run build`: PASS - 4 static routes built successfully.
 - `git diff --check`: PASS; existing repository line-ending warnings only.
 
 **Task 3.7 Modified Files**:
@@ -69,18 +277,24 @@ description: Authoritative Stage 4 implementation state for the AEA personal por
 - `src/content.config.ts`
 
 **Task 3.7 Verification**:
-- `npm.cmd run typecheck`: PASS.
-- `npm.cmd run lint`: PASS.
-- `npm.cmd run build`: PASS - 4 static routes built successfully.
+- 
+pm.cmd run typecheck`: PASS.
+- 
+pm.cmd run lint`: PASS.
+- 
+pm.cmd run build`: PASS - 4 static routes built successfully.
 - `git diff --check`: PASS for task files; repository check reports existing generated `.astro/content-assets.mjs` whitespace only.
 
 **Task 3.6 Modified Files**:
 - `src/components/ActivityCard.astro`
 
 **Task 3.6 Verification**:
-- `npm.cmd run typecheck`: PASS.
-- `npm.cmd run lint`: PASS.
-- `npm.cmd run build`: PASS - 4 static routes built successfully.
+- 
+pm.cmd run typecheck`: PASS.
+- 
+pm.cmd run lint`: PASS.
+- 
+pm.cmd run build`: PASS - 4 static routes built successfully.
 - `git diff --check`: PASS with existing line-ending warnings only.
 
 **Task 3.4 Modified Files**:
@@ -89,9 +303,12 @@ description: Authoritative Stage 4 implementation state for the AEA personal por
 - `src/content.config.ts`
 
 **Task 3.4 Verification**:
-- `npm.cmd run typecheck`: PASS.
-- `npm.cmd run lint`: PASS.
-- `npm.cmd run build`: PASS - 4 static routes built successfully.
+- 
+pm.cmd run typecheck`: PASS.
+- 
+pm.cmd run lint`: PASS.
+- 
+pm.cmd run build`: PASS - 4 static routes built successfully.
 - Task-file `git diff --check`: PASS.
 - Repository-wide `git diff --check`: reports generated `.astro/content-assets.mjs` whitespace.
 
@@ -106,9 +323,12 @@ description: Authoritative Stage 4 implementation state for the AEA personal por
 **Task 3.5 Verification**:
 - Six activity Markdown files contain valid ISO dates and required frontmatter.
 - Date extraction sorted entries chronologically from 2024-03-15 through 2026-01-24.
-- `npm.cmd run typecheck`: PASS.
-- `npm.cmd run lint`: PASS.
-- `npm.cmd run build`: PASS - 4 static routes built successfully.
+- 
+pm.cmd run typecheck`: PASS.
+- 
+pm.cmd run lint`: PASS.
+- 
+pm.cmd run build`: PASS - 4 static routes built successfully.
 - `git diff --check`: PASS with existing line-ending warnings only.
 
 **Current Goalpost**: M3 Task 3.6 - ActivityCard Component
@@ -116,10 +336,10 @@ description: Authoritative Stage 4 implementation state for the AEA personal por
 **Last Verified Goalpost**: M3 Task 3.6 - ActivityCard Component.
 **Next Authorized Task**: M3 Task 3.7 - FAQ Collection Schema.
 
-**Pipeline Stage**: 4 — Local Agentic AI Coding Workhorse
+**Pipeline Stage**: 4 â€” Local Agentic AI Coding Workhorse
 **Status**: IMPLEMENTING
 **Current Phase**: Phase 3 / M3-Content
-**Current Goalpost**: M3 Task 3.11 — Integration Testing
+**Current Goalpost**: M3 Task 3.11 â€” Integration Testing
 **Current Task**: M3 integration testing implemented and verified.
 
 **Completed Goalposts**:
@@ -135,7 +355,7 @@ description: Authoritative Stage 4 implementation state for the AEA personal por
 - M3 Task 3.3 ProjectCard component added for project collection data.
 - M3 Task 3.2.1 pinned projects sorting logic added to the collection-backed Projects row.
 
-**Last Verified Goalpost**: M3 Task 3.2.1 — Pinned Projects Sorting Logic.
+**Last Verified Goalpost**: M3 Task 3.2.1 â€” Pinned Projects Sorting Logic.
 
 **Modified Files**:
 
@@ -156,23 +376,31 @@ description: Authoritative Stage 4 implementation state for the AEA personal por
 
 **Verification Results**:
 
-- `npm.cmd audit --omit=dev`: PASS — 0 production vulnerabilities reported.
-- `npm.cmd run build`: PASS — 4 static routes built successfully using the Windows WASI compiler fallback.
+- 
+pm.cmd audit --omit=dev`: PASS â€” 0 production vulnerabilities reported.
+- 
+pm.cmd run build`: PASS â€” 4 static routes built successfully using the Windows WASI compiler fallback.
 
 - `git diff --check`: PASS.
-- `npm.cmd run typecheck`: PASS (`tsc --noEmit`).
-- `npm.cmd run lint`: PASS.
-- `npm.cmd run build`: PASS — 4 static routes built successfully.
+- 
+pm.cmd run typecheck`: PASS (`tsc --noEmit`).
+- 
+pm.cmd run lint`: PASS.
+- 
+pm.cmd run build`: PASS â€” 4 static routes built successfully.
 
-- `npm.cmd run typecheck`: PASS.
-- `npm.cmd run lint`: PASS.
+- 
+pm.cmd run typecheck`: PASS.
+- 
+pm.cmd run lint`: PASS.
 - `git diff --check`: PASS.
-- `npm.cmd install`: PASS — dependency tree reconciled and ESLint/Astro parser dependencies installed.
-- Latest commit inspection: PASS — commit exists at the expected revision.
+- 
+pm.cmd install`: PASS â€” dependency tree reconciled and ESLint/Astro parser dependencies installed.
+- Latest commit inspection: PASS â€” commit exists at the expected revision.
 
 **Known Issues**: See `docs/master/current-issues.md`.
 
-**Next Authorized Task**: M4 Task 4.1 — Vector Database Setup.
+**Next Authorized Task**: M4 Task 4.1 â€” Vector Database Setup.
 
 **Last Updated**: 2026-09-22
 
@@ -194,7 +422,10 @@ description: Authoritative Stage 4 implementation state for the AEA personal por
 
 **FACT - Completed task**: Added `sortPinnedProjects` and connected the projects collection query to the home Projects row. Pinned projects are emitted first, with source order preserved within pinned and non-pinned groups.
 
-**FACT - Verification**: `npm.cmd run typecheck`, `npm.cmd run lint`, `npm.cmd run build`, and `git diff --check` all pass on 2026-09-22.
+**FACT - Verification**: 
+pm.cmd run typecheck`, 
+pm.cmd run lint`, 
+pm.cmd run build`, and `git diff --check` all pass on 2026-09-22.
 
 **INFERENCE - Next authorized task**: M3 Task 3.4 Activities Collection Schema, because Task 3.2.1 is verified and the dependency sequence proceeds to the activities schema.
 
@@ -202,19 +433,25 @@ description: Authoritative Stage 4 implementation state for the AEA personal por
 
 **FACT - Completed task**: Added `src/components/ProjectCard.astro`, accepting project collection-shaped data and rendering image, title, description, tags, project link, and an accessible pinned-project indicator. The component uses `heroImage` when provided and falls back to `image`.
 
-**FACT - Verification**: `npm.cmd run typecheck`, `npm.cmd run lint`, `npm.cmd run build`, and `git diff --check` all pass on 2026-09-22.
+**FACT - Verification**: 
+pm.cmd run typecheck`, 
+pm.cmd run lint`, 
+pm.cmd run build`, and `git diff --check` all pass on 2026-09-22.
 
 **INFERENCE - Next authorized task**: M3 Task 3.2.1 Pinned Projects Sorting Logic, because it remains the earliest dependency-satisfied M3 task not implemented; it was explicitly deferred during Task 3.2.
 
-## Stage 4 Session Update — 2026-09-22 (M2 Task 2.8)
+## Stage 4 Session Update â€” 2026-09-22 (M2 Task 2.8)
 
-**FACT — Completed task**: Responsive behavior was inspected in `src/components/SidebarNav.astro`, `src/pages/index.astro`, and the row components. The implementation contains explicit rules for mobile (up to 767px), tablet (768px–1023px), and desktop (1024px+), including collapsed mobile navigation, touch-sized controls, stacked mobile layouts, and responsive grids/lists.
+**FACT â€” Completed task**: Responsive behavior was inspected in `src/components/SidebarNav.astro`, `src/pages/index.astro`, and the row components. The implementation contains explicit rules for mobile (up to 767px), tablet (768pxâ€“1023px), and desktop (1024px+), including collapsed mobile navigation, touch-sized controls, stacked mobile layouts, and responsive grids/lists.
 
-**FACT — Verification**: `npm.cmd run typecheck`, `npm.cmd run lint`, `npm.cmd run build`, and `git diff --check` pass on 2026-09-22.
+**FACT â€” Verification**: 
+pm.cmd run typecheck`, 
+pm.cmd run lint`, 
+pm.cmd run build`, and `git diff --check` pass on 2026-09-22.
 
-**UNKNOWN — Live viewport verification**: No controllable browser surface is available in this environment, so rendered screenshots and interaction checks at exact viewport widths could not be performed.
+**UNKNOWN â€” Live viewport verification**: No controllable browser surface is available in this environment, so rendered screenshots and interaction checks at exact viewport widths could not be performed.
 
-**INFERENCE — Next authorized task**: M3 Content Integration Task 3.1, based on M2 Task 2.8 dependency completion and the milestone sequence.
+**INFERENCE â€” Next authorized task**: M3 Content Integration Task 3.1, based on M2 Task 2.8 dependency completion and the milestone sequence.
 
 ---
 
@@ -236,7 +473,10 @@ description: Authoritative Stage 4 implementation state for the AEA personal por
 
 **FACT - Completed task**: M3 Task 3.1 Projects Collection Schema is implemented. `src/content/projects/schema.ts` defines required title, description, tags, image, and link fields plus optional heroImage, videoPitch, pinned, and existing portfolio metadata. `src/content.config.ts` registers the schema for the projects glob loader.
 
-**FACT - Verification**: `npm.cmd run typecheck`, `npm.cmd run lint`, `npm.cmd run build`, and `git diff --check` pass after restoring generated build noise in `.astro/content-assets.mjs`.
+**FACT - Verification**: 
+pm.cmd run typecheck`, 
+pm.cmd run lint`, 
+pm.cmd run build`, and `git diff --check` pass after restoring generated build noise in `.astro/content-assets.mjs`.
 
 **INFERENCE - Next authorized task**: M3 Task 3.2 Projects Collection Files, based on the task dependency graph and verified completion of Task 3.1.
 
@@ -349,20 +589,26 @@ This file is the authoritative implementation state for Stage 4. Repository evid
 - `docs/pipeline/stage-4-local-agentic-ai-coding-workhorse.md`
 - `docs/pipeline/stage-4-1-agent-operating-contract.md`
 
-## Stage 4 Session Update — 2026-09-22
+## Stage 4 Session Update â€” 2026-09-22
 
-**FACT — Completed task**: M2 Task 2.6 Page Layout Integration is implemented and verified in the current worktree. `src/pages/index.astro` renders the Home, Projects, Activities, Experience, and Contact rows; their section IDs match the anchors consumed by `SidebarNav.astro`.
+**FACT â€” Completed task**: M2 Task 2.6 Page Layout Integration is implemented and verified in the current worktree. `src/pages/index.astro` renders the Home, Projects, Activities, Experience, and Contact rows; their section IDs match the anchors consumed by `SidebarNav.astro`.
 
-**FACT — Verification**: `npm.cmd run typecheck`, `npm.cmd run lint`, `npm.cmd run build`, and `git diff --check` all pass.
+**FACT â€” Verification**: 
+pm.cmd run typecheck`, 
+pm.cmd run lint`, 
+pm.cmd run build`, and `git diff --check` all pass.
 
-**FACT — Previous next-task decision**: M2 Task 2.7 Animations was authorized from the verified completion of Task 2.6.
+**FACT â€” Previous next-task decision**: M2 Task 2.7 Animations was authorized from the verified completion of Task 2.6.
 
-## Stage 4 Session Update — 2026-09-22 (M2 Task 2.7)
+## Stage 4 Session Update â€” 2026-09-22 (M2 Task 2.7)
 
-**FACT — Completed task**: M2 Task 2.7 Animations is implemented in `src/pages/index.astro`. Integrated rows now use a progressive Intersection Observer reveal with one-time observation, smooth-scroll offsets, and a `prefers-reduced-motion` path.
+**FACT â€” Completed task**: M2 Task 2.7 Animations is implemented in `src/pages/index.astro`. Integrated rows now use a progressive Intersection Observer reveal with one-time observation, smooth-scroll offsets, and a `prefers-reduced-motion` path.
 
-**FACT — Verification**: `npm.cmd run typecheck`, `npm.cmd run lint`, `npm.cmd run build`, and `git diff --check` all pass.
+**FACT â€” Verification**: 
+pm.cmd run typecheck`, 
+pm.cmd run lint`, 
+pm.cmd run build`, and `git diff --check` all pass.
 
-**FACT — Modified implementation file**: `src/pages/index.astro`.
+**FACT â€” Modified implementation file**: `src/pages/index.astro`.
 
-**INFERENCE — Next authorized task**: M2 Task 2.8 Responsive Testing, based on the task dependency graph and verified completion of Task 2.7.
+**INFERENCE â€” Next authorized task**: M2 Task 2.8 Responsive Testing, based on the task dependency graph and verified completion of Task 2.7.

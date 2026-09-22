@@ -15,7 +15,7 @@ This milestone implements the backend infrastructure for the RAG chatbot, includ
 
 **Core Services:**
 - `rag.ts` - Main RAG orchestration
-- `embeddings.ts` - OpenAI embedding generation
+- `embeddings.ts` - Hugging Face embedding generation
 - `vectorStore.ts` - Vector database operations
 - `ingestion.ts` - Document ingestion pipeline
 
@@ -33,14 +33,14 @@ Ingestion Service
     ↓
 Chunking (text splitter)
     ↓
-Embedding Generation (OpenAI)
+Embedding Generation (Hugging Face)
     ↓
 Vector Storage (Pinecone)
     ↓
 
 User Query
     ↓
-Embed Query (OpenAI)
+Embed Query (Hugging Face)
     ↓
 Vector Search (Pinecone)
     ↓
@@ -58,7 +58,7 @@ Return Response to Client
 ```
 src/lib/
 ├── rag.ts          # Main RAG orchestration
-├── embeddings.ts   # OpenAI integration
+├── embeddings.ts   # Hugging Face integration
 ├── vectorStore.ts  # Pinecone integration
 └── ingestion.ts    # Document ingestion
 
@@ -70,7 +70,7 @@ src/pages/api/
 
 ## Implementation Considerations
 
-- Use OpenAI's text-embedding-3-small or similar
+- Use Hugging Face's `sentence-transformers/all-MiniLM-L6-v2` (384 dimensions)
 - Implement chunking with overlap for context continuity
 - Use Pinecone for vector storage (or similar)
 - Implement retry logic for API failures
@@ -78,7 +78,7 @@ src/pages/api/
 
 ## Dependencies
 
-- OpenAI API
+- Hugging Face Inference API (`HF_TOKEN`, server-only)
 - Pinecone (or similar vector database)
 - TypeScript
 - Astro server-side APIs
@@ -86,4 +86,4 @@ src/pages/api/
 ## References
 
 - [M4 Requirements](./requirements.md)
-- [OpenAI Embeddings Guide](https://platform.openai.com/docs/guides/embeddings)
+- [Hugging Face Inference Providers](https://huggingface.co/docs/huggingface.js/inference/README)
