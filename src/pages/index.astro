@@ -1,175 +1,53 @@
 ---
-import Layout from '../layouts/Layout.astro';
-
-/** @type { import('astro'). AstroComponentProps } */
-interface Props {
-  title: string;
-}
-
-const { title = "Home" } = Astro.props;
+import ActivitiesRow from '../components/rows/ActivitiesRow.astro';
+import ContactRow from '../components/rows/ContactRow.astro';
+import ExperienceRow from '../components/rows/ExperienceRow.astro';
+import HomeRow from '../components/rows/HomeRow.astro';
+import ProjectsRow from '../components/rows/ProjectsRow.astro';
+import SidebarNav from '../components/SidebarNav.astro';
 ---
-
-<main class="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8">
-  
-  <!-- Hero Section -->
-  <div class="max-w-5xl mx-auto text-center space-y-8 py-12 md:py-20">
-    
-    <!-- Avatar / Profile Image -->
-    <div class="inline-flex items-center justify-center w-32 h-32 sm:w-40 sm:h-40 rounded-full bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 p-1 shadow-2xl shadow-indigo-500/30 mb-8">
-      <div class="w-full h-full rounded-full bg-slate-950 flex items-center justify-center overflow-hidden">
-        <img 
-          src="/placeholder-avatar.png" 
-          alt="AEA Profile Avatar" 
-          class="w-full h-full object-cover"
-          onerror="this.style.display = 'none'; this.nextElementSibling?.classList.remove('hidden')"
-        />
-        <!-- Fallback if image fails to load -->
-        <svg class="w-16 h-16 text-indigo-400 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-          <circle cx="12" cy="7" r="4"></circle>
-        </svg>
-      </div>
-    </div>
-
-    <!-- Heading -->
-    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight">
-      <span class="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
-        {title}
-      </span>
-    </h1>
-
-    <!-- Subheading -->
-    <p class="text-lg sm:text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed">
-      A personal portfolio website built with Astro, showcasing my projects, activities, and experiences. Explore my work below.
-    </p>
-
-    <!-- CTA Buttons -->
-    <div class="flex flex-wrap items-center justify-center gap-3 sm:gap-4 pt-4">
-      <a 
-        href="/#projects"
-        class="inline-flex items-center px-6 py-3 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-medium text-sm hover:from-indigo-500 hover:to-purple-500 transition-all shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-slate-950"
-      >
-        View Projects
-        <svg class="ml-2 w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-          <path d="M5 12h14m-7-7l7 7-7 7"/>
-        </svg>
-      </a>
-      <a 
-        href="/contact#chatbot"
-        class="inline-flex items-center px-6 py-3 rounded-xl border border-slate-700/50 bg-slate-800/50 text-slate-300 font-medium text-sm hover:bg-slate-800 hover:border-slate-600 transition-all focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-slate-950"
-      >
-        <svg class="mr-2 w-4 h-4 text-indigo-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-        </svg>
-        Chat with AI
-      </a>
-    </div>
-
-  </div>
-
-  <!-- Projects Preview Section -->
-  <section id="projects" class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20">
-    
-    <div class="flex items-center justify-between mb-8">
-      <h2 class="text-2xl font-bold text-slate-200">Featured Projects</h2>
-      <a href="/projects" class="text-sm text-indigo-400 hover:text-indigo-300 transition-colors flex items-center gap-1">
-        View all projects
-        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-          <path d="M9 5l7 7-7 7"/>
-        </svg>
-      </a>
-    </div>
-
-    <!-- Projects Grid -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-      
-      <!-- Project Card 1 -->
-      <article 
-        class="group relative rounded-xl bg-slate-900/50 border border-white/5 p-6 hover:border-indigo-500/30 transition-all cursor-pointer"
-      >
-        <div class="absolute inset-0 rounded-xl bg-gradient-to-br from-indigo-500/10 to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-        
-        <!-- Project Icon -->
-        <div class="relative w-full aspect-video rounded-lg bg-slate-800/50 mb-4 overflow-hidden flex items-center justify-center">
-          <svg class="w-12 h-12 text-indigo-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
-            <line x1="3" y1="9" x2="21" y2="9"/>
-            <line x1="9" y1="21" x2="9" y2="9"/>
-          </svg>
-        </div>
-
-        <!-- Project Info -->
-        <h3 class="text-lg font-semibold text-slate-200 group-hover:text-white transition-colors">Project Alpha</h3>
-        <p class="text-sm text-slate-500 mt-1 line-clamp-2">
-          A web application demonstrating advanced frontend concepts and modern architecture patterns.
-        </p>
-
-        <!-- Tech Stack Tags -->
-        <div class="flex flex-wrap gap-1 mt-4 pt-4 border-t border-white/5">
-          <span class="px-2 py-0.5 rounded text-xs bg-indigo-500/10 text-indigo-300 font-medium">React</span>
-          <span class="px-2 py-0.5 rounded text-xs bg-purple-500/10 text-purple-300 font-medium">TypeScript</span>
-        </div>
-
-      </article>
-
-      <!-- Project Card 2 -->
-      <article 
-        class="group relative rounded-xl bg-slate-900/50 border border-white/5 p-6 hover:border-indigo-500/30 transition-all cursor-pointer"
-      >
-        <div class="absolute inset-0 rounded-xl bg-gradient-to-br from-purple-500/10 to-pink-500/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-        
-        <!-- Project Icon -->
-        <div class="relative w-full aspect-video rounded-lg bg-slate-800/50 mb-4 overflow-hidden flex items-center justify-center">
-          <svg class="w-12 h-12 text-purple-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <circle cx="12" cy="12" r="3"/>
-            <path d="M19.4 15a1.65 1.65 0 0 0 .03 2.3l-2.78 2.78c-.97.97-2.53.97-3.5 0L5.43 12.3a2.93 2.93 0 0 1 0-4.14l6.36-6.36A2.93 2.93 0 0 1 14.7 2h1a2.94 2.94 0 0 1 2.07.85l2.78 2.78c.97.97.97 2.53 0 3.5z"/>
-          </svg>
-        </div>
-
-        <!-- Project Info -->
-        <h3 class="text-lg font-semibold text-slate-200 group-hover:text-white transition-colors">Project Beta</h3>
-        <p class="text-sm text-slate-500 mt-1 line-clamp-2">
-          An interactive data visualization dashboard built with D3.js and modern web APIs.
-        </p>
-
-        <!-- Tech Stack Tags -->
-        <div class="flex flex-wrap gap-1 mt-4 pt-4 border-t border-white/5">
-          <span class="px-2 py-0.5 rounded text-xs bg-purple-500/10 text-purple-300 font-medium">D3.js</span>
-          <span class="px-2 py-0.5 rounded text-xs bg-pink-500/10 text-pink-300 font-medium">Vue</span>
-        </div>
-
-      </article>
-
-      <!-- Project Card 3 -->
-      <article 
-        class="group relative rounded-xl bg-slate-900/50 border border-white/5 p-6 hover:border-indigo-500/30 transition-all cursor-pointer"
-      >
-        <div class="absolute inset-0 rounded-xl bg-gradient-to-br from-pink-500/10 to-indigo-500/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-        
-        <!-- Project Icon -->
-        <div class="relative w-full aspect-video rounded-lg bg-slate-800/50 mb-4 overflow-hidden flex items-center justify-center">
-          <svg class="w-12 h-12 text-pink-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-          </svg>
-        </div>
-
-        <!-- Project Info -->
-        <h3 class="text-lg font-semibold text-slate-200 group-hover:text-white transition-colors">Project Gamma</h3>
-        <p class="text-sm text-slate-500 mt-1 line-clamp-2">
-          A machine learning model deployed as a REST API, serving predictions in real-time.
-        </p>
-
-        <!-- Tech Stack Tags -->
-        <div class="flex flex-wrap gap-1 mt-4 pt-4 border-t border-white/5">
-          <span class="px-2 py-0.5 rounded text-xs bg-pink-500/10 text-pink-300 font-medium">Python</span>
-          <span class="px-2 py-0.5 rounded text-xs bg-indigo-500/10 text-indigo-300 font-medium">FastAPI</span>
-        </div>
-
-      </article>
-
-    </div>
-
-  </section>
-
+<SidebarNav />
+<main class="portfolio-content">
+  <HomeRow title="AEA Personal Portfolio" subtitle="A focused collection of projects, activities, and experience." ctaText="View projects" ctaUrl="#projects" />
+  <ProjectsRow />
+  <ActivitiesRow />
+  <ExperienceRow />
+  <ContactRow email="hello@example.com" />
 </main>
----
+<script>
+  const animatedRows = [...document.querySelectorAll<HTMLElement>('.portfolio-content > section')];
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (animatedRows.length && !prefersReducedMotion) {
+    const content = document.querySelector<HTMLElement>('.portfolio-content');
+    content?.classList.add('supports-row-animation');
+
+    const observer = new IntersectionObserver((entries, currentObserver) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('is-visible');
+        currentObserver.unobserve(entry.target);
+      });
+    }, { rootMargin: '0px 0px -12% 0px', threshold: 0.08 });
+
+    animatedRows.forEach((row) => observer.observe(row));
+  }
+</script>
+<style>
+  .portfolio-content { display: flex; flex-direction: column; min-height: 100vh; padding-inline: clamp(1rem, 7vw, 8rem); }
+  .portfolio-content > :global(section) { scroll-margin-top: 1rem; }
+  .portfolio-content.supports-row-animation > :global(section) {
+    opacity: 0;
+    transform: translateY(1.25rem);
+    transition: opacity 550ms ease, transform 550ms ease;
+    will-change: opacity, transform;
+  }
+  .portfolio-content.supports-row-animation > :global(section.is-visible) {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .portfolio-content > :global(section) { scroll-margin-top: 1rem; }
+  }
+  @media (max-width: 767px) { .portfolio-content { padding-inline: 0; padding-top: 4rem; } }
+</style>

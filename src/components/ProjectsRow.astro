@@ -19,9 +19,9 @@ const { projects } = Astro.props;
 ---
 <section class="projects-row" aria-label="Projects">
   <div class="projects-grid">
-    {#if projects.length > 0}
+    {projects.length > 0 ? (
       <ul role="list" aria-labelledby="projects-heading">
-        {#each projects as project}
+        {projects.map((project) => (
           <li>
             <BaseCard
               id={project.id}
@@ -32,11 +32,11 @@ const { projects } = Astro.props;
               link={project.link}
             />
           </li>
-        {/each}
+        ))}
       </ul>
-    {:else}
+    ) : (
       <EmptyState message="No projects yet. Check back later!" icon="briefcase" />
-    {/if}
+    )}
   </div>
 </section>
 

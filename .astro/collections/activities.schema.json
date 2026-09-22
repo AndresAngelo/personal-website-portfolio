@@ -1,56 +1,45 @@
 {
-  "$ref": "#/definitions/activities",
-  "definitions": {
-    "activities": {
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "date": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "backgroundImage": {
+      "type": "string"
+    },
+    "mediaType": {
+      "type": "string",
+      "enum": [
+        "image",
+        "video",
+        "gallery"
+      ]
+    },
+    "links": {
       "type": "object",
       "properties": {
-        "title": {
+        "eventPage": {
           "type": "string"
         },
-        "date": {
-          "type": "string"
-        },
-        "description": {
-          "type": "string"
-        },
-        "backgroundImage": {
-          "type": "string",
-          "description": "Optional background image for the activity",
-          "markdownDescription": "Optional background image for the activity"
-        },
-        "mediaType": {
-          "type": "string",
-          "enum": [
-            "image",
-            "video",
-            "gallery"
-          ],
-          "description": "Type of media content",
-          "markdownDescription": "Type of media content"
-        },
-        "links": {
-          "type": "object",
-          "properties": {
-            "eventPage": {
-              "type": "string"
-            },
-            "video": {
-              "type": "string"
-            }
-          },
-          "additionalProperties": false
-        },
-        "$schema": {
+        "video": {
           "type": "string"
         }
-      },
-      "required": [
-        "title",
-        "date",
-        "description"
-      ],
-      "additionalProperties": false
+      }
+    },
+    "$schema": {
+      "type": "string"
     }
   },
-  "$schema": "http://json-schema.org/draft-07/schema#"
+  "required": [
+    "title",
+    "date",
+    "description"
+  ]
 }

@@ -1,17 +1,17 @@
 import { defineCollection, z } from 'astro:content';
+import { glob } from 'astro/loaders';
 
 const projects = defineCollection({
-  type: 'content',
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/projects' }),
   schema: z.object({
     title: z.string(),
     tagline: z.string(),
     problem: z.string(),
     role: z.string(),
     techStack: z.array(z.string()),
-    // Media fields
-    heroImage: z.string().optional().describe('Optional hero image for the project'),
-    videoPitch: z.string().optional().describe('Optional video pitch URL (YouTube/Vimeo)'),
-    pinned: z.boolean().optional().describe('Pin this project to the top of the list'),
+    heroImage: z.string().optional(),
+    videoPitch: z.string().optional(),
+    pinned: z.boolean().optional(),
     links: z.object({
       repo: z.string().optional(),
       demo: z.string().optional(),
@@ -21,14 +21,13 @@ const projects = defineCollection({
 });
 
 const activities = defineCollection({
-  type: 'content',
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/activities' }),
   schema: z.object({
     title: z.string(),
     date: z.string(),
     description: z.string(),
-    // Media fields
-    backgroundImage: z.string().optional().describe('Optional background image for the activity'),
-    mediaType: z.enum(['image', 'video', 'gallery']).optional().describe('Type of media content'),
+    backgroundImage: z.string().optional(),
+    mediaType: z.enum(['image', 'video', 'gallery']).optional(),
     links: z.object({
       eventPage: z.string().optional(),
       video: z.string().optional(),
@@ -37,13 +36,12 @@ const activities = defineCollection({
 });
 
 const faq = defineCollection({
-  type: 'content',
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/faq' }),
   schema: z.object({
     question: z.string(),
     answer: z.string(),
-    // Enhanced fields
-    category: z.string().optional().describe('Category for organizing FAQ items'),
-    relatedProjects: z.array(z.string()).optional().describe('Array of related project slugs'),
+    category: z.string().optional(),
+    relatedProjects: z.array(z.string()).optional(),
   }),
 });
 

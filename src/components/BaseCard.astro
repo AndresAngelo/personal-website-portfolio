@@ -12,7 +12,7 @@ const { id, title, description, tags = [], image, link } = Astro.props;
 ---
 
 <article class="project-card" id={id}>
-  {#if image}
+  {image && (
     <img
       src={image}
       alt=""
@@ -21,25 +21,25 @@ const { id, title, description, tags = [], image, link } = Astro.props;
       width={400}
       height={300}
     />
-  {/if}
+  )}
 
   <div class="card-content">
     <h3>{title}</h3>
     <p>{description}</p>
 
-    {#if tags && tags.length > 0}
+    {tags.length > 0 && (
       <ul role="list" aria-label="Tags">
-        {#each tags as tag}
+        {tags.map((tag) => (
           <li class="tag">{tag}</li>
-        {/each}
+        ))}
       </ul>
-    {/if}
+    )}
 
-    {#if link}
+    {link && (
       <a href={link} target="_blank" rel="noopener noreferrer">
         View Project →
       </a>
-    {/if}
+    )}
   </div>
 </article>
 
