@@ -1,5 +1,29 @@
 # Current Issues & Deviation Log
 
+### [FACT][RESOLVED] M8 Task 8.7 testing
+
+`scripts/test-m8-integration.mjs` and `npm.cmd run test:m8` now validate the M8 security/compliance contracts: headers, CSP reporting, privacy-policy disclosures, cookie-consent persistence controls, security.txt metadata, and mixed-content absence. Focused HTTPS and cookie-consent checks also pass. Typecheck, lint, and build pass on 2026-09-22. Live certificate/redirect behavior and external security auditing remain Stage 5 QA checks; the build's dynamic-route warning and existing documentation line-ending/trailing-whitespace warnings are non-blocking.
+
+### [FACT][RESOLVED] M8 Task 8.6 security.txt
+
+`public/security.txt` now publishes the existing `hello@aea.dev` security contact, a one-year expiry, English and Spanish preferred languages, and the canonical `https://aea.dev/security.txt` URL. `src/components/SEO.astro` links to `/security.txt` from the document head. The security.txt contract, typecheck, lint, build, and diff checks pass on 2026-09-22. The next authorized task is M8 Task 8.7 Testing.
+
+### [FACT][RESOLVED] M8 Task 8.5 cookie consent
+
+`src/components/CookieConsent.astro` provides a first-visit banner, accept/reject optional-cookie controls, persistent `aea-cookie-consent` local-storage state, and a Cookie settings control for changing the choice. The active shared layout renders the component, and the privacy policy documents the behavior at `/privacy-policy#cookies`. The focused contract, typecheck, lint, build, and diff checks completed on 2026-09-22; diff check retains existing Markdown trailing-whitespace and Windows line-ending warnings. The next authorized task is M8 Task 8.6 Security.txt.
+
+### [FACT][INFO] M8 Task 8.3 deployment-time HTTPS verification
+
+`vercel.json` supplies HSTS and Vercel is the approved deployment target; Vercel provides certificates and HTTP-to-HTTPS redirects at the edge. `scripts/test-m8-https.mjs` verifies the repository-side contract and scans source/configuration for mixed-content references. Live redirect behavior and certificate validity remain Stage 5 QA checks.
+
+### [FACT][RESOLVED] M8 Task 8.2 CSP implementation
+
+`vercel.json` now sends a strict `Content-Security-Policy-Report-Only` header without `unsafe-inline` or `unsafe-eval`, with same-origin defaults and `/api/csp-report` reporting. `src/pages/api/csp-report.ts` bounds accepted reports to 64 KiB and returns `204` for POST reports. Typecheck, lint, build, and diff checks pass on 2026-09-22. Enforcement remains deferred until inline Astro output is migrated to nonce/hash-compatible delivery and report monitoring confirms no required sources are blocked. The next authorized task is M8 Task 8.3 HTTPS Configuration.
+
+### [FACT][RESOLVED] M8 Task 8.1 security headers configuration
+
+`vercel.json` now configures HSTS with `max-age=63072000; includeSubDomains; preload`, `X-Frame-Options: DENY`, `X-Content-Type-Options: nosniff`, `Referrer-Policy: strict-origin-when-cross-origin`, and `X-XSS-Protection: 1; mode=block`. The header contract, typecheck, lint, production build, and diff checks pass on 2026-09-22. The existing CSP report-only policy remains deferred to M8 Task 8.2. The next authorized task is M8 Task 8.2 CSP Implementation.
+
 ### [FACT][RESOLVED] M7 Task 7.9 deterministic integration testing
 
 `scripts/test-m7-integration.mjs` and `npm.cmd run test:m7` validate the optimized image, SEO, structured-data, sitemap, and robots.txt contracts, including the generated Vercel server chunks after a production build. Typecheck, lint, build, and `git diff --check` pass on 2026-09-22. External Lighthouse, Core Web Vitals, and search-console validation remain unavailable and are deferred to Stage 5 QA. The next authorized task is M8 Task 8.1 Security Headers Configuration.
@@ -366,3 +390,10 @@ M4 now uses the official `@huggingface/inference` client with `sentence-transfor
 ### [UNKNOWN][OPEN] M7 external performance and search audits unavailable
 
 No browser/Lighthouse surface, Core Web Vitals telemetry, Google Rich Results Test, or Google Search Console credentials are available in this environment. Lighthouse scores, live CWV thresholds, and external search-console validation remain Stage 5 QA work; the local M7 integration checks do not claim those results.
+### [FACT][RESOLVED] M8 Task 8.4 privacy policy
+
+`src/pages/privacy-policy.astro` provides an accessible `/privacy-policy` route with a table of contents, collection/use disclosures, third-party service disclosure, retention periods, privacy rights, and contact information. The policy is linked from shared and alternate footers. Typecheck, lint, build, privacy contract, and diff checks pass on 2026-09-22. The known dynamic-route build warning and Windows line-ending warnings remain non-blocking. The next authorized task is M8 Task 8.5 Cookie Consent.
+
+### [FACT][RESOLVED] Shared Astro layout slot compatibility
+
+`src/layouts/Layout.astro` used the legacy `{ yield }` expression, which Astro 7 rejected during the M8 Task 8.4 build. It now uses the supported `<slot />` syntax; typecheck, lint, and build pass.

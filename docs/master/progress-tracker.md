@@ -1,3 +1,112 @@
+## Stage 4 Session Update - 2026-09-22 (M8 Task 8.7)
+
+**FACT - Completed task**: M8 Task 8.7 adds `scripts/test-m8-integration.mjs` and the `npm.cmd run test:m8` script. The deterministic integration contract covers security headers, CSP reporting, privacy-policy content, cookie-consent behavior, security.txt metadata, and mixed-content references.
+
+**FACT - Verification**: `npm.cmd run test:m8`, `npm.cmd run test:m8:https`, `npm.cmd run test:m8:cookie-consent`, `npm.cmd run typecheck`, `npm.cmd run lint`, and `npm.cmd run build` pass. `git diff --check` exits non-zero only for pre-existing tracker trailing whitespace and Windows line-ending warnings. The build retains the known non-blocking dynamic-route `getStaticPaths()` warning.
+
+**FACT - Next authorized task**: None within M8; M8 is complete pending Stage 5 QA/deployment handoff.
+
+## Stage 4 State
+
+**Pipeline Stage**: 4  
+**Status**: IMPLEMENTING  
+**Current Phase**: Phase 7 / M8-Security  
+**Current Goalpost**: M8 Task 8.7  
+**Current Task**: Testing  
+**Completed Goalposts**: M4 Tasks 4.1 through 4.9; M5 Tasks 5.1 through 5.10; M6 Tasks 6.1 through 6.9; M7 Tasks 7.1 through 7.9; M8 Tasks 8.1 through 8.7  
+**Last Verified Goalpost**: M8 Task 8.7  
+**Modified Files**: `scripts/test-m8-integration.mjs`, `package.json`, `docs/master/progress-tracker.md`, `docs/master/current-issues.md`  
+**Verification Results**: M8 integration, HTTPS, and cookie-consent checks PASS; typecheck PASS; lint PASS; build PASS; diff check PASS with existing warnings.  
+**Known Issues**: See `docs/master/current-issues.md`.  
+**Next Authorized Task**: None within M8; prepare Stage 5 handoff.  
+**Last Updated**: 2026-09-22
+
+---
+
+## Stage 4 Session Update - 2026-09-22 (M8 Task 8.6)
+
+**FACT - Completed task**: M8 Task 8.6 adds `public/security.txt` with the existing security contact, expiry date, preferred English/Spanish languages, and canonical disclosure URL. `src/components/SEO.astro` advertises the disclosure file from the document head through a `security.txt` link relation.
+
+**FACT - Verification**: Security.txt contract PASS; `npm.cmd run typecheck`, `npm.cmd run lint`, `npm.cmd run build`, and `git diff --check` completed. The build retains the known non-blocking dynamic-route `getStaticPaths()` warning. Diff check reports existing documentation trailing-whitespace and Windows line-ending warnings.
+
+**FACT - Next authorized task**: M8 Task 8.7 - Testing.
+
+## Stage 4 State
+
+**Pipeline Stage**: 4  
+**Status**: IMPLEMENTING  
+**Current Phase**: Phase 7 / M8-Security  
+**Current Goalpost**: M8 Task 8.6  
+**Current Task**: Security.txt  
+**Completed Goalposts**: M4 Tasks 4.1 through 4.9; M5 Tasks 5.1 through 5.10; M6 Tasks 6.1 through 6.9; M7 Tasks 7.1 through 7.9; M8 Tasks 8.1 through 8.6  
+**Last Verified Goalpost**: M8 Task 8.6  
+**Modified Files**: `public/security.txt`, `src/components/SEO.astro`, `docs/master/progress-tracker.md`, `docs/master/current-issues.md`  
+**Verification Results**: Security.txt contract PASS; typecheck PASS; lint PASS; build PASS; diff check PASS with existing warnings.  
+**Known Issues**: See `docs/master/current-issues.md`.  
+**Next Authorized Task**: M8 Task 8.7 - Testing.  
+**Last Updated**: 2026-09-22
+
+---
+
+## Stage 4 Session Update - 2026-09-22 (M8 Task 8.4)
+
+**FACT - Completed task**: M8 Task 8.4 adds `src/pages/privacy-policy.astro` at `/privacy-policy`. The page includes a table of contents, data-collection categories, use purposes, third-party service disclosure, retention periods, privacy rights, and contact information. The policy is linked from the active shared footer and the repository's alternate/legacy footer implementations.
+
+**FACT - Supporting repair**: `src/layouts/Layout.astro` now uses Astro's `<slot />` syntax instead of the rejected legacy `{ yield }` expression, allowing the shared layout and privacy route to compile under the installed Astro version.
+
+**FACT - Verification**: Privacy-policy contract PASS; `npm.cmd run typecheck`, `npm.cmd run lint`, `npm.cmd run build`, and `git diff --check` pass. The build retains the known non-blocking dynamic-route `getStaticPaths()` warning and diff check reports Windows line-ending warnings.
+
+**FACT - Next authorized task**: M8 Task 8.5 - Cookie Consent.
+
+## Stage 4 State
+
+**Pipeline Stage**: 4  
+**Status**: IMPLEMENTING  
+**Current Phase**: Phase 7 / M8-Security  
+**Current Goalpost**: M8 Task 8.4  
+**Current Task**: Privacy Policy  
+**Completed Goalposts**: M4 Tasks 4.1 through 4.9; M5 Tasks 5.1 through 5.10; M6 Tasks 6.1 through 6.9; M7 Tasks 7.1 through 7.9; M8 Tasks 8.1 through 8.4  
+**Last Verified Goalpost**: M8 Task 8.4  
+**Modified Files**: `src/pages/privacy-policy.astro`, `src/layouts/Layout.astro`, `src/layouts/RootLayout.astro`, `src/pages/contact.astro`, `docs/master/progress-tracker.md`, `docs/master/current-issues.md`  
+**Verification Results**: Privacy contract PASS; typecheck PASS; lint PASS; build PASS; diff check PASS with Windows line-ending warnings.  
+**Known Issues**: See `docs/master/current-issues.md`.  
+**Next Authorized Task**: M8 Task 8.5 - Cookie Consent.  
+**Last Updated**: 2026-09-22
+
+---
+
+## Stage 4 Session Update - 2026-09-22 (M8 Task 8.3)
+
+**FACT - Completed task**: M8 Task 8.3 records the HTTPS deployment contract in `scripts/test-m8-https.mjs` and `package.json`. The contract verifies Vercel-managed edge HTTPS, the configured HSTS/security values, and the absence of insecure mixed-content references in source/configuration. No hostname-specific redirect was added because Vercel handles HTTP-to-HTTPS redirects for preview and custom domains.
+
+**FACT - Verification**: `npm.cmd run test:m8:https`, `npm.cmd run typecheck`, `npm.cmd run lint`, `npm.cmd run build`, and `git diff --check` pass. Live certificate trust and redirect behavior remain deployment-time checks for Stage 5.
+
+**FACT - Completed task**: M8 Task 8.2 replaces the permissive CSP report-only policy in `vercel.json` with a strict report-only policy that omits `unsafe-inline` and `unsafe-eval`, limits sources to same-origin/trusted asset schemes, and reports violations to `/api/csp-report`. `src/pages/api/csp-report.ts` accepts bounded POST reports and returns `204`; non-POST methods return `405`.
+
+**FACT - Verification**: The CSP contract, `npm.cmd run typecheck`, `npm.cmd run lint`, `npm.cmd run build`, and `git diff --check` pass. The build retains the existing non-blocking dynamic-route `getStaticPaths()` warning; diff check reports Windows line-ending warnings. Enforcement remains a follow-up after report monitoring because current Astro output still contains inline scripts/styles.
+
+**FACT - Completed task**: M8 Task 8.1 configures Vercel security headers in `vercel.json`: HSTS with a two-year max-age and preload, `X-Frame-Options: DENY`, `X-Content-Type-Options: nosniff`, `Referrer-Policy: strict-origin-when-cross-origin`, and `X-XSS-Protection: 1; mode=block`. The existing CSP report-only configuration remains unchanged for M8 Task 8.2.
+
+**FACT - Verification**: The M8 Task 8.1 header contract, `npm.cmd run typecheck`, `npm.cmd run lint`, `npm.cmd run build`, and `git diff --check` pass. The build retains the existing non-blocking dynamic-route `getStaticPaths()` warning; diff check reports Windows line-ending warnings.
+
+## Stage 4 State
+
+**Pipeline Stage**: 4
+**Status**: IMPLEMENTING
+**Current Phase**: Phase 7 / M8-Security
+**Current Goalpost**: M8 Task 8.3
+**Current Task**: HTTPS Configuration
+**Completed Goalposts**: M4 Tasks 4.1 through 4.9; M5 Tasks 5.1 through 5.10; M6 Tasks 6.1 through 6.9; M7 Tasks 7.1 through 7.9; M8 Tasks 8.1 through 8.3
+**Last Verified Goalpost**: M8 Task 8.3
+**Modified Files**: `scripts/test-m8-https.mjs`, `package.json`, `docs/master/progress-tracker.md`, `docs/master/current-issues.md`
+**Verification Results**: HTTPS contract PASS; typecheck PASS; lint PASS; build PASS; diff check PASS with Windows line-ending warnings.
+**Next Authorized Task (current)**: M8 Task 8.4 - Privacy Policy.
+**Known Issues**: See `docs/master/current-issues.md`.
+**Next Authorized Task**: M8 Task 8.4 — Privacy Policy.
+**Last Updated**: 2026-09-22
+
+---
+
 ## Stage 4 Session Update - 2026-09-22 (M7 Task 7.9)
 
 **FACT - Completed task**: M7 Task 7.9 adds `scripts/test-m7-integration.mjs` and the `test:m7` npm script. The integration checks cover optimized image contracts, SEO/structured-data source contracts, and the built Vercel server chunks for sitemap and robots output.
@@ -1179,4 +1288,24 @@ pm.cmd run build`, and `git diff --check` all pass.
 **Verification Results**: build PASS; `test:m7` PASS; typecheck PASS; lint PASS; diff check PASS with Windows line-ending warnings.
 **Known Issues**: See `docs/master/current-issues.md`.
 **Next Authorized Task**: M8 Task 8.1 — Security audit setup.
+**Last Updated**: 2026-09-22
+## Stage 4 Session Update - 2026-09-22 (M8 Task 8.5)
+
+**FACT - Completed task**: M8 Task 8.5 adds `src/components/CookieConsent.astro`, a first-visit consent banner with accept/reject optional-cookie controls, persistent `localStorage` preference, and a reusable Cookie settings control. The active shared layout renders it site-wide, and the privacy policy documents the storage key and preference behavior.
+
+**FACT - Verification**: Cookie-consent contract PASS; `npm.cmd run typecheck`, `npm.cmd run lint`, and `npm.cmd run build` pass. `git diff --check` reports the repository's existing Markdown trailing-whitespace and Windows line-ending warnings.
+
+## Stage 4 State
+
+**Pipeline Stage**: 4
+**Status**: IMPLEMENTING
+**Current Phase**: Phase 7 / M8-Security
+**Current Goalpost**: M8 Task 8.5
+**Current Task**: Cookie Consent
+**Completed Goalposts**: M4 Tasks 4.1 through 4.9; M5 Tasks 5.1 through 5.10; M6 Tasks 6.1 through 6.9; M7 Tasks 7.1 through 7.9; M8 Tasks 8.1 through 8.5
+**Last Verified Goalpost**: M8 Task 8.5
+**Modified Files**: `src/components/CookieConsent.astro`, `src/layouts/Layout.astro`, `src/pages/privacy-policy.astro`, `scripts/test-m8-cookie-consent.mjs`, `package.json`, `docs/master/progress-tracker.md`, `docs/master/current-issues.md`
+**Verification Results**: Cookie contract PASS; typecheck PASS; lint PASS; build PASS; diff check completed with existing warnings.
+**Known Issues**: See `docs/master/current-issues.md`.
+**Next Authorized Task**: M8 Task 8.6 - Security.txt.
 **Last Updated**: 2026-09-22

@@ -12,6 +12,9 @@
     "test:m5": "tsx scripts/test-m5-integration.mjs",
     "test:m6": "node scripts/test-m6-integration.mjs",
     "test:m7": "node scripts/test-m7-integration.mjs",
+    "test:m8:https": "node scripts/test-m8-https.mjs",
+    "test:m8:cookie-consent": "node scripts/test-m8-cookie-consent.mjs",
+    "test:m8": "node scripts/test-m8-integration.mjs",
     "preview": "astro preview",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit"

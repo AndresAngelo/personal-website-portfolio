@@ -3,6 +3,7 @@ import ChatWidget from '../components/ChatWidget.astro';
 import SEO from '../components/SEO.astro';
 import StructuredData from '../components/StructuredData.astro';
 import LanguageSelector from '../components/LanguageSelector.astro';
+import CookieConsent from '../components/CookieConsent.astro';
 import { getLanguageFromPath, t } from '../lib/i18n';
 import criticalCss from '../styles/critical.css?raw';
 const language = getLanguageFromPath(Astro.url.pathname);
@@ -82,7 +83,7 @@ const language = getLanguageFromPath(Astro.url.pathname);
 
     <!-- Main Content Area -->
     <main class="flex-grow">
-      { yield }
+      <slot />
     </main>
 
     <!-- Footer Component (inline for simplicity) -->
@@ -121,6 +122,7 @@ const language = getLanguageFromPath(Astro.url.pathname);
             <p class="text-xs text-slate-500">
               &copy; { new Date().getFullYear() } AEA. All rights reserved.
             </p>
+            <a href="/privacy-policy" class="text-xs text-indigo-300 hover:text-indigo-200 transition-colors">Privacy Policy</a>
             <p class="text-xs text-slate-600">
               Built with <span class="text-indigo-400">&lt;Astro /&gt;</span> on Vercel.
             </p>
@@ -130,6 +132,7 @@ const language = getLanguageFromPath(Astro.url.pathname);
     </footer>
 
     <ChatWidget />
+    <CookieConsent />
 
   </div>
 </body>

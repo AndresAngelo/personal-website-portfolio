@@ -1,0 +1,92 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const lastUpdated = 'September 22, 2026';
+---
+
+<Layout title="Privacy Policy" description="Privacy policy for the AEA Portfolio website.">
+  <article class="privacy-page">
+    <header class="privacy-hero">
+      <p class="eyebrow">Legal</p>
+      <h1>Privacy Policy</h1>
+      <p class="lede">This policy explains what information the AEA Portfolio website collects, why it is used, and the choices available to you.</p>
+      <p class="updated">Last updated: {lastUpdated}</p>
+    </header>
+
+    <nav class="contents" aria-label="Privacy policy contents">
+      <h2>Contents</h2>
+      <ol>
+        <li><a href="#information">Information we collect</a></li>
+        <li><a href="#use">How information is used</a></li>
+        <li><a href="#services">Third-party services</a></li>
+        <li><a href="#cookies">Cookies and local storage</a></li>
+        <li><a href="#retention">Data retention</a></li>
+        <li><a href="#rights">Your privacy rights</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ol>
+    </nav>
+
+    <div class="privacy-content">
+      <section id="information">
+        <h2>1. Information we collect</h2>
+        <p><strong>Messages you send.</strong> If you use the contact form, we receive the name, email address, subject, and message you provide. Please do not include sensitive personal information.</p>
+        <p><strong>Assistant questions.</strong> Questions sent to the portfolio assistant may include the text of your question and the conversation context needed to generate a response.</p>
+        <p><strong>Technical information.</strong> The hosting platform may process standard request data such as IP address, browser, device, and approximate location in server logs for security, reliability, and abuse prevention. This site does not intentionally collect sensitive personal data.</p>
+      </section>
+
+      <section id="use">
+        <h2>2. How information is used</h2>
+        <p>Information is used to respond to inquiries, provide the portfolio assistant, maintain site security, operate and improve the website, and comply with applicable legal obligations. We do not sell personal information or use it for behavioral advertising.</p>
+      </section>
+
+      <section id="services">
+        <h2>3. Third-party services</h2>
+        <p>This website is hosted on <strong>Vercel</strong>, which may process request and infrastructure data. The portfolio assistant uses configured AI and vector-search providers to retrieve relevant portfolio content and generate answers. Contact-form delivery, where enabled, may also involve a form or email provider.</p>
+        <p>These providers process information only as needed to provide their services, subject to their own privacy policies and terms. The site does not expose provider API keys in the browser.</p>
+      </section>
+
+      <section id="retention">
+        <h2>4. Data retention</h2>
+        <p>Contact messages and related correspondence are retained only for as long as needed to respond, maintain business records, resolve disputes, or meet legal obligations, generally no longer than 24 months after the conversation becomes inactive.</p>
+        <p>Assistant requests are retained only for the period necessary to operate, secure, and troubleshoot the service, generally no longer than 30 days. Provider and hosting logs may follow their documented retention schedules.</p>
+      </section>
+
+      <section id="cookies">
+        <h2>5. Cookies and local storage</h2>
+        <p>This site does not use advertising or analytics cookies. A necessary local-storage entry, <code>aea-cookie-consent</code>, records whether you accepted or rejected optional cookies so this notice does not appear on every visit. Rejecting optional cookies does not prevent you from using the site.</p>
+        <p>You can change this choice at any time with the <strong>Cookie settings</strong> control.</p>
+      </section>
+
+      <section id="rights">
+        <h2>6. Your privacy rights</h2>
+        <p>Depending on where you live, you may have rights to access, correct, delete, or restrict processing of your personal information, to receive a copy of it, and to object to or withdraw consent for certain processing. You may also have the right to complain to your local data-protection authority.</p>
+        <p>To request access or deletion, contact us using the address below. We may need to verify your identity before completing a request.</p>
+      </section>
+
+      <section id="contact">
+        <h2>7. Contact</h2>
+        <p>Questions, requests, or concerns about this policy can be sent to <a href="mailto:hello@aea.dev">hello@aea.dev</a> or through the <a href="/contact">contact page</a>.</p>
+        <p>This policy may be updated when the website, providers, or applicable requirements change. The date above identifies the latest version.</p>
+      </section>
+    </div>
+  </article>
+</Layout>
+
+<style>
+  .privacy-page { max-width: 54rem; margin: 0 auto; padding: clamp(3rem, 8vw, 7rem) 1.25rem; }
+  .privacy-hero { border-bottom: 1px solid rgb(51 65 85 / .7); padding-bottom: 2rem; }
+  .eyebrow { color: #a78bfa; font-size: .8rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+  h1 { color: #f8fafc; font-size: clamp(2.25rem, 6vw, 4rem); line-height: 1.1; margin: .5rem 0 1rem; }
+  .lede { color: #cbd5e1; font-size: 1.15rem; line-height: 1.7; max-width: 42rem; }
+  .updated { color: #94a3b8; font-size: .9rem; margin-top: 1rem; }
+  .contents { background: rgb(30 41 59 / .45); border: 1px solid rgb(71 85 105 / .55); border-radius: .9rem; margin: 2rem 0; padding: 1.25rem 1.5rem; }
+  .contents h2 { font-size: 1rem; margin: 0 0 .75rem; }
+  .contents ol { display: grid; gap: .45rem; margin: 0; padding-left: 1.25rem; }
+  a { color: #a5b4fc; text-decoration: underline; text-underline-offset: .2em; }
+  a:hover { color: #c4b5fd; }
+  .privacy-content { color: #cbd5e1; line-height: 1.75; }
+  .privacy-content section { scroll-margin-top: 6rem; }
+  .privacy-content h2 { color: #f1f5f9; font-size: 1.4rem; margin: 2.5rem 0 .75rem; }
+  .privacy-content p { margin: 0 0 1rem; }
+  strong { color: #e2e8f0; }
+</style>
