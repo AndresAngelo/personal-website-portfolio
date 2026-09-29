@@ -30,10 +30,10 @@ const formData = {};
     <meta property="og:description" content={seo.description} />
     <meta property="og:url" content={Astro.site?.baseUrl + Astro.url.pathname} />
 
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={seo.title} />
-    <meta name="twitter:description" content={seo.description} />
+    <!-- Facebook -->
+    <meta name="Facebook:card" content="summary_large_image" />
+    <meta name="Facebook:title" content={seo.title} />
+    <meta name="Facebook:description" content={seo.description} />
 
     <title>{seo.title}</title>
   </head>
@@ -78,7 +78,7 @@ const formData = {};
 
       <!-- Contact Form -->
       <section class="py-12 px-4 max-w-2xl mx-auto">
-        <form action="/api/contact" method="POST" class="space-y-6">
+        <form action="/api/contact" method="mailto" class="space-y-6">
           <!-- Name -->
           <div>
             <label for="name" class="block text-sm font-medium text-slate-300 mb-2">Name</label>
@@ -155,7 +155,7 @@ const formData = {};
           <article class="p-6 rounded-xl bg-slate-900/30 border border-slate-800 hover:border-indigo-500/40 transition-all duration-300">
             <div class="w-12 h-12 rounded-lg bg-indigo-500/10 text-indigo-400 flex items-center justify-center mx-auto mb-4 text-xl">✉️</div>
             <h3 class="font-semibold text-slate-200 mb-2">Email</h3>
-            <a href="mailto:hello@aea.dev" class="text-indigo-400 hover:text-indigo-300 transition-colors">hello@aea.dev</a>
+            <a href="mailto:angeloandres521@gmail.com" class="text-indigo-400 hover:text-indigo-300 transition-colors">angeloandres521@gmail.com</a>
           </article>
 
           <article class="p-6 rounded-xl bg-slate-900/30 border border-slate-800 hover:border-indigo-500/40 transition-all duration-300">
@@ -168,9 +168,9 @@ const formData = {};
             <div class="w-12 h-12 rounded-lg bg-pink-500/10 text-pink-400 flex items-center justify-center mx-auto mb-4 text-xl">💬</div>
             <h3 class="font-semibold text-slate-200 mb-2">Socials</h3>
             <ul class="space-y-1 text-sm text-slate-500">
-              <li><a href="#" class="hover:text-white transition-colors">GitHub</a></li>
-              <li><a href="#" class="hover:text-white transition-colors">LinkedIn</a></li>
-              <li><a href="#" class="hover:text-white transition-colors">Twitter/X</a></li>
+              <li><a href="https://github.com/AndresAngelo" class="hover:text-white transition-colors">GitHub</a></li>
+              <li><a href="https://www.linkedin.com/in/angelo-andres-professional/" class="hover:text-white transition-colors">LinkedIn</a></li>
+              <li><a href="https://www.facebook.com/angelo.andres.409518" class="hover:text-white transition-colors">Facebook/X</a></li>
             </ul>
           </article>
         </div>
@@ -191,11 +191,10 @@ const formData = {};
             <p class="mt-2 text-sm text-slate-500">&copy; {new Date().getFullYear()} AEA. All rights reserved.</p>
             <a href="/privacy-policy" class="mt-2 inline-block text-sm text-indigo-300 hover:text-indigo-200 transition-colors">Privacy Policy</a>
           </div>
-
           <nav aria-label="Footer" class="flex items-center gap-6">
-            <li><a href="#" class="text-slate-500 hover:text-white transition-colors text-sm">GitHub</a></li>
-            <li><a href="#" class="text-slate-500 hover:text-white transition-colors text-sm">LinkedIn</a></li>
-            <li><a href="#" class="text-slate-500 hover:text-white transition-colors text-sm">Twitter/X</a></li>
+            <li><a href="https://github.com/AndresAngelo" class="text-slate-500 hover:text-white transition-colors text-sm">GitHub</a></li>
+            <li><a href="https://www.linkedin.com/in/angelo-andres-professional/" class="text-slate-500 hover:text-white transition-colors text-sm">LinkedIn</a></li>
+            <li><a href="https://www.facebook.com/angelo.andres.409518" class="text-slate-500 hover:text-white transition-colors text-sm">Facebook/X</a></li>
           </nav>
         </div>
       </div>

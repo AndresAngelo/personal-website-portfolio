@@ -1,6 +1,20 @@
 ﻿# AEA Website Portfolio
 
-An AI-enhanced personal portfolio website built with Astro, featuring intelligent search capabilities powered by RAG (Retrieval-Augmented Generation).
+An AI-enhanced personal portfolio built with Astro, Vercel server rendering, structured content collections, bilingual routing, PWA support, and a RAG-powered portfolio assistant.
+
+## Documentation
+
+- [Developer documentation](docs/README.md)
+- [Component and API reference](docs/API.md)
+- [Content and maintenance guide](docs/MAINTENANCE.md)
+- [Deployment guide](docs/DEPLOYMENT.md)
+- [Deployment checklist](DEPLOYMENT_CHECKLIST.md)
+- [Handoff package](HANDOFF/README.md)
+- [Final review](FINAL_REVIEW.md)
+- [Stage 4 progress](docs/master/progress-tracker.md)
+- [Known issues](docs/master/current-issues.md)
+
+Production deployment procedures and rollback checklists are scheduled for M9 Task 9.7; this README documents local development and the current project structure.
 
 ## 🛠️ Tech Stack
 
@@ -56,7 +70,27 @@ AEA-Website-Portfolio/
 └── vercel.json               # Vercel deployment config
 ```
 
-## 🚀 Getting Started
+## 🧩 Component API
+
+Page composition is defined by `src/pages/index.astro` and `src/pages/[lang]/index.astro`. The main reusable component contracts are:
+
+| Component | Props / contract | Responsibility |
+|---|---|---|
+| `HomeRow` | `title`, `subtitle`, `ctaText`, `ctaUrl` | Hero/introduction row and primary call to action. |
+| `ProjectsRow` | Uses the projects content collection | Renders project cards and project details. |
+| `ActivitiesRow` | `title` | Renders the activity timeline from the activities collection. |
+| `ExperienceRow` | `title` | Renders the experience section. |
+| `ContactRow` | `title`, `subtitle`, `email` | Renders contact information and links. |
+| `SidebarNav` | No public props | Section navigation with active state and mobile menu behavior. |
+| `ChatWidget` | No public props | Launcher, chat panel, messages, citations, input, persistence, and API interaction. |
+| `LanguageSelector` | Optional `currentLanguage` (`en` or `es`) | Persists the preferred locale and navigates to the localized route. |
+| `CookieConsent` | No public props | Stores essential cookie preference and exposes settings controls. |
+
+Chat subcomponents are documented by their source interfaces: `ChatHeader` accepts optional `title` and `eyebrow`; `ChatInput` accepts optional `maxLength` and `placeholder`; `ChatMessages` accepts `messages` and `emptyMessage`; and `CitationDisplay` accepts optional citation records with `source`, `content`, `href`, and `score`.
+
+See [`docs/API.md`](docs/API.md) for endpoint contracts and [`docs/MAINTENANCE.md`](docs/MAINTENANCE.md) before changing shared components.
+
+
 
 ### Prerequisites
 
@@ -88,27 +122,38 @@ npm run preview
 The project uses Astro's Content Collections feature for structured content management:
 
 ### Projects Collection
-- `title` - Project name
-- `tagline` - Short description
-- `heroImage` - Optional hero image URL (place in public/projects/)
-- `videoPitch` - Optional video pitch URL (YouTube/Vimeo)
-- `description` - Detailed description
-- `pinned` - Pin this project to the top (true for personal portfolio)
-- `links` - Optional links (repo, demo, caseStudy)
+
+Files live in `src/content/projects/` and are validated by `src/content/projects/schema.ts`.
+
+- `title`, `description`, `tags`, `image`, `link` — required project card fields.
+- `heroImage`, `videoPitch`, `pinned`, `tagline`, `problem`, `role`, `techStack` — optional presentation fields.
+- `links` — optional `repo`, `demo`, and `caseStudy` URLs.
 
 ### Activities Collection
-- `title` - Activity name
-- `date` - Activity date
-- `description` - Brief description
-- `backgroundImage` - Optional background image URL (place in public/activities/)
-- `mediaType` - Type of media: image, video, or gallery
-- `links` - Optional links (eventPage, video)
+
+Files live in `src/content/activities/` and are validated by `src/content/activities/schema.ts`.
+
+- `title`, `date` (`YYYY-MM-DD`), `description`, `location` — required timeline fields.
+- `backgroundImage`, `mediaType` (`image`, `video`, or `gallery`) — optional media fields.
+- `links` — optional `eventPage` and `video` URLs.
 
 ### FAQ Collection
-- `question` - Question text
-- `answer` - Answer text
-- `category` - Category for organizing
-- `relatedProjects` - Array of related project slugs
+
+Files live in `src/content/faq/` and are validated by `src/content/faq/schema.ts`.
+
+- `question`, `answer` — required FAQ content.
+- `category`, `relatedProjects` — optional organization and project relationships.
+
+Create Markdown or MDX files with YAML frontmatter matching the relevant schema. The collections are registered in `src/content.config.ts`.
+
+### Content workflow
+
+1. Add or edit a file in the appropriate collection directory.
+2. Add media under `public/Public materials/Projects/`, `Activities/`, or `faq/` when needed.
+3. Use lowercase, hyphen-separated media filenames and update frontmatter paths.
+4. Run `npm.cmd run test:content`.
+5. Run `npm.cmd run typecheck` and `npm.cmd run build` before sharing the change.
+
 
 ## 🔍 Media Files
 
@@ -149,12 +194,10 @@ The project includes sample content files to help you get started:
 ## 🔍 AI Features
 
 ### RAG-Powered Chat
-The project includes a baseline RAG implementation for intelligent search:
 
-- `src/lib/rag.ts` - Document chunking and retrieval
-- `api/chat.ts` - Edge API for chat interactions
-- `src/components/ChatWidget.astro` - Chat UI component
-- `scripts/build-embeddings.ts` - Generate embeddings for content
+The portfolio assistant is rendered by `src/components/ChatWidget.astro` and uses the `POST /api/chat` route. The service layer lives in `src/lib/rag.ts`; ingestion is implemented in `src/lib/ingestion.ts` and exposed through `POST /api/ingest`; vector health is exposed through `GET /api/status`.
+
+Read the complete request and response contracts in [`docs/API.md`](docs/API.md). Provider credentials are server-only and must be supplied through environment configuration.
 
 ## 🌐 Deployment
 
@@ -194,11 +237,22 @@ The project includes a web app manifest (`public/manifest.webmanifest`) for prog
 
 ## 📚 Development Workflow
 
-1. **Prepare media files**: Add your resume, project images, and activity backgrounds to the `public/` folder
-2. **Add content**: Edit or create files in `src/content/projects/`, `src/content/activities/`, or `src/content/faq/`
-3. **Reference media**: Use relative paths to link media files (e.g., `/projects/my-hero.jpg`)
-4. The site automatically rebuilds during development
-5. View changes at `http://localhost:4321`
+1. Install dependencies with `npm install`.
+2. Copy `.env.example` to `.env` for local provider configuration.
+3. Start the development server with `npm run dev` and use the local URL printed by Astro.
+4. Add content and media using the workflow above.
+5. Run focused tests for changed behavior, then `npm.cmd run typecheck`, `npm.cmd run lint`, and `npm.cmd run build`.
+6. Review `docs/master/current-issues.md` and update documentation when behavior or known limitations change.
+
+On Windows systems where PowerShell blocks script shims, invoke npm explicitly as `npm.cmd` or `& "C:\Program Files\nodejs\npm.cmd"`.
+
+## 📚 Further Documentation
+
+- [`docs/README.md`](docs/README.md) — documentation index and developer path
+- [`docs/API.md`](docs/API.md) — API and component contracts
+- [`docs/MAINTENANCE.md`](docs/MAINTENANCE.md) — content, validation, and troubleshooting
+- [`docs/specs/M9-QA-Handoff/`](docs/specs/M9-QA-Handoff/) — approved QA and handoff specifications
+- [`docs/handoff/STAGE3-TO-STAGE4-HANDOFF.md`](docs/handoff/STAGE3-TO-STAGE4-HANDOFF.md) — implementation boundaries and stage context
 
 ## 🎯 Next Steps
 

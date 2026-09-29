@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "astro dev --host",
     "start": "astro dev",
+    "test": "node scripts/test-suite.mjs",
     "build": "node scripts/build-astro.mjs",
     "test:content": "node scripts/test-content-integration.mjs",
     "test:m4": "tsx scripts/test-m4-integration.mjs",
@@ -15,6 +16,7 @@
     "test:m8:https": "node scripts/test-m8-https.mjs",
     "test:m8:cookie-consent": "node scripts/test-m8-cookie-consent.mjs",
     "test:m8": "node scripts/test-m8-integration.mjs",
+    "test:api": "tsx scripts/test-m9-api.mjs",
     "preview": "astro preview",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit"

@@ -32,6 +32,25 @@ jobs:
       - name: Type check
         run: npx tsc --noEmit
 
+      - name: Run deterministic test suite
+        run: npm test
+
+      - name: Publish test result summary
+        if: always()
+        run: |
+          {
+            echo "## Test Suite"
+            echo "The deterministic repository test suite was executed by \\`npm test\\`."
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload test log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-suite-log
+          path: test-results/
+          if-no-files-found: ignore
+
       - name: Deploy to Vercel (if on main branch)
         if: github.ref == 'refs/heads/main'
         uses: amondnet/vercel-action@v35
